@@ -14,222 +14,182 @@ class E1SpeedGauge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final visibleAngleStart = -210.0;
-    final visibleAngleEnd = 30.0;
-    final visibleAngleSweep = visibleAngleEnd - visibleAngleStart;
+    final visibleStartAngle = -210.0;
+    final visibleEndAngle = 30.0;
+    final visibleSweepAngle = visibleEndAngle - visibleStartAngle;
 
-    final outerSteps = (kmTopSpeed ~/ 20) + 1;
-    final outerStepAngleSweep = visibleAngleSweep / (outerSteps - 1);
+    final outerSteps = kmTopSpeed ~/ 2 + 1;
+    final outerStepAngleSweep = visibleSweepAngle / (outerSteps - 1);
 
-    final innerSteps = (innerTopSpeed ~/ 30) + 1;
+    final innerSteps = innerTopSpeed ~/ 10 + 1;
+    final innerStepAngleSweep = visibleSweepAngle / (innerSteps - 1);
 
     return SizedBox.square(
       dimension: diameter,
       child: Gauge(
         features: [
           // MPH
-          GaugeFeature(
-            strategy: GaugeFeatureSingleStrategy(
-              angleStart: visibleAngleEnd + 15,
+          GaugeTextFeature(
+            position: GaugeFeaturePointPosition(
+              outerInset: 55,
             ),
-            shape: GaugeFeatureTextShape(
-              inset: 55,
-              keepRotation: true,
-              textBuilder: (_) => 'MPH',
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-                color: AppColors.white1,
-                fontStyle: FontStyle.italic,
-              ),
-            ),
-          ),
-          // Quarter-steps
-          GaugeFeature(
-            strategy: GaugeFeatureMultipleStrategy(
-              count: outerSteps + 9 * (outerSteps - 1),
-              angleStart: visibleAngleStart,
-              angleEnd: visibleAngleEnd,
-            ),
-            shape: GaugeFeatureBoxShape(
-              inset: 36,
-              length: 2,
-              width: 2,
-              color: AppColors.white2,
-            ),
-          ),
-          // Half-steps
-          GaugeFeature(
-            strategy: GaugeFeatureMultipleStrategy(
-              count: outerSteps + 1 * (outerSteps - 1),
-              angleStart: visibleAngleStart,
-              angleEnd: visibleAngleEnd,
-            ),
-            shape: GaugeFeatureBoxShape(
-              inset: 36,
-              length: 10,
-              width: 2,
+            angle: visibleEndAngle + 15,
+            keepRotation: true,
+            text: 'MPH',
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
               color: AppColors.white1,
+              fontStyle: FontStyle.italic,
             ),
           ),
-          // Steps
-          GaugeFeature(
-            strategy: GaugeFeatureMultipleStrategy(
-              count: outerSteps,
-              angleStart: visibleAngleStart,
-              angleEnd: visibleAngleEnd,
-            ),
-            shape: GaugeFeatureBoxShape(
-              inset: 30,
-              length: 16,
-              width: 4,
-              color: AppColors.white1,
-            ),
-          ),
-          // Step labels
-          GaugeFeature(
-            strategy: GaugeFeatureMultipleStrategy(
-              count: outerSteps,
-              angleStart: visibleAngleStart,
-              angleEnd: visibleAngleEnd,
-            ),
-            shape: GaugeFeatureTextShape(
-              inset: 60,
-              keepRotation: false,
-              textBuilder: (step) => '${step * 20}',
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 18,
+          for (var step = 0; step < outerSteps; step++)
+            if (step % 10 == 0) ...[
+              // Steps
+              GaugeBoxFeature(
+                position: GaugeFeatureSectorPosition(
+                  outerInset: 30,
+                  thickness: 16,
+                ),
+                angle: visibleStartAngle + outerStepAngleSweep * step,
+                width: 4,
                 color: AppColors.white1,
               ),
-            ),
-          ),
-          // Border
-          GaugeFeature(
-            strategy: GaugeFeatureMultipleStrategy(
-              count: outerSteps - 1,
-              angleStart: visibleAngleStart + 2,
-              angleEnd: visibleAngleEnd - outerStepAngleSweep + 2,
-            ),
-            shape: GaugeFeatureSliceShape(
-              inset: 30,
-              angleSpan: outerStepAngleSweep - 4,
-              width: 2,
-              color: AppColors.white1,
-            ),
-          ),
+              // Step labels
+              GaugeTextFeature(
+                position: GaugeFeaturePointPosition(
+                  outerInset: 60,
+                ),
+                angle: visibleStartAngle + outerStepAngleSweep * step,
+                keepRotation: false,
+                text: '${step * 2}',
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 18,
+                  color: AppColors.white1,
+                ),
+              ),
+              if (step < outerSteps - 1)
+                // Border
+                GaugeSliceFeature(
+                  position: GaugeFeatureSectorPosition(
+                    outerInset: 30,
+                    thickness: 2,
+                  ),
+                  startAngle:
+                      visibleStartAngle + step * outerStepAngleSweep + 2,
+                  sweepAngle: outerStepAngleSweep * 10 - 4,
+                  color: AppColors.white1,
+                ),
+            ] else if (step % 5 == 0)
+              // Half-steps
+              GaugeBoxFeature(
+                position: GaugeFeatureSectorPosition(
+                  outerInset: 36,
+                  thickness: 10,
+                ),
+                angle: visibleStartAngle + outerStepAngleSweep * step,
+                width: 2,
+                color: AppColors.white1,
+              )
+            else
+              // Quarter-steps
+              GaugeBoxFeature(
+                position: GaugeFeatureSectorPosition(
+                  outerInset: 36,
+                  thickness: 2,
+                ),
+                angle: visibleStartAngle + outerStepAngleSweep * step,
+                width: 2,
+                color: AppColors.white1,
+              ),
+
           // KMH
-          GaugeFeature(
-            strategy: GaugeFeatureSingleStrategy(
-              angleStart: visibleAngleEnd + 20,
+          GaugeTextFeature(
+            position: GaugeFeaturePointPosition(
+              outerInset: 100,
             ),
-            shape: GaugeFeatureTextShape(
-              inset: 100,
-              keepRotation: true,
-              textBuilder: (_) => 'KM/H',
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w400,
-                color: AppColors.white2,
-                fontStyle: FontStyle.italic,
-              ),
-            ),
-          ),
-          // Half-steps
-          GaugeFeature(
-            strategy: GaugeFeatureMultipleStrategy(
-              count: innerSteps + 3 * (innerSteps - 1),
-              angleStart: visibleAngleStart,
-              angleEnd: visibleAngleEnd,
-            ),
-            shape: GaugeFeatureBoxShape(
-              inset: 80,
-              length: 2,
-              width: 2,
+            angle: visibleEndAngle + 20,
+            keepRotation: true,
+            text: 'KM/H',
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w400,
               color: AppColors.white2,
+              fontStyle: FontStyle.italic,
             ),
           ),
-          // Steps
-          GaugeFeature(
-            strategy: GaugeFeatureMultipleStrategy(
-              count: innerSteps,
-              angleStart: visibleAngleStart,
-              angleEnd: visibleAngleEnd,
-            ),
-            shape: GaugeFeatureBoxShape(
-              inset: 80,
-              length: 8,
-              width: 2,
-              color: AppColors.white2,
-            ),
-          ),
-          // Step labels
-          GaugeFeature(
-            strategy: GaugeFeatureMultipleStrategy(
-              count: innerSteps,
-              angleStart: visibleAngleStart,
-              angleEnd: visibleAngleEnd,
-            ),
-            shape: GaugeFeatureTextShape(
-              inset: 100,
-              keepRotation: false,
-              textBuilder: (step) => '${step * 30}',
-              style: TextStyle(
-                fontWeight: FontWeight.w400,
-                fontSize: 14,
+          for (var step = 0; step < innerSteps; step++)
+            if (step % 3 == 0) ...[
+              // Steps
+              GaugeBoxFeature(
+                position: GaugeFeatureSectorPosition(
+                  outerInset: 80,
+                  thickness: 8,
+                ),
+                angle: visibleStartAngle + innerStepAngleSweep * step,
+                width: 2,
                 color: AppColors.white2,
               ),
-            ),
-          ),
+              // Step labels
+              GaugeTextFeature(
+                position: GaugeFeaturePointPosition(
+                  outerInset: 100,
+                ),
+                angle: visibleStartAngle + innerStepAngleSweep * step,
+                keepRotation: false,
+                text: '${step * 30}',
+                style: TextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 14,
+                  color: AppColors.white2,
+                ),
+              ),
+            ] else
+              // Half-steps
+              GaugeBoxFeature(
+                position: GaugeFeatureSectorPosition(
+                  outerInset: 80,
+                  thickness: 2,
+                ),
+                angle: visibleStartAngle + innerStepAngleSweep * step,
+                width: 2,
+                color: AppColors.white2,
+              ),
           // Mileage
-          GaugeFeature(
-            strategy: GaugeFeatureSingleStrategy(
-              angleStart: 90,
+          GaugeCustomFeature(
+            position: GaugeFeaturePointPosition(
+              innerInset: 50,
             ),
-            shape: GaugeFeatureCustomShape(
-              inset: 150,
-              keepRotation: true,
-              builder: (context) => Mileage(
-                value: 54_412,
-                digitCount: 6,
-              ),
+            angle: 90,
+            keepRotation: true,
+            builder: (context) => Mileage(
+              value: 54412,
+              digitCount: 6,
             ),
           ),
           // Knob base
-          GaugeFeature(
-            strategy: GaugeFeatureSingleStrategy(
-              angleStart: 0,
+          GaugeSliceFeature(
+            position: GaugeFeatureSectorPosition(
+              thickness: 20,
             ),
-            shape: GaugeFeatureSliceShape(
-              inset: 180,
-              angleSpan: double.infinity,
-              width: double.infinity,
-              color: AppColors.black2,
-            ),
+            color: AppColors.black2,
           ),
           // Pin
-          GaugeFeature(
-            strategy: GaugeFeatureSingleStrategy(
-              angleStart: 200,
+          GaugeBoxFeature(
+            position: GaugeFeatureSectorPosition(
+              outerInset: 40,
             ),
-            shape: GaugeFeatureBoxShape(
-              inset: 40,
-              length: double.infinity,
-              width: 2,
-              color: AppColors.red1,
-            ),
+            angle: 280,
+            width: 2,
+            color: AppColors.red1,
           ),
           // Knob
-          GaugeFeature(
-            strategy: GaugeFeatureSingleStrategy(
-              angleStart: 0,
+          GaugeSliceFeature(
+            position: GaugeFeatureSectorPosition(
+              thickness: 16,
             ),
-            shape: GaugeFeatureSliceShape(
-              inset: 185,
-              angleSpan: double.infinity,
-              width: double.infinity,
-              color: AppColors.black3,
-            ),
+            color: AppColors.black3,
           ),
         ],
       ),

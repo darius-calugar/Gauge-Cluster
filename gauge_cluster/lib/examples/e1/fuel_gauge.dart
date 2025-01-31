@@ -15,138 +15,111 @@ class E1FuelGauge extends StatelessWidget {
       dimension: diameter,
       child: Gauge(
         features: [
-          // Steps
-          GaugeFeature(
-            strategy: GaugeFeatureMultipleStrategy(
-              count: 4,
-              angleStart: 160,
-              angleEnd: 280,
-            ),
-            shape: GaugeFeatureBoxShape(
-              inset: 10,
-              length: 8,
+          for (var step = 0; step < 4; step++) ...[
+            // Steps
+            GaugeBoxFeature(
+              position: GaugeFeatureSectorPosition(
+                outerInset: 10,
+                thickness: 8,
+              ),
+              angle: 160 + 40 * step.toDouble(),
               width: 2,
               color: AppColors.white1,
             ),
-          ),
+          ],
           // Border
-          GaugeFeature(
-            strategy: GaugeFeatureSingleStrategy(
-              angleStart: 160,
+          GaugeSliceFeature(
+            position: GaugeFeatureSectorPosition(
+              outerInset: 10,
+              thickness: 2,
             ),
-            shape: GaugeFeatureSliceShape(
-              inset: 10,
-              angleSpan: 120,
-              width: 2,
-              color: AppColors.white1,
-            ),
+            startAngle: 160,
+            sweepAngle: 120,
+            color: AppColors.white1,
           ),
           // Limits
-          GaugeFeature(
-            strategy: GaugeFeatureSingleStrategy(
-              angleStart: 145,
+          GaugeSliceFeature(
+            position: GaugeFeatureSectorPosition(
+              outerInset: 10,
+              thickness: 12,
             ),
-            shape: GaugeFeatureSliceShape(
-              inset: 10,
-              angleSpan: 8,
-              width: 12,
-              color: AppColors.red2,
-            ),
+            startAngle: 145,
+            sweepAngle: 8,
+            color: AppColors.red2,
           ),
-          GaugeFeature(
-            strategy: GaugeFeatureSingleStrategy(
-              angleStart: 285,
+          GaugeSliceFeature(
+            position: GaugeFeatureSectorPosition(
+              outerInset: 10,
+              thickness: 12,
             ),
-            shape: GaugeFeatureSliceShape(
-              inset: 10,
-              angleSpan: 8,
-              width: 12,
-              color: AppColors.white1,
-            ),
+            startAngle: 285,
+            sweepAngle: 8,
+            color: AppColors.white1,
           ),
           // Labels
-          GaugeFeature(
-            strategy: GaugeFeatureSingleStrategy(
-              angleStart: 145,
+          GaugeTextFeature(
+            position: GaugeFeaturePointPosition(
+              outerInset: 32,
             ),
-            shape: GaugeFeatureTextShape(
-              inset: 32,
-              keepRotation: true,
-              textBuilder: (_) => 'E',
-              style: TextStyle(
-                fontWeight: FontWeight.w300,
-                fontSize: 12,
-              ),
+            angle: 145,
+            keepRotation: true,
+            text: 'E',
+            style: TextStyle(
+              fontWeight: FontWeight.w300,
+              fontSize: 12,
             ),
           ),
-          GaugeFeature(
-            strategy: GaugeFeatureSingleStrategy(
-              angleStart: 285,
+          GaugeTextFeature(
+            position: GaugeFeaturePointPosition(
+              outerInset: 32,
             ),
-            shape: GaugeFeatureTextShape(
-              inset: 32,
-              keepRotation: true,
-              textBuilder: (_) => 'F',
-              style: TextStyle(
-                fontWeight: FontWeight.w300,
-                fontSize: 12,
-              ),
+            angle: 285,
+            keepRotation: true,
+            text: 'F',
+            style: TextStyle(
+              fontWeight: FontWeight.w300,
+              fontSize: 12,
             ),
           ),
           // Icon
-          GaugeFeature(
-            strategy: GaugeFeatureSingleStrategy(
-              angleStart: 220,
+          GaugeCustomFeature(
+            position: GaugeFeaturePointPosition(
+              outerInset: 32,
             ),
-            shape: GaugeFeatureCustomShape(
-              inset: 32,
-              keepRotation: true,
-              builder: (context) => SvgPicture.asset(
-                'assets/svgs/icons/fuel.svg',
-                height: 20,
-                width: 20,
-                colorFilter: ColorFilter.mode(
-                  AppColors.white1,
-                  BlendMode.srcIn,
-                ),
+            angle: 220,
+            keepRotation: true,
+            builder: (context) => SvgPicture.asset(
+              'assets/svgs/icons/fuel.svg',
+              height: 20,
+              width: 20,
+              colorFilter: ColorFilter.mode(
+                AppColors.white1,
+                BlendMode.srcIn,
               ),
             ),
           ),
           // Knob base
-          GaugeFeature(
-            strategy: GaugeFeatureSingleStrategy(
-              angleStart: 0,
+          GaugeSliceFeature(
+            position: GaugeFeatureSectorPosition(
+              thickness: 14,
             ),
-            shape: GaugeFeatureSliceShape(
-              inset: 52,
-              angleSpan: double.infinity,
-              width: double.infinity,
-              color: AppColors.black2,
-            ),
+            color: AppColors.black2,
           ),
           // Pin
-          GaugeFeature(
-            strategy: GaugeFeatureSingleStrategy(
-              angleStart: 230,
+          GaugeBoxFeature(
+            position: GaugeFeatureSectorPosition(
+              outerInset: 15,
             ),
-            shape: GaugeFeatureBoxShape(
-              inset: 15,
-              length: double.infinity,
-              width: 2,
-              color: AppColors.red1,
-            ),
+            angle: 260,
+            width: 2,
+            color: AppColors.red1,
           ),
           // Knob
-          GaugeFeature(
-            strategy: GaugeFeatureSingleStrategy(
-              angleStart: 0,
+          GaugeSliceFeature(
+            position: GaugeFeatureSectorPosition(
+              thickness: 10,
             ),
-            shape: GaugeFeatureSliceShape(
-              inset: 55,
-              angleSpan: double.infinity,
-              width: double.infinity,
-              color: AppColors.black3,
-            ),
+            color: AppColors.black3,
           ),
         ],
       ),

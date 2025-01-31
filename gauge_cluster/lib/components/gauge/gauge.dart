@@ -1,12 +1,10 @@
 import 'dart:math';
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:gauge_cluster/math.dart';
 
+part 'gauge_feature_position.dart';
 part 'gauge_feature.dart';
-part 'gauge_feature_shape.dart';
-part 'gauge_feature_strategy.dart';
 
 class Gauge extends StatelessWidget {
   const Gauge({
@@ -29,77 +27,24 @@ class Gauge extends StatelessWidget {
             fit: StackFit.loose,
             alignment: Alignment.center,
             children: [
-              // Features
               for (final feature in features)
-                ...switch (feature.strategy) {
-                  final GaugeFeatureSingleStrategy strategy => [
-                      Builder(builder: (context) {
-                        return switch (feature.shape) {
-                          final GaugeFeatureBoxShape shape => _BoxFeatureWidget(
-                              shape: shape,
-                              radius: radius,
-                              angle: strategy.angleStart,
-                            ),
-                          GaugeFeatureSliceShape shape => _SliceFeatureWidget(
-                              shape: shape,
-                              radius: radius,
-                              angle: strategy.angleStart,
-                            ),
-                          GaugeFeatureTextShape shape => _TextFeatureWidget(
-                              shape: shape,
-                              radius: radius,
-                              angle: strategy.angleStart,
-                              step: 0,
-                            ),
-                          GaugeFeatureCustomShape shape => _CustomFeatureWidget(
-                              shape: shape,
-                              radius: radius,
-                              angle: strategy.angleStart,
-                              step: 0,
-                            ),
-                        };
-                      }),
-                    ],
-                  final GaugeFeatureMultipleStrategy strategy => [
-                      for (var step = 0; step < strategy.count; step++)
-                        Builder(
-                          builder: (context) {
-                            final stepDelta = strategy.count > 1
-                                ? step / (strategy.count - 1)
-                                : 0.0;
-                            final angle = lerpDouble(strategy.angleStart,
-                                strategy.angleEnd, stepDelta)!;
-
-                            return switch (feature.shape) {
-                              final GaugeFeatureBoxShape shape =>
-                                _BoxFeatureWidget(
-                                  shape: shape,
-                                  radius: radius,
-                                  angle: angle,
-                                ),
-                              GaugeFeatureSliceShape shape =>
-                                _SliceFeatureWidget(
-                                  shape: shape,
-                                  radius: radius,
-                                  angle: angle,
-                                ),
-                              GaugeFeatureTextShape shape => _TextFeatureWidget(
-                                  shape: shape,
-                                  radius: radius,
-                                  angle: angle,
-                                  step: step,
-                                ),
-                              GaugeFeatureCustomShape shape =>
-                                _CustomFeatureWidget(
-                                  shape: shape,
-                                  radius: radius,
-                                  angle: angle,
-                                  step: step,
-                                ),
-                            };
-                          },
-                        ),
-                    ],
+                switch (feature) {
+                  GaugeBoxFeature feature => _BoxFeatureWidget(
+                      feature: feature,
+                      radius: radius,
+                    ),
+                  GaugeSliceFeature feature => _SliceFeatureWidget(
+                      feature: feature,
+                      radius: radius,
+                    ),
+                  GaugeTextFeature feature => _TextFeatureWidget(
+                      feature: feature,
+                      radius: radius,
+                    ),
+                  GaugeCustomFeature feature => _CustomFeatureWidget(
+                      feature: feature,
+                      radius: radius,
+                    ),
                 },
             ],
           ),
@@ -111,91 +56,94 @@ class Gauge extends StatelessWidget {
 
 class _SliceClipper extends CustomClipper<Path> {
   const _SliceClipper({
-    required this.startAngle,
-    required this.sweepAngle,
+    required this.feature,
+    required this.radius,
   });
 
-  final double startAngle;
-  final double sweepAngle;
+  final GaugeSliceFeature feature;
+  final double radius;
 
   @override
-  bool shouldReclip(covariant _SliceClipper oldClipper) {
-    return startAngle != oldClipper.startAngle ||
-        sweepAngle != oldClipper.sweepAngle;
-  }
+  bool shouldReclip(covariant _SliceClipper oldClipper) =>
+      feature != oldClipper.feature || radius != oldClipper.radius;
 
   @override
   Path getClip(Size size) {
-    final radius = size.width / 2;
-    final center = size.center(Offset.zero);
-    final rect = Rect.fromCircle(center: center, radius: radius);
+    final position = feature.position.evaluate(radius);
 
-    return Path()
-      ..addArc(
-        rect,
-        startAngle,
-        sweepAngle,
-      )
+    final center = size.center(Offset.zero);
+    final startAngleRadians = feature.startAngle * toRadians;
+    final sweepAngleRadians = feature.sweepAngle * toRadians;
+    final innerRect = Rect.fromCircle(
+      center: center,
+      radius: position.innerRadius,
+    );
+    final outerRect = Rect.fromCircle(
+      center: center,
+      radius: position.outerRadius,
+    );
+
+    final innerPath = Path()..addOval(innerRect);
+    final outerPath = Path()
+      ..addArc(outerRect, startAngleRadians, sweepAngleRadians)
       ..lineTo(center.dx, center.dy);
+
+    return Path.combine(PathOperation.difference, outerPath, innerPath);
   }
 }
 
+// Feature Widgets =============================================================
+
 class _BoxFeatureWidget extends StatelessWidget {
   const _BoxFeatureWidget({
-    required this.shape,
+    required this.feature,
     required this.radius,
-    required this.angle,
   });
 
-  final GaugeFeatureBoxShape shape;
+  final GaugeBoxFeature feature;
   final double radius;
-  final double angle;
 
   @override
   Widget build(BuildContext context) {
-    final length = min(shape.length, radius - shape.inset);
+    final position = feature.position.evaluate(radius);
 
-    return Container(
-      width: length,
-      height: shape.width,
-      color: shape.color,
-      transform: Matrix4.identity()
-        ..translate(length / 2, shape.width / 2, 0)
-        ..rotateZ(angle * toRadians)
-        ..translate(radius - length - shape.inset, -shape.width / 2, 0),
+    final size = Size(position.thickness, feature.width);
+
+    return SizedBox.fromSize(
+      size: size,
+      child: Container(
+        color: feature.color,
+        transform: Matrix4.identity()
+          ..translate(size.width / 2, size.height / 2, 0)
+          ..rotateZ(feature.angle * toRadians)
+          ..translate(position.innerInset, -size.height / 2, 0),
+      ),
     );
   }
 }
 
 class _SliceFeatureWidget extends StatelessWidget {
   const _SliceFeatureWidget({
-    required this.shape,
+    required this.feature,
     required this.radius,
-    required this.angle,
   });
 
-  final GaugeFeatureSliceShape shape;
+  final GaugeSliceFeature feature;
   final double radius;
-  final double angle;
 
   @override
   Widget build(BuildContext context) {
+    final position = feature.position.evaluate(radius);
+
     return ClipPath(
       clipper: _SliceClipper(
-        startAngle: angle * toRadians,
-        sweepAngle: min(shape.angleSpan, 360) * toRadians,
+        feature: feature,
+        radius: radius,
       ),
       child: Container(
-        height: radius * 2 - shape.inset * 2,
-        width: radius * 2 - shape.inset * 2,
-        decoration: ShapeDecoration(
-          shape: CircleBorder(
-            side: BorderSide(
-              color: shape.color,
-              width: min(radius - shape.inset, shape.width),
-            ),
-          ),
-        ),
+        height: radius * 2 - position.outerInset * 2,
+        width: radius * 2 - position.outerInset * 2,
+        color: feature.color,
       ),
     );
   }
@@ -203,33 +151,31 @@ class _SliceFeatureWidget extends StatelessWidget {
 
 class _TextFeatureWidget extends StatelessWidget {
   const _TextFeatureWidget({
-    required this.shape,
+    required this.feature,
     required this.radius,
-    required this.angle,
-    required this.step,
   });
 
-  final GaugeFeatureTextShape shape;
+  final GaugeTextFeature feature;
   final double radius;
-  final double angle;
-  final int step;
 
   @override
   Widget build(BuildContext context) {
+    final position = feature.position.evaluate(radius);
+
     return Container(
       width: 0.0,
       height: 0.0,
       alignment: Alignment.center,
       transform: Matrix4.identity()
-        ..rotateZ(angle * toRadians)
-        ..translate(radius - shape.inset, 0, 0)
-        ..rotateZ((shape.keepRotation ? -angle : 90) * toRadians),
+        ..rotateZ(feature.angle * toRadians)
+        ..translate((position.innerInset + position.outerRadius) / 2, 0, 0)
+        ..rotateZ((feature.keepRotation ? -feature.angle : 90) * toRadians),
       child: OverflowBox(
         maxHeight: double.infinity,
         maxWidth: double.infinity,
         child: Text(
-          shape.textBuilder(step),
-          style: shape.style,
+          feature.text,
+          style: feature.style,
         ),
       ),
     );
@@ -238,32 +184,30 @@ class _TextFeatureWidget extends StatelessWidget {
 
 class _CustomFeatureWidget extends StatelessWidget {
   const _CustomFeatureWidget({
-    required this.shape,
+    required this.feature,
     required this.radius,
-    required this.angle,
-    required this.step,
   });
 
-  final GaugeFeatureCustomShape shape;
+  final GaugeCustomFeature feature;
   final double radius;
-  final double angle;
-  final int step;
 
   @override
   Widget build(BuildContext context) {
+    final position = feature.position.evaluate(radius);
+
     return Container(
       width: 0.0,
       height: 0.0,
       alignment: Alignment.center,
       transform: Matrix4.identity()
-        ..rotateZ(angle * toRadians)
-        ..translate(radius - shape.inset, 0, 0)
-        ..rotateZ((shape.keepRotation ? -angle : 90) * toRadians),
+        ..rotateZ(feature.angle * toRadians)
+        ..translate((position.innerInset + position.outerRadius) / 2, 0, 0)
+        ..rotateZ((feature.keepRotation ? -feature.angle : 90) * toRadians),
       child: OverflowBox(
         maxHeight: double.infinity,
         maxWidth: double.infinity,
         child: Builder(
-          builder: shape.builder,
+          builder: feature.builder,
         ),
       ),
     );
