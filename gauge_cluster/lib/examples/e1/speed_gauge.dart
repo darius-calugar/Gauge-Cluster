@@ -1,16 +1,22 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:gauge_cluster/app_colors.dart';
 import 'package:gauge_cluster/components/gauge/gauge.dart';
 import 'package:gauge_cluster/components/mileage/mileage.dart';
 
 class E1SpeedGauge extends StatelessWidget {
-  const E1SpeedGauge({super.key});
+  const E1SpeedGauge({
+    super.key,
+    required this.currentSpeed,
+  });
+
+  final double currentSpeed;
 
   static double radius = 200.0;
   static double diameter = radius * 2;
-
-  final kmTopSpeed = 160;
-  final innerTopSpeed = 240;
+  static double outerTopSpeed = 160;
+  static double innerTopSpeed = 240;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +24,7 @@ class E1SpeedGauge extends StatelessWidget {
     final visibleEndAngle = 30.0;
     final visibleSweepAngle = visibleEndAngle - visibleStartAngle;
 
-    final outerSteps = kmTopSpeed ~/ 2 + 1;
+    final outerSteps = outerTopSpeed ~/ 2 + 1;
     final outerStepAngleSweep = visibleSweepAngle / (outerSteps - 1);
 
     final innerSteps = innerTopSpeed ~/ 10 + 1;
@@ -180,7 +186,11 @@ class E1SpeedGauge extends StatelessWidget {
             position: GaugeFeatureSectorPosition(
               outerInset: 40,
             ),
-            angle: 280,
+            angle: lerpDouble(
+              visibleStartAngle,
+              visibleEndAngle,
+              currentSpeed / outerTopSpeed,
+            )!,
             width: 2,
             color: AppColors.red1,
           ),

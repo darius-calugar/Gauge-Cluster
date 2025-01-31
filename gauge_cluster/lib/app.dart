@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gauge_cluster/app_colors.dart';
-import 'package:gauge_cluster/examples/e1/gauge_cluster.dart';
+import 'package:gauge_cluster/screens/playground_screen.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -15,7 +15,7 @@ class App extends StatelessWidget {
         ),
         child: Directionality(
           textDirection: TextDirection.ltr,
-          child: E1GaugeCluster(),
+          child: PlaygroundScreen(),
         ),
       ),
     );

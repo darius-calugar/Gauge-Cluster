@@ -1,15 +1,25 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:gauge_cluster/app_colors.dart';
 import 'package:gauge_cluster/components/gauge/gauge.dart';
 import 'package:gauge_cluster/examples/e1/fuel_gauge.dart';
 
 class E1RevGauge extends StatelessWidget {
-  const E1RevGauge({super.key});
+  const E1RevGauge({
+    super.key,
+    required this.currentRevs,
+    required this.currentGear,
+  });
+
+  final double currentRevs;
+  final int currentGear;
 
   static double radius = 200.0;
   static double diameter = radius * 2;
-
-  final int maxRevs = 7;
+  static double maxRevs = 7000;
+  static int minGears = -1;
+  static int maxGears = 6;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +27,7 @@ class E1RevGauge extends StatelessWidget {
     final visibleEndAngle = -55.0;
     final visibleSweepAngle = visibleEndAngle - visibleStartAngle;
 
-    final steps = (maxRevs * 10) + 1;
+    final steps = (maxRevs ~/ 100) + 1;
     final stepAngleSweep = visibleSweepAngle / (steps - 1);
     final redlineStep = 50;
 
@@ -110,7 +120,7 @@ class E1RevGauge extends StatelessWidget {
                 color: AppColors.red2,
               ),
           // Gears
-          for (var gear = -1; gear <= 6; gear++)
+          for (var gear = minGears; gear <= maxGears; gear++)
             GaugeTextFeature(
               position: GaugeFeaturePointPosition(
                 outerInset: 15,
@@ -118,12 +128,12 @@ class E1RevGauge extends StatelessWidget {
               angle: 145 + 8 * (gear + 1),
               keepRotation: true,
               text: switch (gear) {
-                -1 => 'R',
+                < 0 => 'R',
                 0 => 'N',
                 _ => '$gear',
               },
               style: TextStyle(
-                color: gear == 4 ? AppColors.red1 : AppColors.black3,
+                color: gear == currentGear ? AppColors.red1 : AppColors.black3,
               ),
             ),
           // Fuel
@@ -156,7 +166,11 @@ class E1RevGauge extends StatelessWidget {
             position: GaugeFeatureSectorPosition(
               outerInset: 40,
             ),
-            angle: 230,
+            angle: lerpDouble(
+              visibleStartAngle,
+              visibleEndAngle,
+              currentRevs / maxRevs,
+            )!,
             width: 2,
             color: AppColors.red1,
           ),

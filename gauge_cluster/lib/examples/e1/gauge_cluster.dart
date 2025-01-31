@@ -7,7 +7,14 @@ import 'package:gauge_cluster/math.dart';
 class E1GaugeCluster extends StatelessWidget {
   const E1GaugeCluster({
     super.key,
+    required this.currentSpeed,
+    required this.currentRevs,
+    required this.currentGear,
   });
+
+  final double currentSpeed;
+  final double currentRevs;
+  final int currentGear;
 
   @override
   Widget build(BuildContext context) {
@@ -22,11 +29,16 @@ class E1GaugeCluster extends StatelessWidget {
             children: [
               Positioned.fill(
                 right: null,
-                child: E1RevGauge(),
+                child: E1RevGauge(
+                  currentRevs: currentRevs,
+                  currentGear: currentGear,
+                ),
               ),
               Positioned.fill(
                 left: null,
-                child: E1SpeedGauge(),
+                child: E1SpeedGauge(
+                  currentSpeed: currentSpeed,
+                ),
               ),
             ],
           ),
