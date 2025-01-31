@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gauge_cluster/app_colors.dart';
-import 'package:gauge_cluster/examples/e1/fuel_gauge.dart';
 import 'package:gauge_cluster/examples/e1/rev_gauge.dart';
 import 'package:gauge_cluster/examples/e1/speed_gauge.dart';
 import 'package:gauge_cluster/math.dart';
@@ -12,72 +11,27 @@ class E1GaugeCluster extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      spacing: 10,
-      children: [
-        Column(
-          spacing: 10,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              decoration: ShapeDecoration(
-                color: AppColors.black1,
-                shape: CircleBorder(),
+    return Center(
+      child: ClipPath(
+        clipper: _BackgroundClipper(),
+        child: Container(
+          width: 650,
+          height: 400,
+          color: AppColors.black1,
+          child: Stack(
+            children: [
+              Positioned.fill(
+                right: null,
+                child: E1RevGauge(),
               ),
-              child: E1FuelGauge(),
-            ),
-            Container(
-              decoration: ShapeDecoration(
-                color: AppColors.black1,
-                shape: CircleBorder(),
+              Positioned.fill(
+                left: null,
+                child: E1SpeedGauge(),
               ),
-              child: E1FuelGauge(),
-            ),
-          ],
-        ),
-        ClipPath(
-          clipper: _BackgroundClipper(),
-          child: Container(
-            width: 650,
-            height: 400,
-            color: AppColors.black1,
-            child: Stack(
-              children: [
-                Positioned.fill(
-                  right: null,
-                  child: E1RevGauge(),
-                ),
-                Positioned.fill(
-                  left: null,
-                  child: E1SpeedGauge(),
-                ),
-              ],
-            ),
+            ],
           ),
         ),
-        Column(
-          spacing: 10,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              decoration: ShapeDecoration(
-                color: AppColors.black1,
-                shape: CircleBorder(),
-              ),
-              child: E1FuelGauge(),
-            ),
-            Container(
-              decoration: ShapeDecoration(
-                color: AppColors.black1,
-                shape: CircleBorder(),
-              ),
-              child: E1FuelGauge(),
-            ),
-          ],
-        ),
-      ],
+      ),
     );
   }
 }
