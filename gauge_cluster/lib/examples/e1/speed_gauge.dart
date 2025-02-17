@@ -13,14 +13,14 @@ class E1SpeedGauge extends StatelessWidget {
 
   final double currentSpeed;
 
-  static double radius = 200.0;
+  static double radius = 250.0;
   static double diameter = radius * 2;
   static double outerTopSpeed = 160;
-  static double innerTopSpeed = 240;
+  static double innerTopSpeed = 260;
 
   @override
   Widget build(BuildContext context) {
-    final visibleStartAngle = -210.0;
+    final visibleStartAngle = -180.0;
     final visibleEndAngle = 30.0;
     final visibleSweepAngle = visibleEndAngle - visibleStartAngle;
 
@@ -37,9 +37,9 @@ class E1SpeedGauge extends StatelessWidget {
           // MPH
           GaugeTextFeature(
             position: GaugeFeaturePointPosition(
-              outerInset: 55,
+              outerInset: 45,
             ),
-            angle: visibleEndAngle + 15,
+            angle: visibleEndAngle + 10,
             keepRotation: true,
             text: 'MPH',
             style: TextStyle(
@@ -115,7 +115,7 @@ class E1SpeedGauge extends StatelessWidget {
             position: GaugeFeaturePointPosition(
               outerInset: 100,
             ),
-            angle: visibleEndAngle + 20,
+            angle: visibleEndAngle + 10,
             keepRotation: true,
             text: 'KM/H',
             style: TextStyle(
@@ -130,7 +130,7 @@ class E1SpeedGauge extends StatelessWidget {
               // Steps
               GaugeBoxFeature(
                 position: GaugeFeatureSectorPosition(
-                  outerInset: 80,
+                  outerInset: 90,
                   thickness: 8,
                 ),
                 angle: visibleStartAngle + innerStepAngleSweep * step,
@@ -140,11 +140,11 @@ class E1SpeedGauge extends StatelessWidget {
               // Step labels
               GaugeTextFeature(
                 position: GaugeFeaturePointPosition(
-                  outerInset: 100,
+                  outerInset: 110,
                 ),
                 angle: visibleStartAngle + innerStepAngleSweep * step,
                 keepRotation: false,
-                text: '${step * 30}',
+                text: '${step * 10}',
                 style: TextStyle(
                   fontWeight: FontWeight.w400,
                   fontSize: 14,
@@ -155,7 +155,7 @@ class E1SpeedGauge extends StatelessWidget {
               // Half-steps
               GaugeBoxFeature(
                 position: GaugeFeatureSectorPosition(
-                  outerInset: 80,
+                  outerInset: 90,
                   thickness: 2,
                 ),
                 angle: visibleStartAngle + innerStepAngleSweep * step,

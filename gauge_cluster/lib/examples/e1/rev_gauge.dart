@@ -3,8 +3,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:gauge_cluster/app_colors.dart';
 import 'package:gauge_cluster/components/gauge/gauge.dart';
-import 'package:gauge_cluster/examples/e1/fuel_gauge.dart';
-import 'package:gauge_cluster/examples/e1/temperature_gauge.dart';
 
 class E1RevGauge extends StatelessWidget {
   const E1RevGauge({
@@ -16,7 +14,7 @@ class E1RevGauge extends StatelessWidget {
   final double currentRevs;
   final int currentGear;
 
-  static double radius = 200.0;
+  static double radius = 250.0;
   static double diameter = radius * 2;
   static double maxRevs = 7000;
   static int minGears = -1;
@@ -47,7 +45,7 @@ class E1RevGauge extends StatelessWidget {
             style: TextStyle(
               fontSize: 12,
               color: AppColors.white2,
-              fontWeight: FontWeight.w500,
+              fontWeight: FontWeight.w400,
               fontStyle: FontStyle.italic,
             ),
           ),
@@ -135,26 +133,9 @@ class E1RevGauge extends StatelessWidget {
               },
               style: TextStyle(
                 color: gear == currentGear ? AppColors.red1 : AppColors.black3,
+                fontWeight: FontWeight.w600,
               ),
             ),
-          // Fuel
-          GaugeCustomFeature(
-            position: GaugeFeaturePointPosition(
-              outerInset: 110,
-            ),
-            angle: 115,
-            keepRotation: true,
-            builder: (_) => E1FuelGauge(),
-          ),
-          // Temperature
-          GaugeCustomFeature(
-            position: GaugeFeaturePointPosition(
-              outerInset: 110,
-            ),
-            angle: 65,
-            keepRotation: true,
-            builder: (_) => E1TemperatureGauge(),
-          ),
           // Knob base
           GaugeSliceFeature(
             position: GaugeFeatureSectorPosition(

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gauge_cluster/app_colors.dart';
 import 'package:gauge_cluster/components/gauge/gauge.dart';
+import 'package:gauge_cluster/components/svg_icon/svg_icon.dart';
+import 'package:gauge_cluster/utils/assets.dart';
 
 class E1FuelGauge extends StatelessWidget {
   const E1FuelGauge({super.key});
 
-  static double radius = 60.0;
+  static double radius = 70.0;
   static double diameter = radius * 2;
 
   @override
@@ -88,14 +89,9 @@ class E1FuelGauge extends StatelessWidget {
             ),
             angle: 220,
             keepRotation: true,
-            builder: (context) => SvgPicture.asset(
-              'assets/svgs/icons/fuel.svg',
-              height: 20,
-              width: 20,
-              colorFilter: ColorFilter.mode(
-                AppColors.white1,
-                BlendMode.srcIn,
-              ),
+            builder: (context) => SvgIcon(
+              SvgIcons.fuel,
+              color: AppColors.white1,
             ),
           ),
           // Knob base

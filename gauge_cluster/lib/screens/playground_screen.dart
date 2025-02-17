@@ -23,11 +23,18 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Expanded(
-          child: Center(
-            child: E1GaugeCluster(
-              currentSpeed: currentSpeed,
-              currentRevs: currentRevs,
-              currentGear: currentGear,
+          child: Padding(
+            padding: EdgeInsets.all(16),
+            child: FittedBox(
+              child: SizedBox(
+                width: 800,
+                height: 600,
+                child: E1GaugeCluster(
+                  currentSpeed: currentSpeed,
+                  currentRevs: currentRevs,
+                  currentGear: currentGear,
+                ),
+              ),
             ),
           ),
         ),

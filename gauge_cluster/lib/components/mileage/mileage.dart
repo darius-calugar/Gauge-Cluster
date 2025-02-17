@@ -21,7 +21,7 @@ class Mileage extends StatelessWidget {
     ].reversed;
 
     return Row(
-      spacing: 2,
+      spacing: 3,
       mainAxisSize: MainAxisSize.min,
       children: [
         for (final digit in digits)

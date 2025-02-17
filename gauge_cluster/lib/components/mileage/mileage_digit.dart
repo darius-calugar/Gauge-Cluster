@@ -11,13 +11,16 @@ class MileageDigit extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(2),
+      width: 20,
+      padding: EdgeInsets.all(4),
+      alignment: Alignment.center,
       decoration: BoxDecoration(
         color: AppColors.black2,
       ),
       child: Text(
         '$digit',
         style: TextStyle(
+          fontSize: 16,
           fontWeight: FontWeight.w300,
         ),
       ),
