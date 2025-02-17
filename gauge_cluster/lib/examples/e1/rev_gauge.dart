@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:gauge_cluster/app_colors.dart';
 import 'package:gauge_cluster/components/gauge/gauge.dart';
 import 'package:gauge_cluster/examples/e1/fuel_gauge.dart';
+import 'package:gauge_cluster/examples/e1/temperature_gauge.dart';
 
 class E1RevGauge extends StatelessWidget {
   const E1RevGauge({
@@ -143,7 +144,7 @@ class E1RevGauge extends StatelessWidget {
             ),
             angle: 115,
             keepRotation: true,
-            builder: (context) => E1FuelGauge(),
+            builder: (_) => E1FuelGauge(),
           ),
           // Temperature
           GaugeCustomFeature(
@@ -152,7 +153,7 @@ class E1RevGauge extends StatelessWidget {
             ),
             angle: 65,
             keepRotation: true,
-            builder: (context) => E1FuelGauge(),
+            builder: (_) => E1TemperatureGauge(),
           ),
           // Knob base
           GaugeSliceFeature(
