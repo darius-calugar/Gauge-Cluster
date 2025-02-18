@@ -1,18 +1,15 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gauge_cluster/app_colors.dart';
+import 'package:gauge_cluster/blocs/car_cubit.dart';
 import 'package:gauge_cluster/components/gauge/gauge.dart';
 
 class E1RevGauge extends StatelessWidget {
   const E1RevGauge({
     super.key,
-    required this.currentRevs,
-    required this.currentGear,
   });
-
-  final double currentRevs;
-  final int currentGear;
 
   static double radius = 250.0;
   static double diameter = radius * 2;
@@ -22,6 +19,8 @@ class E1RevGauge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final carState = context.watch<CarCubit>().state;
+
     final visibleStartAngle = -210.0;
     final visibleEndAngle = -55.0;
     final visibleSweepAngle = visibleEndAngle - visibleStartAngle;
@@ -132,7 +131,8 @@ class E1RevGauge extends StatelessWidget {
                 _ => '$gear',
               },
               style: TextStyle(
-                color: gear == currentGear ? AppColors.red1 : AppColors.black3,
+                color:
+                    gear == carState.gear ? AppColors.red1 : AppColors.black3,
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -151,9 +151,9 @@ class E1RevGauge extends StatelessWidget {
             angle: lerpDouble(
               visibleStartAngle,
               visibleEndAngle,
-              currentRevs / maxRevs,
+              carState.revs / maxRevs,
             )!,
-            width: 2,
+            width: 3,
             color: AppColors.red1,
           ),
           // Knob

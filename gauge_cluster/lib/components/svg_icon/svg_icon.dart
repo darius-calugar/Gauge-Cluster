@@ -16,13 +16,17 @@ class SvgIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final iconTheme = IconTheme.of(context);
+
+    final color = this.color ?? iconTheme.color;
+
     return SvgPicture.asset(
       icon.path,
       height: size,
       width: size,
       colorFilter: color != null
           ? ColorFilter.mode(
-              color!,
+              color,
               BlendMode.srcIn,
             )
           : null,

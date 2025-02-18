@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gauge_cluster/app_colors.dart';
+import 'package:gauge_cluster/blocs/car_cubit.dart';
 import 'package:gauge_cluster/components/svg_icon/svg_icon.dart';
 import 'package:gauge_cluster/examples/e1/fuel_gauge.dart';
 import 'package:gauge_cluster/examples/e1/rev_gauge.dart';
@@ -10,17 +12,12 @@ import 'package:gauge_cluster/utils/assets.dart';
 class E1GaugeCluster extends StatelessWidget {
   const E1GaugeCluster({
     super.key,
-    required this.currentSpeed,
-    required this.currentRevs,
-    required this.currentGear,
   });
-
-  final double currentSpeed;
-  final double currentRevs;
-  final int currentGear;
 
   @override
   Widget build(BuildContext context) {
+    final carState = context.watch<CarCubit>().state;
+
     return PhysicalShape(
       clipper: _BackgroundClipper(),
       color: AppColors.black1,
@@ -28,16 +25,11 @@ class E1GaugeCluster extends StatelessWidget {
         children: [
           Positioned.fill(
             right: null,
-            child: E1RevGauge(
-              currentRevs: currentRevs,
-              currentGear: currentGear,
-            ),
+            child: E1RevGauge(),
           ),
           Positioned.fill(
             left: null,
-            child: E1SpeedGauge(
-              currentSpeed: currentSpeed,
-            ),
+            child: E1SpeedGauge(),
           ),
           Positioned(
             bottom: 120,
@@ -56,7 +48,8 @@ class E1GaugeCluster extends StatelessWidget {
               size: Size.zero,
               child: SvgIcon(
                 SvgIcons.doors,
-                color: AppColors.orange1,
+                color:
+                    carState.doorSignal ? AppColors.orange1 : AppColors.black3,
               ),
             ),
           ),
@@ -67,7 +60,9 @@ class E1GaugeCluster extends StatelessWidget {
               size: Size.zero,
               child: SvgIcon(
                 SvgIcons.battery,
-                color: AppColors.orange1,
+                color: carState.batterySignal
+                    ? AppColors.orange1
+                    : AppColors.black3,
               ),
             ),
           ),
@@ -78,7 +73,9 @@ class E1GaugeCluster extends StatelessWidget {
               size: Size.zero,
               child: SvgIcon(
                 SvgIcons.left,
-                color: AppColors.green1,
+                color: carState.leftTurnSignal
+                    ? AppColors.green1
+                    : AppColors.black3,
               ),
             ),
           ),
@@ -89,7 +86,8 @@ class E1GaugeCluster extends StatelessWidget {
               size: Size.zero,
               child: SvgIcon(
                 SvgIcons.brakes,
-                color: AppColors.red1,
+                color:
+                    carState.brakesSignal ? AppColors.red1 : AppColors.black3,
               ),
             ),
           ),
@@ -100,7 +98,9 @@ class E1GaugeCluster extends StatelessWidget {
               size: Size.zero,
               child: SvgIcon(
                 SvgIcons.right,
-                color: AppColors.green1,
+                color: carState.rightTurnSignal
+                    ? AppColors.green1
+                    : AppColors.black3,
               ),
             ),
           ),
@@ -111,7 +111,7 @@ class E1GaugeCluster extends StatelessWidget {
               size: Size.zero,
               child: SvgIcon(
                 SvgIcons.fuel,
-                color: AppColors.red1,
+                color: carState.fuelSignal ? AppColors.red1 : AppColors.black3,
               ),
             ),
           ),
@@ -122,7 +122,9 @@ class E1GaugeCluster extends StatelessWidget {
               size: Size.zero,
               child: SvgIcon(
                 SvgIcons.temperature,
-                color: AppColors.red1,
+                color: carState.temperatureSignal
+                    ? AppColors.red1
+                    : AppColors.black3,
               ),
             ),
           ),
@@ -133,7 +135,9 @@ class E1GaugeCluster extends StatelessWidget {
               size: Size.zero,
               child: SvgIcon(
                 SvgIcons.transmission,
-                color: AppColors.red1,
+                color: carState.transmissionSignal
+                    ? AppColors.red1
+                    : AppColors.black3,
               ),
             ),
           ),
@@ -144,7 +148,8 @@ class E1GaugeCluster extends StatelessWidget {
               size: Size.zero,
               child: SvgIcon(
                 SvgIcons.wrench,
-                color: AppColors.red1,
+                color:
+                    carState.serviceSignal ? AppColors.red1 : AppColors.black3,
               ),
             ),
           ),
@@ -155,7 +160,9 @@ class E1GaugeCluster extends StatelessWidget {
               size: Size.zero,
               child: SvgIcon(
                 SvgIcons.engine,
-                color: AppColors.orange1,
+                color: carState.engineSignal
+                    ? AppColors.orange1
+                    : AppColors.black3,
               ),
             ),
           ),

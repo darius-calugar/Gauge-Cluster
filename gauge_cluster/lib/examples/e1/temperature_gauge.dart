@@ -1,5 +1,9 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gauge_cluster/app_colors.dart';
+import 'package:gauge_cluster/blocs/car_cubit.dart';
 import 'package:gauge_cluster/components/gauge/gauge.dart';
 import 'package:gauge_cluster/components/svg_icon/svg_icon.dart';
 import 'package:gauge_cluster/utils/assets.dart';
@@ -12,18 +16,23 @@ class E1TemperatureGauge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final carState = context.watch<CarCubit>().state;
+
+    final startAngle = 160;
+    final endAngle = 280;
+
     return SizedBox.square(
       dimension: diameter,
       child: Gauge(
         features: [
-          for (var step = 0; step < 4; step++) ...[
+          for (var step = 0; step < 5; step++) ...[
             // Steps
             GaugeBoxFeature(
               position: GaugeFeatureSectorPosition(
                 outerInset: 10,
                 thickness: 8,
               ),
-              angle: 160 + 40 * step.toDouble(),
+              angle: 160 + 30 * step.toDouble(),
               width: 2,
               color: AppColors.white1,
             ),
@@ -106,7 +115,11 @@ class E1TemperatureGauge extends StatelessWidget {
             position: GaugeFeatureSectorPosition(
               outerInset: 15,
             ),
-            angle: 260,
+            angle: lerpDouble(
+              startAngle,
+              endAngle,
+              carState.temperature,
+            )!,
             width: 2,
             color: AppColors.red1,
           ),

@@ -1,17 +1,16 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gauge_cluster/app_colors.dart';
+import 'package:gauge_cluster/blocs/car_cubit.dart';
 import 'package:gauge_cluster/components/gauge/gauge.dart';
 import 'package:gauge_cluster/components/mileage/mileage.dart';
 
 class E1SpeedGauge extends StatelessWidget {
   const E1SpeedGauge({
     super.key,
-    required this.currentSpeed,
   });
-
-  final double currentSpeed;
 
   static double radius = 250.0;
   static double diameter = radius * 2;
@@ -20,6 +19,8 @@ class E1SpeedGauge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final carState = context.watch<CarCubit>().state;
+
     final visibleStartAngle = -180.0;
     final visibleEndAngle = 30.0;
     final visibleSweepAngle = visibleEndAngle - visibleStartAngle;
@@ -170,7 +171,7 @@ class E1SpeedGauge extends StatelessWidget {
             angle: 90,
             keepRotation: true,
             builder: (context) => Mileage(
-              value: 54412,
+              value: carState.mileage,
               digitCount: 6,
             ),
           ),
@@ -189,9 +190,9 @@ class E1SpeedGauge extends StatelessWidget {
             angle: lerpDouble(
               visibleStartAngle,
               visibleEndAngle,
-              currentSpeed / outerTopSpeed,
+              carState.speed / outerTopSpeed,
             )!,
-            width: 2,
+            width: 3,
             color: AppColors.red1,
           ),
           // Knob

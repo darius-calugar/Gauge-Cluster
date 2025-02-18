@@ -1,9 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gauge_cluster/app_colors.dart';
+import 'package:gauge_cluster/blocs/car_cubit.dart';
+import 'package:gauge_cluster/components/toggle/toggle.dart';
 import 'package:gauge_cluster/examples/e1/gauge_cluster.dart';
 import 'package:gauge_cluster/examples/e1/rev_gauge.dart';
 import 'package:gauge_cluster/examples/e1/speed_gauge.dart';
+import 'package:gauge_cluster/utils/assets.dart';
 
 class PlaygroundScreen extends StatefulWidget {
   const PlaygroundScreen({super.key});
@@ -13,12 +16,10 @@ class PlaygroundScreen extends StatefulWidget {
 }
 
 class _PlaygroundScreenState extends State<PlaygroundScreen> {
-  double currentSpeed = 86;
-  double currentRevs = 3500;
-  int currentGear = 4;
-
   @override
   Widget build(BuildContext context) {
+    final carCubit = context.watch<CarCubit>();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -29,49 +30,93 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
               child: SizedBox(
                 width: 800,
                 height: 600,
-                child: E1GaugeCluster(
-                  currentSpeed: currentSpeed,
-                  currentRevs: currentRevs,
-                  currentGear: currentGear,
-                ),
+                child: E1GaugeCluster(),
               ),
             ),
           ),
         ),
         Container(
-          height: 200,
-          padding: EdgeInsets.all(16),
+          padding: EdgeInsets.all(8),
           color: AppColors.black1,
           child: Material(
             color: Colors.transparent,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
-              spacing: 8,
               children: [
-                CupertinoSlider(
-                  value: currentSpeed,
-                  min: 0,
+                Slider(
                   max: E1SpeedGauge.outerTopSpeed,
-                  onChanged: (newSpeed) => setState(() {
-                    currentSpeed = newSpeed;
-                  }),
+                  value: carCubit.state.speed,
+                  onChanged: carCubit.setSpeed,
                 ),
-                CupertinoSlider(
-                  value: currentRevs,
-                  min: 0,
+                Slider(
                   max: E1RevGauge.maxRevs,
-                  onChanged: (newRevs) => setState(() {
-                    currentRevs = newRevs;
-                  }),
+                  value: carCubit.state.revs,
+                  onChanged: carCubit.setRevs,
                 ),
-                CupertinoSlider(
-                  value: currentGear.toDouble(),
-                  divisions: E1RevGauge.maxGears - E1RevGauge.minGears,
+                Slider(
+                  max: 999999,
+                  value: carCubit.state.mileage.toDouble(),
+                  onChanged: (mileage) => carCubit.setMileage(mileage.round()),
+                ),
+                Slider(
                   min: E1RevGauge.minGears.toDouble(),
                   max: E1RevGauge.maxGears.toDouble(),
-                  onChanged: (newGear) => setState(() {
-                    currentGear = newGear.round();
-                  }),
+                  divisions: E1RevGauge.maxGears - E1RevGauge.minGears,
+                  value: carCubit.state.gear.toDouble(),
+                  onChanged: (gear) => carCubit.shiftTo(gear.round()),
+                ),
+                Slider(
+                  value: carCubit.state.fuel,
+                  onChanged: carCubit.setFuel,
+                ),
+                Slider(
+                  value: carCubit.state.temperature,
+                  onChanged: carCubit.setTemperature,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Toggle(
+                      icon: SvgIcons.left,
+                      value: carCubit.state.leftTurnSignal,
+                      onTap: carCubit.toggleLeftTurnSignal,
+                    ),
+                    Toggle(
+                      icon: SvgIcons.right,
+                      value: carCubit.state.rightTurnSignal,
+                      onTap: carCubit.toggleRightTurnSignal,
+                    ),
+                    Toggle(
+                      icon: SvgIcons.doors,
+                      value: carCubit.state.doorSignal,
+                      onTap: carCubit.toggleDoorSignal,
+                    ),
+                    Toggle(
+                      icon: SvgIcons.brakes,
+                      value: carCubit.state.brakesSignal,
+                      onTap: carCubit.toggleBrakesSignal,
+                    ),
+                    Toggle(
+                      icon: SvgIcons.battery,
+                      value: carCubit.state.batterySignal,
+                      onTap: carCubit.toggleBatterySignal,
+                    ),
+                    Toggle(
+                      icon: SvgIcons.transmission,
+                      value: carCubit.state.transmissionSignal,
+                      onTap: carCubit.toggleTransmissionSignal,
+                    ),
+                    Toggle(
+                      icon: SvgIcons.engine,
+                      value: carCubit.state.engineSignal,
+                      onTap: carCubit.toggleEngineSignal,
+                    ),
+                    Toggle(
+                      icon: SvgIcons.wrench,
+                      value: carCubit.state.serviceSignal,
+                      onTap: carCubit.toggleServiceSignal,
+                    ),
+                  ],
                 ),
               ],
             ),
