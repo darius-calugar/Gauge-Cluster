@@ -3,9 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gauge_cluster/app_colors.dart';
 import 'package:gauge_cluster/blocs/car_cubit.dart';
 import 'package:gauge_cluster/components/toggle/toggle.dart';
-import 'package:gauge_cluster/examples/e1/gauge_cluster.dart';
-import 'package:gauge_cluster/examples/e1/rev_gauge.dart';
-import 'package:gauge_cluster/examples/e1/speed_gauge.dart';
+import 'package:gauge_cluster/examples/e2/gauge_cluster.dart';
 import 'package:gauge_cluster/utils/assets.dart';
 
 class PlaygroundScreen extends StatefulWidget {
@@ -24,13 +22,16 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Expanded(
-          child: Padding(
-            padding: EdgeInsets.all(16),
-            child: FittedBox(
-              child: SizedBox(
-                width: 800,
-                height: 600,
-                child: E1GaugeCluster(),
+          child: Container(
+            color: AppColors.black2,
+            child: Padding(
+              padding: EdgeInsets.all(16),
+              child: FittedBox(
+                child: SizedBox(
+                  width: 800,
+                  height: 600,
+                  child: E2GaugeCluster(),
+                ),
               ),
             ),
           ),
@@ -44,12 +45,12 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Slider(
-                  max: E1SpeedGauge.outerTopSpeed,
+                  max: carCubit.state.maxSpeed,
                   value: carCubit.state.speed,
                   onChanged: carCubit.setSpeed,
                 ),
                 Slider(
-                  max: E1RevGauge.maxRevs,
+                  max: carCubit.state.maxRevs,
                   value: carCubit.state.revs,
                   onChanged: carCubit.setRevs,
                 ),
@@ -59,16 +60,13 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
                   onChanged: (mileage) => carCubit.setMileage(mileage.round()),
                 ),
                 Slider(
-                  min: E1RevGauge.minGears.toDouble(),
-                  max: E1RevGauge.maxGears.toDouble(),
-                  divisions: E1RevGauge.maxGears - E1RevGauge.minGears,
+                  min: carCubit.state.minGears.toDouble(),
+                  max: carCubit.state.maxGears.toDouble(),
+                  divisions: carCubit.state.maxGears - carCubit.state.minGears,
                   value: carCubit.state.gear.toDouble(),
                   onChanged: (gear) => carCubit.shiftTo(gear.round()),
                 ),
-                Slider(
-                  value: carCubit.state.fuel,
-                  onChanged: carCubit.setFuel,
-                ),
+                Slider(value: carCubit.state.fuel, onChanged: carCubit.setFuel),
                 Slider(
                   value: carCubit.state.temperature,
                   onChanged: carCubit.setTemperature,

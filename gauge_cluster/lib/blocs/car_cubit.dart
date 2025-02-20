@@ -7,98 +7,66 @@ class CarCubit extends Cubit<CarState> {
   CarCubit() : super(CarState.initial());
 
   void setSpeed(double speed) async {
-    emit(state.copyWith(
-      speed: speed,
-    ));
+    emit(state.copyWith(speed: speed));
   }
 
   void setRevs(double revs) async {
-    emit(state.copyWith(
-      revs: revs,
-    ));
+    emit(state.copyWith(revs: revs));
   }
 
   void setMileage(int mileage) async {
-    emit(state.copyWith(
-      mileage: mileage,
-    ));
+    emit(state.copyWith(mileage: mileage));
   }
 
   void shiftTo(int gear) async {
-    emit(state.copyWith(
-      gear: gear,
-    ));
+    emit(state.copyWith(gear: gear));
   }
 
   void shiftUp() async {
-    emit(state.copyWith(
-      gear: state.gear + 1,
-    ));
+    emit(state.copyWith(gear: state.gear + 1));
   }
 
   void shiftDown() async {
-    emit(state.copyWith(
-      gear: state.gear - 1,
-    ));
+    emit(state.copyWith(gear: state.gear - 1));
   }
 
   void setFuel(double fuel) async {
-    emit(state.copyWith(
-      fuel: fuel,
-    ));
+    emit(state.copyWith(fuel: fuel));
   }
 
   void setTemperature(double temperature) async {
-    emit(state.copyWith(
-      temperature: temperature,
-    ));
+    emit(state.copyWith(temperature: temperature));
   }
 
   void toggleLeftTurnSignal() async {
-    emit(state.copyWith(
-      leftTurnSignal: !state.leftTurnSignal,
-    ));
+    emit(state.copyWith(leftTurnSignal: !state.leftTurnSignal));
   }
 
   void toggleRightTurnSignal() async {
-    emit(state.copyWith(
-      rightTurnSignal: !state.rightTurnSignal,
-    ));
+    emit(state.copyWith(rightTurnSignal: !state.rightTurnSignal));
   }
 
   void toggleDoorSignal() async {
-    emit(state.copyWith(
-      doorSignal: !state.doorSignal,
-    ));
+    emit(state.copyWith(doorSignal: !state.doorSignal));
   }
 
   void toggleBrakesSignal() async {
-    emit(state.copyWith(
-      brakesSignal: !state.brakesSignal,
-    ));
+    emit(state.copyWith(brakesSignal: !state.brakesSignal));
   }
 
   void toggleBatterySignal() async {
-    emit(state.copyWith(
-      batterySignal: !state.batterySignal,
-    ));
+    emit(state.copyWith(batterySignal: !state.batterySignal));
   }
 
   void toggleTransmissionSignal() async {
-    emit(state.copyWith(
-      transmissionSignal: !state.transmissionSignal,
-    ));
+    emit(state.copyWith(transmissionSignal: !state.transmissionSignal));
   }
 
   void toggleEngineSignal() async {
-    emit(state.copyWith(
-      engineSignal: !state.engineSignal,
-    ));
+    emit(state.copyWith(engineSignal: !state.engineSignal));
   }
 
   void toggleServiceSignal() async {
-    emit(state.copyWith(
-      serviceSignal: !state.serviceSignal,
-    ));
+    emit(state.copyWith(serviceSignal: !state.serviceSignal));
   }
 }

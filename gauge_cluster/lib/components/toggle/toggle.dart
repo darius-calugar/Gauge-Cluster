@@ -24,10 +24,7 @@ class Toggle extends StatelessWidget {
       child: Container(
         color: color.withAlpha(50),
         padding: EdgeInsets.all(4),
-        child: SvgIcon(
-          icon,
-          color: color,
-        ),
+        child: SvgIcon(icon, color: color),
       ),
     );
   }

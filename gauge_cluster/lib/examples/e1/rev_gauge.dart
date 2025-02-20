@@ -7,16 +7,9 @@ import 'package:gauge_cluster/blocs/car_cubit.dart';
 import 'package:gauge_cluster/components/gauge/gauge.dart';
 
 class E1RevGauge extends StatelessWidget {
-  const E1RevGauge({
-    super.key,
-  });
+  const E1RevGauge({super.key});
 
   static double radius = 250.0;
-  static double diameter = radius * 2;
-  static double maxRevs = 7000;
-  static int minGears = -1;
-  static int maxGears = 6;
-
   @override
   Widget build(BuildContext context) {
     final carState = context.watch<CarCubit>().state;
@@ -25,19 +18,17 @@ class E1RevGauge extends StatelessWidget {
     final visibleEndAngle = -55.0;
     final visibleSweepAngle = visibleEndAngle - visibleStartAngle;
 
-    final steps = (maxRevs ~/ 100) + 1;
+    final steps = (carState.maxRevs ~/ 100) + 1;
     final stepAngleSweep = visibleSweepAngle / (steps - 1);
     final redlineStep = 50;
 
     return SizedBox.square(
-      dimension: diameter,
+      dimension: radius * 2,
       child: Gauge(
         features: [
           // RPM legend
           GaugeTextFeature(
-            position: GaugeFeaturePointPosition(
-              outerInset: 100,
-            ),
+            position: GaugeFeaturePointPosition(outerInset: 100),
             angle: -90,
             keepRotation: true,
             text: 'RPM x 1000',
@@ -62,16 +53,11 @@ class E1RevGauge extends StatelessWidget {
               ),
               // Step labels
               GaugeTextFeature(
-                position: GaugeFeaturePointPosition(
-                  outerInset: 60,
-                ),
+                position: GaugeFeaturePointPosition(outerInset: 60),
                 angle: visibleStartAngle + stepAngleSweep * step,
                 keepRotation: false,
                 text: '${step ~/ 10}',
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 18,
-                ),
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
               ),
               if (step < redlineStep)
                 // Border
@@ -118,11 +104,9 @@ class E1RevGauge extends StatelessWidget {
                 color: AppColors.red2,
               ),
           // Gears
-          for (var gear = minGears; gear <= maxGears; gear++)
+          for (var gear = carState.minGears; gear <= carState.maxGears; gear++)
             GaugeTextFeature(
-              position: GaugeFeaturePointPosition(
-                outerInset: 15,
-              ),
+              position: GaugeFeaturePointPosition(outerInset: 15),
               angle: 145 + 8 * (gear + 1),
               keepRotation: true,
               text: switch (gear) {
@@ -138,29 +122,24 @@ class E1RevGauge extends StatelessWidget {
             ),
           // Knob base
           GaugeSliceFeature(
-            position: GaugeFeatureSectorPosition(
-              thickness: 20,
-            ),
+            position: GaugeFeatureSectorPosition(thickness: 20),
             color: AppColors.black2,
           ),
           // Pin
           GaugeBoxFeature(
-            position: GaugeFeatureSectorPosition(
-              outerInset: 40,
-            ),
-            angle: lerpDouble(
-              visibleStartAngle,
-              visibleEndAngle,
-              carState.revs / maxRevs,
-            )!,
+            position: GaugeFeatureSectorPosition(outerInset: 40),
+            angle:
+                lerpDouble(
+                  visibleStartAngle,
+                  visibleEndAngle,
+                  carState.revsProgress,
+                )!,
             width: 3,
             color: AppColors.red1,
           ),
           // Knob
           GaugeSliceFeature(
-            position: GaugeFeatureSectorPosition(
-              thickness: 16,
-            ),
+            position: GaugeFeatureSectorPosition(thickness: 16),
             color: AppColors.black3,
           ),
         ],

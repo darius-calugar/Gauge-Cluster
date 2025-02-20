@@ -10,9 +10,7 @@ import 'package:gauge_cluster/examples/e1/temperature_gauge.dart';
 import 'package:gauge_cluster/utils/assets.dart';
 
 class E1GaugeCluster extends StatelessWidget {
-  const E1GaugeCluster({
-    super.key,
-  });
+  const E1GaugeCluster({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,24 +21,10 @@ class E1GaugeCluster extends StatelessWidget {
       color: AppColors.black1,
       child: Stack(
         children: [
-          Positioned.fill(
-            right: null,
-            child: E1RevGauge(),
-          ),
-          Positioned.fill(
-            left: null,
-            child: E1SpeedGauge(),
-          ),
-          Positioned(
-            bottom: 120,
-            left: 130,
-            child: E1FuelGauge(),
-          ),
-          Positioned(
-            bottom: 120,
-            left: 250,
-            child: E1TemperatureGauge(),
-          ),
+          Positioned.fill(right: null, child: E1RevGauge()),
+          Positioned.fill(left: null, child: E1SpeedGauge()),
+          Positioned(bottom: 120, left: 130, child: E1FuelGauge()),
+          Positioned(bottom: 120, left: 250, child: E1TemperatureGauge()),
           Positioned(
             bottom: 210,
             right: 400,
@@ -60,9 +44,10 @@ class E1GaugeCluster extends StatelessWidget {
               size: Size.zero,
               child: SvgIcon(
                 SvgIcons.battery,
-                color: carState.batterySignal
-                    ? AppColors.orange1
-                    : AppColors.black3,
+                color:
+                    carState.batterySignal
+                        ? AppColors.orange1
+                        : AppColors.black3,
               ),
             ),
           ),
@@ -73,9 +58,10 @@ class E1GaugeCluster extends StatelessWidget {
               size: Size.zero,
               child: SvgIcon(
                 SvgIcons.left,
-                color: carState.leftTurnSignal
-                    ? AppColors.green1
-                    : AppColors.black3,
+                color:
+                    carState.leftTurnSignal
+                        ? AppColors.green1
+                        : AppColors.black3,
               ),
             ),
           ),
@@ -98,9 +84,10 @@ class E1GaugeCluster extends StatelessWidget {
               size: Size.zero,
               child: SvgIcon(
                 SvgIcons.right,
-                color: carState.rightTurnSignal
-                    ? AppColors.green1
-                    : AppColors.black3,
+                color:
+                    carState.rightTurnSignal
+                        ? AppColors.green1
+                        : AppColors.black3,
               ),
             ),
           ),
@@ -122,9 +109,10 @@ class E1GaugeCluster extends StatelessWidget {
               size: Size.zero,
               child: SvgIcon(
                 SvgIcons.temperature,
-                color: carState.temperatureSignal
-                    ? AppColors.red1
-                    : AppColors.black3,
+                color:
+                    carState.temperatureSignal
+                        ? AppColors.red1
+                        : AppColors.black3,
               ),
             ),
           ),
@@ -135,9 +123,10 @@ class E1GaugeCluster extends StatelessWidget {
               size: Size.zero,
               child: SvgIcon(
                 SvgIcons.transmission,
-                color: carState.transmissionSignal
-                    ? AppColors.red1
-                    : AppColors.black3,
+                color:
+                    carState.transmissionSignal
+                        ? AppColors.red1
+                        : AppColors.black3,
               ),
             ),
           ),
@@ -160,9 +149,10 @@ class E1GaugeCluster extends StatelessWidget {
               size: Size.zero,
               child: SvgIcon(
                 SvgIcons.engine,
-                color: carState.engineSignal
-                    ? AppColors.orange1
-                    : AppColors.black3,
+                color:
+                    carState.engineSignal
+                        ? AppColors.orange1
+                        : AppColors.black3,
               ),
             ),
           ),

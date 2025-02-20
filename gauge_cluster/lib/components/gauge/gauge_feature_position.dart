@@ -31,7 +31,8 @@ class GaugeFeatureSectorPosition implements GaugeFeaturePosition {
           outerRadius: radius - outerInset,
         );
       case double thickness:
-        final innerInset = this.innerInset ??
+        final innerInset =
+            this.innerInset ??
             (this.outerInset != null
                 ? (radius - thickness - this.outerInset!)
                 : 0);
@@ -49,10 +50,8 @@ class GaugeFeatureSectorPosition implements GaugeFeaturePosition {
 }
 
 class GaugeFeaturePointPosition implements GaugeFeaturePosition {
-  const GaugeFeaturePointPosition({
-    this.innerInset,
-    this.outerInset,
-  }) : assert(innerInset == null || outerInset == null);
+  const GaugeFeaturePointPosition({this.innerInset, this.outerInset})
+    : assert(innerInset == null || outerInset == null);
 
   final double? innerInset;
   final double? outerInset;

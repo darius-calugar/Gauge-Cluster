@@ -39,95 +39,62 @@ class E1FuelGauge extends StatelessWidget {
           ],
           // Border
           GaugeSliceFeature(
-            position: GaugeFeatureSectorPosition(
-              outerInset: 10,
-              thickness: 2,
-            ),
+            position: GaugeFeatureSectorPosition(outerInset: 10, thickness: 2),
             startAngle: 160,
             sweepAngle: 120,
             color: AppColors.white1,
           ),
           // Limits
           GaugeSliceFeature(
-            position: GaugeFeatureSectorPosition(
-              outerInset: 10,
-              thickness: 12,
-            ),
+            position: GaugeFeatureSectorPosition(outerInset: 10, thickness: 12),
             startAngle: 145,
             sweepAngle: 8,
             color: AppColors.red2,
           ),
           GaugeSliceFeature(
-            position: GaugeFeatureSectorPosition(
-              outerInset: 10,
-              thickness: 12,
-            ),
+            position: GaugeFeatureSectorPosition(outerInset: 10, thickness: 12),
             startAngle: 285,
             sweepAngle: 8,
             color: AppColors.white1,
           ),
           // Labels
           GaugeTextFeature(
-            position: GaugeFeaturePointPosition(
-              outerInset: 32,
-            ),
+            position: GaugeFeaturePointPosition(outerInset: 32),
             angle: 145,
             keepRotation: true,
             text: 'E',
-            style: TextStyle(
-              fontWeight: FontWeight.w300,
-              fontSize: 12,
-            ),
+            style: TextStyle(fontWeight: FontWeight.w300, fontSize: 12),
           ),
           GaugeTextFeature(
-            position: GaugeFeaturePointPosition(
-              outerInset: 32,
-            ),
+            position: GaugeFeaturePointPosition(outerInset: 32),
             angle: 285,
             keepRotation: true,
             text: 'F',
-            style: TextStyle(
-              fontWeight: FontWeight.w300,
-              fontSize: 12,
-            ),
+            style: TextStyle(fontWeight: FontWeight.w300, fontSize: 12),
           ),
           // Icon
           GaugeCustomFeature(
-            position: GaugeFeaturePointPosition(
-              outerInset: 32,
-            ),
+            position: GaugeFeaturePointPosition(outerInset: 32),
             angle: 220,
             keepRotation: true,
-            builder: (context) => SvgIcon(
-              SvgIcons.fuel,
-              color: AppColors.white1,
-            ),
+            builder:
+                (context) => SvgIcon(SvgIcons.fuel, color: AppColors.white1),
           ),
           // Knob base
           GaugeSliceFeature(
-            position: GaugeFeatureSectorPosition(
-              thickness: 14,
-            ),
+            position: GaugeFeatureSectorPosition(thickness: 14),
             color: AppColors.black2,
           ),
           // Pin
           GaugeBoxFeature(
-            position: GaugeFeatureSectorPosition(
-              outerInset: 15,
-            ),
-            angle: lerpDouble(
-              startAngle,
-              endAngle,
-              carState.fuel,
-            )!,
+            position: GaugeFeatureSectorPosition(outerInset: 15),
+            angle: lerpDouble(startAngle, endAngle, carState.fuel)!,
             width: 2,
             color: AppColors.red1,
           ),
           // Knob
           GaugeSliceFeature(
-            position: GaugeFeatureSectorPosition(
-              thickness: 10,
-            ),
+            position: GaugeFeatureSectorPosition(thickness: 10),
             color: AppColors.black3,
           ),
         ],

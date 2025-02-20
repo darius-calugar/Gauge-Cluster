@@ -19,20 +19,25 @@ class CarState extends Equatable {
   });
 
   const CarState.initial()
-      : speed = 0,
-        revs = 0,
-        mileage = 0,
-        gear = 0,
-        fuel = 1,
-        temperature = 0.5,
-        leftTurnSignal = false,
-        rightTurnSignal = false,
-        doorSignal = false,
-        brakesSignal = false,
-        batterySignal = false,
-        transmissionSignal = false,
-        engineSignal = false,
-        serviceSignal = false;
+    : speed = 0,
+      revs = 0,
+      mileage = 0,
+      gear = 0,
+      fuel = 1,
+      temperature = 0.5,
+      leftTurnSignal = false,
+      rightTurnSignal = false,
+      doorSignal = false,
+      brakesSignal = false,
+      batterySignal = false,
+      transmissionSignal = false,
+      engineSignal = false,
+      serviceSignal = false;
+
+  final double maxSpeed = 260;
+  final double maxRevs = 7000;
+  final int minGears = -1;
+  final int maxGears = 6;
 
   final double speed;
   final double revs;
@@ -49,6 +54,8 @@ class CarState extends Equatable {
   final bool engineSignal;
   final bool serviceSignal;
 
+  double get speedProgress => speed / maxSpeed;
+  double get revsProgress => revs / maxRevs;
   bool get fuelSignal => fuel < .1;
   bool get temperatureSignal => temperature > .9;
 
@@ -67,39 +74,38 @@ class CarState extends Equatable {
     bool? transmissionSignal,
     bool? engineSignal,
     bool? serviceSignal,
-  }) =>
-      CarState(
-        speed: speed ?? this.speed,
-        revs: revs ?? this.revs,
-        mileage: mileage ?? this.mileage,
-        gear: gear ?? this.gear,
-        fuel: fuel ?? this.fuel,
-        temperature: temperature ?? this.temperature,
-        leftTurnSignal: leftTurnSignal ?? this.leftTurnSignal,
-        rightTurnSignal: rightTurnSignal ?? this.rightTurnSignal,
-        doorSignal: doorSignal ?? this.doorSignal,
-        brakesSignal: brakesSignal ?? this.brakesSignal,
-        batterySignal: batterySignal ?? this.batterySignal,
-        transmissionSignal: transmissionSignal ?? this.transmissionSignal,
-        engineSignal: engineSignal ?? this.engineSignal,
-        serviceSignal: serviceSignal ?? this.serviceSignal,
-      );
+  }) => CarState(
+    speed: speed ?? this.speed,
+    revs: revs ?? this.revs,
+    mileage: mileage ?? this.mileage,
+    gear: gear ?? this.gear,
+    fuel: fuel ?? this.fuel,
+    temperature: temperature ?? this.temperature,
+    leftTurnSignal: leftTurnSignal ?? this.leftTurnSignal,
+    rightTurnSignal: rightTurnSignal ?? this.rightTurnSignal,
+    doorSignal: doorSignal ?? this.doorSignal,
+    brakesSignal: brakesSignal ?? this.brakesSignal,
+    batterySignal: batterySignal ?? this.batterySignal,
+    transmissionSignal: transmissionSignal ?? this.transmissionSignal,
+    engineSignal: engineSignal ?? this.engineSignal,
+    serviceSignal: serviceSignal ?? this.serviceSignal,
+  );
 
   @override
   List<Object?> get props => [
-        speed,
-        revs,
-        mileage,
-        gear,
-        fuel,
-        temperature,
-        leftTurnSignal,
-        rightTurnSignal,
-        doorSignal,
-        brakesSignal,
-        batterySignal,
-        transmissionSignal,
-        engineSignal,
-        serviceSignal,
-      ];
+    speed,
+    revs,
+    mileage,
+    gear,
+    fuel,
+    temperature,
+    leftTurnSignal,
+    rightTurnSignal,
+    doorSignal,
+    brakesSignal,
+    batterySignal,
+    transmissionSignal,
+    engineSignal,
+    serviceSignal,
+  ];
 }

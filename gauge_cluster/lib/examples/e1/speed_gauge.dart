@@ -6,16 +6,13 @@ import 'package:gauge_cluster/app_colors.dart';
 import 'package:gauge_cluster/blocs/car_cubit.dart';
 import 'package:gauge_cluster/components/gauge/gauge.dart';
 import 'package:gauge_cluster/components/mileage/mileage.dart';
+import 'package:gauge_cluster/utils/conversions.dart';
 
 class E1SpeedGauge extends StatelessWidget {
-  const E1SpeedGauge({
-    super.key,
-  });
+  const E1SpeedGauge({super.key});
 
   static double radius = 250.0;
   static double diameter = radius * 2;
-  static double outerTopSpeed = 160;
-  static double innerTopSpeed = 260;
 
   @override
   Widget build(BuildContext context) {
@@ -25,24 +22,22 @@ class E1SpeedGauge extends StatelessWidget {
     final visibleEndAngle = 30.0;
     final visibleSweepAngle = visibleEndAngle - visibleStartAngle;
 
-    final outerSteps = outerTopSpeed ~/ 2 + 1;
+    final outerSteps = carState.maxSpeed ~/ 2 + 1;
     final outerStepAngleSweep = visibleSweepAngle / (outerSteps - 1);
 
-    final innerSteps = innerTopSpeed ~/ 10 + 1;
+    final innerSteps = carState.maxSpeed.kmhToMph ~/ 10 + 1;
     final innerStepAngleSweep = visibleSweepAngle / (innerSteps - 1);
 
     return SizedBox.square(
       dimension: diameter,
       child: Gauge(
         features: [
-          // MPH
+          // KMH
           GaugeTextFeature(
-            position: GaugeFeaturePointPosition(
-              outerInset: 45,
-            ),
+            position: GaugeFeaturePointPosition(outerInset: 45),
             angle: visibleEndAngle + 10,
             keepRotation: true,
-            text: 'MPH',
+            text: 'KM/H',
             style: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w600,
@@ -64,9 +59,7 @@ class E1SpeedGauge extends StatelessWidget {
               ),
               // Step labels
               GaugeTextFeature(
-                position: GaugeFeaturePointPosition(
-                  outerInset: 60,
-                ),
+                position: GaugeFeaturePointPosition(outerInset: 60),
                 angle: visibleStartAngle + outerStepAngleSweep * step,
                 keepRotation: false,
                 text: '${step * 2}',
@@ -111,14 +104,12 @@ class E1SpeedGauge extends StatelessWidget {
                 color: AppColors.white1,
               ),
 
-          // KMH
+          // MPH
           GaugeTextFeature(
-            position: GaugeFeaturePointPosition(
-              outerInset: 100,
-            ),
+            position: GaugeFeaturePointPosition(outerInset: 100),
             angle: visibleEndAngle + 10,
             keepRotation: true,
-            text: 'KM/H',
+            text: 'MPH',
             style: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w400,
@@ -127,7 +118,7 @@ class E1SpeedGauge extends StatelessWidget {
             ),
           ),
           for (var step = 0; step < innerSteps; step++)
-            if (step % 3 == 0) ...[
+            if (step % 2 == 0) ...[
               // Steps
               GaugeBoxFeature(
                 position: GaugeFeatureSectorPosition(
@@ -140,9 +131,7 @@ class E1SpeedGauge extends StatelessWidget {
               ),
               // Step labels
               GaugeTextFeature(
-                position: GaugeFeaturePointPosition(
-                  outerInset: 110,
-                ),
+                position: GaugeFeaturePointPosition(outerInset: 110),
                 angle: visibleStartAngle + innerStepAngleSweep * step,
                 keepRotation: false,
                 text: '${step * 10}',
@@ -165,41 +154,32 @@ class E1SpeedGauge extends StatelessWidget {
               ),
           // Mileage
           GaugeCustomFeature(
-            position: GaugeFeaturePointPosition(
-              innerInset: 50,
-            ),
+            position: GaugeFeaturePointPosition(innerInset: 50),
             angle: 90,
             keepRotation: true,
-            builder: (context) => Mileage(
-              value: carState.mileage,
-              digitCount: 6,
-            ),
+            builder:
+                (context) => Mileage(value: carState.mileage, digitCount: 6),
           ),
           // Knob base
           GaugeSliceFeature(
-            position: GaugeFeatureSectorPosition(
-              thickness: 20,
-            ),
+            position: GaugeFeatureSectorPosition(thickness: 20),
             color: AppColors.black2,
           ),
           // Pin
           GaugeBoxFeature(
-            position: GaugeFeatureSectorPosition(
-              outerInset: 40,
-            ),
-            angle: lerpDouble(
-              visibleStartAngle,
-              visibleEndAngle,
-              carState.speed / outerTopSpeed,
-            )!,
+            position: GaugeFeatureSectorPosition(outerInset: 40),
+            angle:
+                lerpDouble(
+                  visibleStartAngle,
+                  visibleEndAngle,
+                  carState.speedProgress,
+                )!,
             width: 3,
             color: AppColors.red1,
           ),
           // Knob
           GaugeSliceFeature(
-            position: GaugeFeatureSectorPosition(
-              thickness: 16,
-            ),
+            position: GaugeFeatureSectorPosition(thickness: 16),
             color: AppColors.black3,
           ),
         ],

@@ -7,10 +7,7 @@ part 'gauge_feature_position.dart';
 part 'gauge_feature.dart';
 
 class Gauge extends StatelessWidget {
-  const Gauge({
-    super.key,
-    required this.features,
-  });
+  const Gauge({super.key, required this.features});
 
   final List<GaugeFeature> features;
 
@@ -30,21 +27,21 @@ class Gauge extends StatelessWidget {
               for (final feature in features)
                 switch (feature) {
                   GaugeBoxFeature feature => _BoxFeatureWidget(
-                      feature: feature,
-                      radius: radius,
-                    ),
+                    feature: feature,
+                    radius: radius,
+                  ),
                   GaugeSliceFeature feature => _SliceFeatureWidget(
-                      feature: feature,
-                      radius: radius,
-                    ),
+                    feature: feature,
+                    radius: radius,
+                  ),
                   GaugeTextFeature feature => _TextFeatureWidget(
-                      feature: feature,
-                      radius: radius,
-                    ),
+                    feature: feature,
+                    radius: radius,
+                  ),
                   GaugeCustomFeature feature => _CustomFeatureWidget(
-                      feature: feature,
-                      radius: radius,
-                    ),
+                    feature: feature,
+                    radius: radius,
+                  ),
                 },
             ],
           ),
@@ -55,10 +52,7 @@ class Gauge extends StatelessWidget {
 }
 
 class _SliceClipper extends CustomClipper<Path> {
-  const _SliceClipper({
-    required this.feature,
-    required this.radius,
-  });
+  const _SliceClipper({required this.feature, required this.radius});
 
   final GaugeSliceFeature feature;
   final double radius;
@@ -84,9 +78,10 @@ class _SliceClipper extends CustomClipper<Path> {
     );
 
     final innerPath = Path()..addOval(innerRect);
-    final outerPath = Path()
-      ..addArc(outerRect, startAngleRadians, sweepAngleRadians)
-      ..lineTo(center.dx, center.dy);
+    final outerPath =
+        Path()
+          ..addArc(outerRect, startAngleRadians, sweepAngleRadians)
+          ..lineTo(center.dx, center.dy);
 
     return Path.combine(PathOperation.difference, outerPath, innerPath);
   }
@@ -95,10 +90,7 @@ class _SliceClipper extends CustomClipper<Path> {
 // Feature Widgets =============================================================
 
 class _BoxFeatureWidget extends StatelessWidget {
-  const _BoxFeatureWidget({
-    required this.feature,
-    required this.radius,
-  });
+  const _BoxFeatureWidget({required this.feature, required this.radius});
 
   final GaugeBoxFeature feature;
   final double radius;
@@ -113,20 +105,18 @@ class _BoxFeatureWidget extends StatelessWidget {
       size: size,
       child: Container(
         color: feature.color,
-        transform: Matrix4.identity()
-          ..translate(size.width / 2, size.height / 2, 0)
-          ..rotateZ(feature.angle * toRadians)
-          ..translate(position.innerInset, -size.height / 2, 0),
+        transform:
+            Matrix4.identity()
+              ..translate(size.width / 2, size.height / 2, 0)
+              ..rotateZ(feature.angle * toRadians)
+              ..translate(position.innerInset, -size.height / 2, 0),
       ),
     );
   }
 }
 
 class _SliceFeatureWidget extends StatelessWidget {
-  const _SliceFeatureWidget({
-    required this.feature,
-    required this.radius,
-  });
+  const _SliceFeatureWidget({required this.feature, required this.radius});
 
   final GaugeSliceFeature feature;
   final double radius;
@@ -136,10 +126,7 @@ class _SliceFeatureWidget extends StatelessWidget {
     final position = feature.position.evaluate(radius);
 
     return ClipPath(
-      clipper: _SliceClipper(
-        feature: feature,
-        radius: radius,
-      ),
+      clipper: _SliceClipper(feature: feature, radius: radius),
       child: Container(
         height: radius * 2 - position.outerInset * 2,
         width: radius * 2 - position.outerInset * 2,
@@ -150,10 +137,7 @@ class _SliceFeatureWidget extends StatelessWidget {
 }
 
 class _TextFeatureWidget extends StatelessWidget {
-  const _TextFeatureWidget({
-    required this.feature,
-    required this.radius,
-  });
+  const _TextFeatureWidget({required this.feature, required this.radius});
 
   final GaugeTextFeature feature;
   final double radius;
@@ -166,27 +150,22 @@ class _TextFeatureWidget extends StatelessWidget {
       width: 0.0,
       height: 0.0,
       alignment: Alignment.center,
-      transform: Matrix4.identity()
-        ..rotateZ(feature.angle * toRadians)
-        ..translate((position.innerInset + position.outerRadius) / 2, 0, 0)
-        ..rotateZ((feature.keepRotation ? -feature.angle : 90) * toRadians),
+      transform:
+          Matrix4.identity()
+            ..rotateZ(feature.angle * toRadians)
+            ..translate((position.innerInset + position.outerRadius) / 2, 0, 0)
+            ..rotateZ((feature.keepRotation ? -feature.angle : 90) * toRadians),
       child: OverflowBox(
         maxHeight: double.infinity,
         maxWidth: double.infinity,
-        child: Text(
-          feature.text,
-          style: feature.style,
-        ),
+        child: Text(feature.text, style: feature.style),
       ),
     );
   }
 }
 
 class _CustomFeatureWidget extends StatelessWidget {
-  const _CustomFeatureWidget({
-    required this.feature,
-    required this.radius,
-  });
+  const _CustomFeatureWidget({required this.feature, required this.radius});
 
   final GaugeCustomFeature feature;
   final double radius;
@@ -199,16 +178,15 @@ class _CustomFeatureWidget extends StatelessWidget {
       width: 0.0,
       height: 0.0,
       alignment: Alignment.center,
-      transform: Matrix4.identity()
-        ..rotateZ(feature.angle * toRadians)
-        ..translate((position.innerInset + position.outerRadius) / 2, 0, 0)
-        ..rotateZ((feature.keepRotation ? -feature.angle : 90) * toRadians),
+      transform:
+          Matrix4.identity()
+            ..rotateZ(feature.angle * toRadians)
+            ..translate((position.innerInset + position.outerRadius) / 2, 0, 0)
+            ..rotateZ((feature.keepRotation ? -feature.angle : 90) * toRadians),
       child: OverflowBox(
         maxHeight: double.infinity,
         maxWidth: double.infinity,
-        child: Builder(
-          builder: feature.builder,
-        ),
+        child: Builder(builder: feature.builder),
       ),
     );
   }
