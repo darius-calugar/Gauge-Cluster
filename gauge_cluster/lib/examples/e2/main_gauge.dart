@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gauge_cluster/app_colors.dart';
 import 'package:gauge_cluster/blocs/car/car_cubit.dart';
 import 'package:gauge_cluster/components/gauge/gauge.dart';
+import 'package:gauge_cluster/math.dart';
 
 class E2MainGauge extends StatelessWidget {
   const E2MainGauge({super.key});
@@ -39,8 +40,13 @@ class E2MainGauge extends StatelessWidget {
             position: GaugeFeatureSectorPosition(outerInset: 54, thickness: 40),
             startAngle: startAngle,
             sweepAngle: sweepAngle * carState.revsProgress,
-            color: AppColors.white1,
+            gradient: SweepGradient(
+              transform: GradientRotation(startAngle * toRadians),
+              endAngle: sweepAngle * toRadians,
+              colors: [AppColors.yellow1, AppColors.orange1],
+            ),
           ),
+          // Steps
           // Speed
           GaugeTextFeature(
             position: GaugeFeaturePointPosition(innerInset: 60),

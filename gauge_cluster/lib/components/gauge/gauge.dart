@@ -130,7 +130,10 @@ class _SliceFeatureWidget extends StatelessWidget {
       child: Container(
         height: radius * 2 - position.outerInset * 2,
         width: radius * 2 - position.outerInset * 2,
-        color: feature.color,
+        decoration: BoxDecoration(
+          color: feature.color,
+          gradient: feature.gradient,
+        ),
       ),
     );
   }

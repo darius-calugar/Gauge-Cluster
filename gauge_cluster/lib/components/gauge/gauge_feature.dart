@@ -24,14 +24,17 @@ class GaugeBoxFeature extends GaugeFeature {
 class GaugeSliceFeature extends GaugeFeature {
   const GaugeSliceFeature({
     required this.position,
-    required this.color,
+    this.color,
+    this.gradient,
     this.startAngle = 0,
     this.sweepAngle = 360,
-  }) : assert(sweepAngle >= 0 && sweepAngle <= 360);
+  }) : assert(color == null || gradient == null),
+       assert(sweepAngle >= 0 && sweepAngle <= 360);
 
   @override
   final GaugeFeatureSectorPosition position;
-  final Color color;
+  final Color? color;
+  final Gradient? gradient;
   final double startAngle;
   final double sweepAngle;
 }
