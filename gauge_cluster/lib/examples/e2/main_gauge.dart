@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gauge_cluster/app_colors.dart';
-import 'package:gauge_cluster/blocs/car_cubit.dart';
+import 'package:gauge_cluster/blocs/car/car_cubit.dart';
 import 'package:gauge_cluster/components/gauge/gauge.dart';
 
 class E2MainGauge extends StatelessWidget {
@@ -22,14 +22,21 @@ class E2MainGauge extends StatelessWidget {
       dimension: radius * 2,
       child: Gauge(
         features: [
+          // Revs
           GaugeSliceFeature(
-            position: GaugeFeatureSectorPosition(outerInset: 0, thickness: 2),
+            position: GaugeFeatureSectorPosition(outerInset: 50, thickness: 2),
             startAngle: startAngle,
             sweepAngle: sweepAngle,
             color: AppColors.white1,
           ),
           GaugeSliceFeature(
-            position: GaugeFeatureSectorPosition(outerInset: 4, thickness: 40),
+            position: GaugeFeatureSectorPosition(outerInset: 54, thickness: 40),
+            startAngle: startAngle,
+            sweepAngle: sweepAngle,
+            color: AppColors.white3,
+          ),
+          GaugeSliceFeature(
+            position: GaugeFeatureSectorPosition(outerInset: 54, thickness: 40),
             startAngle: startAngle,
             sweepAngle: sweepAngle * carState.revsProgress,
             color: AppColors.white1,
@@ -40,7 +47,7 @@ class E2MainGauge extends StatelessWidget {
             angle: -90,
             keepRotation: true,
             text: '${carState.speed.floor()}',
-            style: TextStyle(fontSize: 100, fontWeight: FontWeight.w600),
+            style: TextStyle(fontSize: 100, fontWeight: FontWeight.w700),
           ),
           // KMH
           GaugeTextFeature(
@@ -48,7 +55,15 @@ class E2MainGauge extends StatelessWidget {
             angle: -90,
             keepRotation: true,
             text: 'KM/H',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
+          ),
+          // Time
+          GaugeTextFeature(
+            position: GaugeFeaturePointPosition(innerInset: 100),
+            angle: 90,
+            keepRotation: true,
+            text: '13:53',
+            style: TextStyle(fontSize: 30, fontWeight: FontWeight.w300),
           ),
         ],
       ),

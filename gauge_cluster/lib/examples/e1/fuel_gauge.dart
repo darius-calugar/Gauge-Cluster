@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gauge_cluster/app_colors.dart';
-import 'package:gauge_cluster/blocs/car_cubit.dart';
+import 'package:gauge_cluster/blocs/car/car_cubit.dart';
 import 'package:gauge_cluster/components/gauge/gauge.dart';
 import 'package:gauge_cluster/components/svg_icon/svg_icon.dart';
 import 'package:gauge_cluster/utils/assets.dart';
