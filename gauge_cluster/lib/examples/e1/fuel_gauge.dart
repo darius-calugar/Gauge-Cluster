@@ -48,7 +48,7 @@ class E1FuelGauge extends StatelessWidget {
             position: GaugeFeatureSectorPosition(outerInset: 10, thickness: 12),
             startAngle: 145.deg,
             sweepAngle: 8.deg,
-            color: AppColors.red2,
+            color: AppColors.red3,
           ),
           GaugeSliceFeature(
             position: GaugeFeatureSectorPosition(outerInset: 10, thickness: 12),

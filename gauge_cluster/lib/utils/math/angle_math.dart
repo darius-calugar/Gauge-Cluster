@@ -22,6 +22,8 @@ extension type const Angle._(double _rad) {
       Angle.fromRad(a._rad < b._rad ? a._rad : b._rad);
   static Angle max(Angle a, Angle b) =>
       Angle.fromRad(a._rad > b._rad ? a._rad : b._rad);
+  static Angle clamp(Angle value, Angle min, Angle max) =>
+      Angle.fromRad(value._rad.clamp(min._rad, max._rad));
 
   static double ratio(Angle a, Angle b) => a._rad / b._rad;
 

@@ -13,6 +13,8 @@ extension type const Speed._(double _kmh) {
       Speed._(a._kmh < b._kmh ? a._kmh : b._kmh);
   static Speed max(Speed a, Speed b) =>
       Speed._(a._kmh > b._kmh ? a._kmh : b._kmh);
+  static Speed clamp(Speed value, Speed min, Speed max) =>
+      Speed._(value._kmh.clamp(min._kmh, max._kmh));
 
   static double ratio(Speed a, Speed b) => a._kmh / b._kmh;
 

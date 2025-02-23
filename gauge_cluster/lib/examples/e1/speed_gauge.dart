@@ -9,7 +9,7 @@ import 'package:gauge_cluster/utils/math/angle_math.dart';
 class E1SpeedGauge extends StatelessWidget {
   const E1SpeedGauge({super.key});
 
-  static double radius = 250.0;
+  static double radius = 300.0;
   static double diameter = radius * 2;
 
   @override
@@ -120,7 +120,7 @@ class E1SpeedGauge extends StatelessWidget {
               // Steps
               GaugeBoxFeature(
                 position: GaugeFeatureSectorPosition(
-                  outerInset: 90,
+                  outerInset: 100,
                   thickness: 8,
                 ),
                 angle: visibleStartAngle + innerStepAngleSweep * step,
@@ -129,7 +129,7 @@ class E1SpeedGauge extends StatelessWidget {
               ),
               // Step labels
               GaugeTextFeature(
-                position: GaugeFeaturePointPosition(outerInset: 110),
+                position: GaugeFeaturePointPosition(outerInset: 120),
                 angle: visibleStartAngle + innerStepAngleSweep * step,
                 keepRotation: false,
                 text: '${step * 10}',
@@ -143,7 +143,7 @@ class E1SpeedGauge extends StatelessWidget {
               // Half-steps
               GaugeBoxFeature(
                 position: GaugeFeatureSectorPosition(
-                  outerInset: 90,
+                  outerInset: 100,
                   thickness: 2,
                 ),
                 angle: visibleStartAngle + innerStepAngleSweep * step,
@@ -169,7 +169,7 @@ class E1SpeedGauge extends StatelessWidget {
             angle: Angle.lerp(
               visibleStartAngle,
               visibleEndAngle,
-              carState.speedProgress,
+              carState.speedRatio,
             ),
             width: 3,
             color: AppColors.red1,

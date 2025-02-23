@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gauge_cluster/blocs/car/car_cubit.dart';
@@ -49,11 +51,11 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
                   child: Material(
                     color: theme.colorScheme.surface,
                     child: Padding(
-                      padding: EdgeInsets.all(16),
+                      padding: EdgeInsets.all(8),
                       child: FittedBox(
                         child: SizedBox(
-                          width: 800,
-                          height: 600,
+                          width: 1000,
+                          height: 800,
                           child: AnimatedSwitcher(
                             duration: Durations.short2,
                             transitionBuilder:
@@ -111,7 +113,7 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
                   child:
                       playgroundCubit.state.areControlsExpanded
                           ? Padding(
-                            padding: const EdgeInsets.all(16.0),
+                            padding: const EdgeInsets.all(8.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
@@ -133,7 +135,7 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
                                   onChanged:
                                       (value) => carCubit.setSpeed(value.kmh),
                                 ),
-                                SizedBox(height: 16),
+                                SizedBox(height: 12),
                                 _Slider(
                                   name: 'Max Revs (rpm)',
                                   min: RotFreq.unit.toRpm,
@@ -147,11 +149,14 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
                                   name: 'Redline (rpm)',
                                   min: RotFreq.unit.toRpm,
                                   max: carCubit.state.maxRevs.toRpm,
-                                  divisions:
-                                      RotFreq.ratio(
-                                        carCubit.state.maxRevs,
-                                        RotFreq.unit,
-                                      ).floor(),
+                                  divisions: max(
+                                    1,
+                                    RotFreq.ratio(
+                                          carCubit.state.maxRevs,
+                                          RotFreq.unit,
+                                        ).floor() -
+                                        1,
+                                  ),
                                   value: carCubit.state.redline.toRpm,
                                   onChanged:
                                       (value) => carCubit.setRedline(value.rpm),
@@ -164,7 +169,7 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
                                   onChanged:
                                       (value) => carCubit.setRevs(value.rpm),
                                 ),
-                                SizedBox(height: 16),
+                                SizedBox(height: 12),
                                 _Slider(
                                   name: 'Mileage (km)',
                                   min: 0,
@@ -198,7 +203,7 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
                                   value: carCubit.state.temperature,
                                   onChanged: carCubit.setTemperature,
                                 ),
-                                SizedBox(height: 16),
+                                SizedBox(height: 8),
                                 Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,

@@ -8,7 +8,8 @@ import 'package:gauge_cluster/utils/math/angle_math.dart';
 class E1RevGauge extends StatelessWidget {
   const E1RevGauge({super.key});
 
-  static double radius = 250.0;
+  static double radius = 300.0;
+
   @override
   Widget build(BuildContext context) {
     final carState = context.watch<CarCubit>().state;
@@ -134,7 +135,7 @@ class E1RevGauge extends StatelessWidget {
             angle: Angle.lerp(
               visibleStartAngle,
               visibleEndAngle,
-              carState.revsProgress,
+              carState.revsRatio,
             ),
             width: 3,
             color: AppColors.red1,

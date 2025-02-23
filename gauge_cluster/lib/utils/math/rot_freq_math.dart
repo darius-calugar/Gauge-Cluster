@@ -10,6 +10,8 @@ extension type const RotFreq._(double _rpm) {
       RotFreq._(a._rpm < b._rpm ? a._rpm : b._rpm);
   static RotFreq max(RotFreq a, RotFreq b) =>
       RotFreq._(a._rpm > b._rpm ? a._rpm : b._rpm);
+  static RotFreq clamp(RotFreq value, RotFreq min, RotFreq max) =>
+      RotFreq._(value._rpm.clamp(min._rpm, max._rpm));
 
   static double ratio(RotFreq a, RotFreq b) => a._rpm / b._rpm;
 

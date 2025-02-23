@@ -13,6 +13,8 @@ extension type const Distance._(double _km) {
       Distance._(a._km < b._km ? a._km : b._km);
   static Distance max(Distance a, Distance b) =>
       Distance._(a._km > b._km ? a._km : b._km);
+  static Distance clamp(Distance value, Distance min, Distance max) =>
+      Distance._(value._km.clamp(min._km, max._km));
 
   static double ratio(Distance a, Distance b) => a._km / b._km;
 

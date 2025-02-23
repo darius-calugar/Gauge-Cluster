@@ -5,7 +5,7 @@ import 'package:gauge_cluster/utils/math/angle_math.dart';
 class E0MainGauge extends StatelessWidget {
   const E0MainGauge({super.key});
 
-  static double radius = 300.0;
+  static double radius = 400.0;
 
   @override
   Widget build(BuildContext context) {

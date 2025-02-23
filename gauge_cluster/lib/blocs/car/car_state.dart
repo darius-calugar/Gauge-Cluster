@@ -61,8 +61,9 @@ class CarState extends Equatable {
   final bool engineSignal;
   final bool serviceSignal;
 
-  double get speedProgress => Speed.ratio(speed, maxSpeed);
-  double get revsProgress => RotFreq.ratio(revs, maxRevs);
+  double get speedRatio => Speed.ratio(speed, maxSpeed);
+  double get revsRatio => RotFreq.ratio(revs, maxRevs);
+  double get redlineRatio => RotFreq.ratio(redline, maxRevs);
   bool get fuelSignal => fuel < .1;
   bool get temperatureSignal => temperature > .9;
 

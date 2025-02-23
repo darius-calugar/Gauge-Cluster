@@ -54,7 +54,7 @@ class E1TemperatureGauge extends StatelessWidget {
             position: GaugeFeatureSectorPosition(outerInset: 10, thickness: 12),
             startAngle: 285.deg,
             sweepAngle: 8.deg,
-            color: AppColors.red2,
+            color: AppColors.red3,
           ),
           // Labels
           GaugeTextFeature(
