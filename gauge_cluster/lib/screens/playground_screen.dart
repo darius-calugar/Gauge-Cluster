@@ -86,91 +86,149 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
           Divider(height: 2),
           Material(
             color: theme.colorScheme.surfaceContainerLow,
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  _Slider(
-                    max: carCubit.state.maxSpeed,
-                    value: carCubit.state.speed,
-                    onChanged: carCubit.setSpeed,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Material(
+                  color: theme.colorScheme.surfaceContainerLow,
+                  child: InkResponse(
+                    highlightShape: BoxShape.rectangle,
+                    onTap: playgroundCubit.toggleControls,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SvgIcon(SvgIcons.wrench),
+                    ),
                   ),
-                  _Slider(
-                    max: carCubit.state.maxRevs,
-                    value: carCubit.state.revs,
-                    onChanged: carCubit.setRevs,
-                  ),
-                  _Slider(
-                    max: 999999,
-                    value: carCubit.state.mileage.toDouble(),
-                    onChanged:
-                        (mileage) => carCubit.setMileage(mileage.round()),
-                  ),
-                  _Slider(
-                    min: carCubit.state.minGears.toDouble(),
-                    max: carCubit.state.maxGears.toDouble(),
-                    divisions:
-                        carCubit.state.maxGears - carCubit.state.minGears,
-                    value: carCubit.state.gear.toDouble(),
-                    onChanged: (gear) => carCubit.shiftTo(gear.round()),
-                  ),
-                  _Slider(
-                    value: carCubit.state.fuel,
-                    onChanged: carCubit.setFuel,
-                  ),
-                  _Slider(
-                    value: carCubit.state.temperature,
-                    onChanged: carCubit.setTemperature,
-                  ),
-                  SizedBox(height: 16),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      _Toggle(
-                        icon: SvgIcons.left,
-                        value: carCubit.state.leftTurnSignal,
-                        onTap: carCubit.toggleLeftTurnSignal,
-                      ),
-                      _Toggle(
-                        icon: SvgIcons.right,
-                        value: carCubit.state.rightTurnSignal,
-                        onTap: carCubit.toggleRightTurnSignal,
-                      ),
-                      _Toggle(
-                        icon: SvgIcons.doors,
-                        value: carCubit.state.doorSignal,
-                        onTap: carCubit.toggleDoorSignal,
-                      ),
-                      _Toggle(
-                        icon: SvgIcons.brakes,
-                        value: carCubit.state.brakesSignal,
-                        onTap: carCubit.toggleBrakesSignal,
-                      ),
-                      _Toggle(
-                        icon: SvgIcons.battery,
-                        value: carCubit.state.batterySignal,
-                        onTap: carCubit.toggleBatterySignal,
-                      ),
-                      _Toggle(
-                        icon: SvgIcons.transmission,
-                        value: carCubit.state.transmissionSignal,
-                        onTap: carCubit.toggleTransmissionSignal,
-                      ),
-                      _Toggle(
-                        icon: SvgIcons.engine,
-                        value: carCubit.state.engineSignal,
-                        onTap: carCubit.toggleEngineSignal,
-                      ),
-                      _Toggle(
-                        icon: SvgIcons.wrench,
-                        value: carCubit.state.serviceSignal,
-                        onTap: carCubit.toggleServiceSignal,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+                ),
+                AnimatedSize(
+                  duration: Durations.medium1,
+                  curve: Curves.ease,
+                  child:
+                      playgroundCubit.state.areControlsExpanded
+                          ? Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                _Slider(
+                                  name: 'Max Speed (km/h)',
+                                  min: 20,
+                                  max: 400,
+                                  divisions: 19,
+                                  value: carCubit.state.maxSpeed,
+                                  onChanged: carCubit.setMaxSpeed,
+                                ),
+                                _Slider(
+                                  name: 'Speed (km/h)',
+                                  max: carCubit.state.maxSpeed,
+                                  value: carCubit.state.speed,
+                                  onChanged: carCubit.setSpeed,
+                                ),
+                                SizedBox(height: 16),
+                                _Slider(
+                                  name: 'Max Revs (rpm)',
+                                  min: 1000,
+                                  max: 12000,
+                                  divisions: 11,
+                                  value: carCubit.state.maxRevs,
+                                  onChanged: carCubit.setMaxRevs,
+                                ),
+                                _Slider(
+                                  name: 'Redline (rpm)',
+                                  max: carCubit.state.maxRevs,
+                                  divisions: carCubit.state.maxRevs ~/ 1000,
+                                  value: carCubit.state.redline,
+                                  onChanged: carCubit.setRedline,
+                                ),
+                                _Slider(
+                                  name: 'Revs (rpm)',
+                                  max: carCubit.state.maxRevs,
+                                  value: carCubit.state.revs,
+                                  onChanged: carCubit.setRevs,
+                                ),
+                                SizedBox(height: 16),
+                                _Slider(
+                                  name: 'Mileage (km)',
+                                  max: 999999,
+                                  value: carCubit.state.mileage.toDouble(),
+                                  onChanged:
+                                      (mileage) =>
+                                          carCubit.setMileage(mileage.round()),
+                                ),
+                                _Slider(
+                                  name: 'Gear',
+                                  min: carCubit.state.minGears.toDouble(),
+                                  max: carCubit.state.maxGears.toDouble(),
+                                  divisions:
+                                      carCubit.state.maxGears -
+                                      carCubit.state.minGears,
+                                  value: carCubit.state.gear.toDouble(),
+                                  onChanged:
+                                      (gear) => carCubit.shiftTo(gear.round()),
+                                ),
+                                _Slider(
+                                  name: 'Fuel',
+                                  value: carCubit.state.fuel,
+                                  onChanged: carCubit.setFuel,
+                                ),
+                                _Slider(
+                                  name: 'Temperature',
+                                  value: carCubit.state.temperature,
+                                  onChanged: carCubit.setTemperature,
+                                ),
+                                SizedBox(height: 16),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    _Toggle(
+                                      icon: SvgIcons.left,
+                                      value: carCubit.state.leftTurnSignal,
+                                      onTap: carCubit.toggleLeftTurnSignal,
+                                    ),
+                                    _Toggle(
+                                      icon: SvgIcons.right,
+                                      value: carCubit.state.rightTurnSignal,
+                                      onTap: carCubit.toggleRightTurnSignal,
+                                    ),
+                                    _Toggle(
+                                      icon: SvgIcons.doors,
+                                      value: carCubit.state.doorSignal,
+                                      onTap: carCubit.toggleDoorSignal,
+                                    ),
+                                    _Toggle(
+                                      icon: SvgIcons.brakes,
+                                      value: carCubit.state.brakesSignal,
+                                      onTap: carCubit.toggleBrakesSignal,
+                                    ),
+                                    _Toggle(
+                                      icon: SvgIcons.battery,
+                                      value: carCubit.state.batterySignal,
+                                      onTap: carCubit.toggleBatterySignal,
+                                    ),
+                                    _Toggle(
+                                      icon: SvgIcons.transmission,
+                                      value: carCubit.state.transmissionSignal,
+                                      onTap: carCubit.toggleTransmissionSignal,
+                                    ),
+                                    _Toggle(
+                                      icon: SvgIcons.engine,
+                                      value: carCubit.state.engineSignal,
+                                      onTap: carCubit.toggleEngineSignal,
+                                    ),
+                                    _Toggle(
+                                      icon: SvgIcons.wrench,
+                                      value: carCubit.state.serviceSignal,
+                                      onTap: carCubit.toggleServiceSignal,
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          )
+                          : SizedBox(width: double.infinity),
+                ),
+              ],
             ),
           ),
         ],
@@ -181,6 +239,7 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
 
 class _Slider extends StatelessWidget {
   const _Slider({
+    required this.name,
     required this.value,
     this.min = 0,
     this.max = 1,
@@ -188,6 +247,7 @@ class _Slider extends StatelessWidget {
     this.onChanged,
   });
 
+  final String name;
   final double value;
   final double min;
   final double max;
@@ -196,20 +256,26 @@ class _Slider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Text('${min.round()}'),
-        Expanded(
-          child: Slider(
-            min: min,
-            max: max,
-            divisions: divisions,
-            value: value,
-            onChanged: onChanged,
+    return IntrinsicHeight(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(width: 130, child: Text(name)),
+          VerticalDivider(indent: 4, endIndent: 4),
+          Text('${min.round()}'),
+          Expanded(
+            child: Slider(
+              min: min,
+              max: max,
+              divisions: divisions,
+              value: value,
+              onChanged: onChanged,
+              padding: EdgeInsets.symmetric(vertical: 4, horizontal: 16),
+            ),
           ),
-        ),
-        Text('${max.round()}'),
-      ],
+          Text('${max.round()}'),
+        ],
+      ),
     );
   }
 }

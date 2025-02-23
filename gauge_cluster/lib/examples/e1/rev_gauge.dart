@@ -20,7 +20,8 @@ class E1RevGauge extends StatelessWidget {
 
     final steps = (carState.maxRevs ~/ 100) + 1;
     final stepAngleSweep = visibleSweepAngle / (steps - 1);
-    final redlineStep = 50;
+    final redlineStep = carState.redline ~/ 100;
+    final redlineStepSnapped = (redlineStep / 10).round() * 10;
 
     return SizedBox.square(
       dimension: radius * 2,
@@ -49,7 +50,10 @@ class E1RevGauge extends StatelessWidget {
                 ),
                 angle: visibleStartAngle + stepAngleSweep * step,
                 width: 4,
-                color: step < redlineStep ? AppColors.white1 : AppColors.red2,
+                color:
+                    step < redlineStepSnapped
+                        ? AppColors.white1
+                        : AppColors.red2,
               ),
               // Step labels
               GaugeTextFeature(
@@ -59,7 +63,7 @@ class E1RevGauge extends StatelessWidget {
                 text: '${step ~/ 10}',
                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
               ),
-              if (step < redlineStep)
+              if (step < redlineStepSnapped)
                 // Border
                 GaugeSliceFeature(
                   position: GaugeFeatureSectorPosition(
@@ -81,7 +85,7 @@ class E1RevGauge extends StatelessWidget {
                   sweepAngle: stepAngleSweep * 10,
                   color: AppColors.red2,
                 ),
-            ] else if (step < redlineStep)
+            ] else if (step < redlineStepSnapped)
               // Quarter-steps
               GaugeBoxFeature(
                 position: GaugeFeatureSectorPosition(

@@ -2,8 +2,11 @@ part of 'car_cubit.dart';
 
 class CarState extends Equatable {
   const CarState({
+    required this.maxSpeed,
     required this.speed,
+    required this.maxRevs,
     required this.revs,
+    required this.redline,
     required this.mileage,
     required this.gear,
     required this.fuel,
@@ -19,8 +22,11 @@ class CarState extends Equatable {
   });
 
   const CarState.initial()
-    : speed = 0,
+    : maxSpeed = 260,
+      speed = 0,
+      maxRevs = 7000,
       revs = 0,
+      redline = 5000,
       mileage = 0,
       gear = 0,
       fuel = 1,
@@ -34,13 +40,14 @@ class CarState extends Equatable {
       engineSignal = false,
       serviceSignal = false;
 
-  final double maxSpeed = 260;
-  final double maxRevs = 7000;
   final int minGears = -1;
   final int maxGears = 6;
 
+  final double maxSpeed;
   final double speed;
+  final double maxRevs;
   final double revs;
+  final double redline;
   final int mileage;
   final int gear;
   final double fuel;
@@ -60,8 +67,11 @@ class CarState extends Equatable {
   bool get temperatureSignal => temperature > .9;
 
   CarState copyWith({
+    double? maxSpeed,
     double? speed,
+    double? maxRevs,
     double? revs,
+    double? redline,
     int? mileage,
     int? gear,
     double? fuel,
@@ -75,8 +85,11 @@ class CarState extends Equatable {
     bool? engineSignal,
     bool? serviceSignal,
   }) => CarState(
+    maxSpeed: maxSpeed ?? this.maxSpeed,
     speed: speed ?? this.speed,
+    maxRevs: maxRevs ?? this.maxRevs,
     revs: revs ?? this.revs,
+    redline: redline ?? this.redline,
     mileage: mileage ?? this.mileage,
     gear: gear ?? this.gear,
     fuel: fuel ?? this.fuel,
@@ -93,8 +106,11 @@ class CarState extends Equatable {
 
   @override
   List<Object?> get props => [
+    maxSpeed,
     speed,
+    maxRevs,
     revs,
+    redline,
     mileage,
     gear,
     fuel,

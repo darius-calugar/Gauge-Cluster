@@ -5,12 +5,17 @@ part 'playground_state.dart';
 
 class PlaygroundCubit extends Cubit<PlaygroundState> {
   PlaygroundCubit({required this.exampleCount})
-    : super(PlaygroundState(example: 1));
+    : super(PlaygroundState(example: 1, areControlsExpanded: false));
 
   final int exampleCount;
 
   void setExample(int example) async {
-    emit(PlaygroundState(example: (example - 1) % exampleCount + 1));
+    emit(
+      PlaygroundState(
+        example: (example - 1) % exampleCount + 1,
+        areControlsExpanded: state.areControlsExpanded,
+      ),
+    );
   }
 
   void setPreviousExample() async {
@@ -19,5 +24,14 @@ class PlaygroundCubit extends Cubit<PlaygroundState> {
 
   void setNextExample() async {
     setExample(state.example + 1);
+  }
+
+  void toggleControls() async {
+    emit(
+      PlaygroundState(
+        example: state.example,
+        areControlsExpanded: !state.areControlsExpanded,
+      ),
+    );
   }
 }

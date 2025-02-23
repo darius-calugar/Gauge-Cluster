@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -6,12 +8,30 @@ part 'car_state.dart';
 class CarCubit extends Cubit<CarState> {
   CarCubit() : super(CarState.initial());
 
+  void setMaxSpeed(double maxSpeed) async {
+    emit(state.copyWith(maxSpeed: maxSpeed, speed: min(state.speed, maxSpeed)));
+  }
+
   void setSpeed(double speed) async {
     emit(state.copyWith(speed: speed));
   }
 
+  void setMaxRevs(double maxRevs) async {
+    emit(
+      state.copyWith(
+        maxRevs: maxRevs,
+        revs: min(state.revs, maxRevs),
+        redline: min(state.redline, maxRevs),
+      ),
+    );
+  }
+
   void setRevs(double revs) async {
     emit(state.copyWith(revs: revs));
+  }
+
+  void setRedline(double redline) async {
+    emit(state.copyWith(redline: redline));
   }
 
   void setMileage(int mileage) async {
