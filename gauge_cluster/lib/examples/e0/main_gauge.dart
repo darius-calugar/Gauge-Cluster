@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gauge_cluster/components/gauge/gauge.dart';
+import 'package:gauge_cluster/utils/math.dart';
 
 class E0MainGauge extends StatelessWidget {
   const E0MainGauge({super.key});
@@ -22,8 +23,8 @@ class E0MainGauge extends StatelessWidget {
                 innerInset: v * vStep,
                 thickness: vStep + 1,
               ),
-              startAngle: 0,
-              sweepAngle: 360,
+              startAngle: 0.deg,
+              sweepAngle: 360.deg,
               gradient: SweepGradient(
                 colors: [
                   Color.fromARGB(

@@ -1,10 +1,9 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gauge_cluster/utils/app_colors.dart';
 import 'package:gauge_cluster/blocs/car/car_cubit.dart';
 import 'package:gauge_cluster/components/gauge/gauge.dart';
+import 'package:gauge_cluster/utils/math.dart';
 
 class E1RevGauge extends StatelessWidget {
   const E1RevGauge({super.key});
@@ -14,8 +13,8 @@ class E1RevGauge extends StatelessWidget {
   Widget build(BuildContext context) {
     final carState = context.watch<CarCubit>().state;
 
-    final visibleStartAngle = -210.0;
-    final visibleEndAngle = -55.0;
+    final visibleStartAngle = -210.0.deg;
+    final visibleEndAngle = -55.0.deg;
     final visibleSweepAngle = visibleEndAngle - visibleStartAngle;
 
     final steps = (carState.maxRevs ~/ 100) + 1;
@@ -30,7 +29,7 @@ class E1RevGauge extends StatelessWidget {
           // RPM legend
           GaugeTextFeature(
             position: GaugeFeaturePointPosition(outerInset: 100),
-            angle: -90,
+            angle: Angle.up,
             keepRotation: true,
             text: 'RPM x 1000',
             style: TextStyle(
@@ -70,8 +69,8 @@ class E1RevGauge extends StatelessWidget {
                     outerInset: 30,
                     thickness: 2,
                   ),
-                  startAngle: visibleStartAngle + stepAngleSweep * step + 2,
-                  sweepAngle: stepAngleSweep * 10 - 4,
+                  startAngle: visibleStartAngle + stepAngleSweep * step + 2.deg,
+                  sweepAngle: stepAngleSweep * 10 - 4.deg,
                   color: AppColors.white1,
                 )
               else if (step < steps - 1)
@@ -111,7 +110,7 @@ class E1RevGauge extends StatelessWidget {
           for (var gear = carState.minGears; gear <= carState.maxGears; gear++)
             GaugeTextFeature(
               position: GaugeFeaturePointPosition(outerInset: 15),
-              angle: 145 + 8 * (gear + 1),
+              angle: 145.deg + 8.deg * (gear + 1),
               keepRotation: true,
               text: switch (gear) {
                 < 0 => 'R',
@@ -132,12 +131,11 @@ class E1RevGauge extends StatelessWidget {
           // Pin
           GaugeBoxFeature(
             position: GaugeFeatureSectorPosition(outerInset: 40),
-            angle:
-                lerpDouble(
-                  visibleStartAngle,
-                  visibleEndAngle,
-                  carState.revsProgress,
-                )!,
+            angle: Angle.lerp(
+              visibleStartAngle,
+              visibleEndAngle,
+              carState.revsProgress,
+            ),
             width: 3,
             color: AppColors.red1,
           ),

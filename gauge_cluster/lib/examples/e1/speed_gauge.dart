@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gauge_cluster/utils/app_colors.dart';
@@ -7,6 +5,7 @@ import 'package:gauge_cluster/blocs/car/car_cubit.dart';
 import 'package:gauge_cluster/components/gauge/gauge.dart';
 import 'package:gauge_cluster/components/mileage/mileage.dart';
 import 'package:gauge_cluster/utils/conversions.dart';
+import 'package:gauge_cluster/utils/math.dart';
 
 class E1SpeedGauge extends StatelessWidget {
   const E1SpeedGauge({super.key});
@@ -18,8 +17,8 @@ class E1SpeedGauge extends StatelessWidget {
   Widget build(BuildContext context) {
     final carState = context.watch<CarCubit>().state;
 
-    final visibleStartAngle = -180.0;
-    final visibleEndAngle = 30.0;
+    final visibleStartAngle = -180.0.deg;
+    final visibleEndAngle = 30.0.deg;
     final visibleSweepAngle = visibleEndAngle - visibleStartAngle;
 
     final outerSteps = carState.maxSpeed ~/ 2 + 1;
@@ -35,7 +34,7 @@ class E1SpeedGauge extends StatelessWidget {
           // KMH
           GaugeTextFeature(
             position: GaugeFeaturePointPosition(outerInset: 45),
-            angle: visibleEndAngle + 10,
+            angle: visibleEndAngle + 10.deg,
             keepRotation: true,
             text: 'KM/H',
             style: TextStyle(
@@ -77,8 +76,8 @@ class E1SpeedGauge extends StatelessWidget {
                     thickness: 2,
                   ),
                   startAngle:
-                      visibleStartAngle + step * outerStepAngleSweep + 2,
-                  sweepAngle: outerStepAngleSweep * 10 - 4,
+                      visibleStartAngle + outerStepAngleSweep * step + 2.deg,
+                  sweepAngle: outerStepAngleSweep * 10 - 4.deg,
                   color: AppColors.white1,
                 ),
             ] else if (step % 5 == 0)
@@ -107,7 +106,7 @@ class E1SpeedGauge extends StatelessWidget {
           // MPH
           GaugeTextFeature(
             position: GaugeFeaturePointPosition(outerInset: 100),
-            angle: visibleEndAngle + 10,
+            angle: visibleEndAngle + 10.deg,
             keepRotation: true,
             text: 'MPH',
             style: TextStyle(
@@ -155,7 +154,7 @@ class E1SpeedGauge extends StatelessWidget {
           // Mileage
           GaugeCustomFeature(
             position: GaugeFeaturePointPosition(innerInset: 50),
-            angle: 90,
+            angle: Angle.down,
             keepRotation: true,
             builder:
                 (context) => Mileage(value: carState.mileage, digitCount: 6),
@@ -168,12 +167,11 @@ class E1SpeedGauge extends StatelessWidget {
           // Pin
           GaugeBoxFeature(
             position: GaugeFeatureSectorPosition(outerInset: 40),
-            angle:
-                lerpDouble(
-                  visibleStartAngle,
-                  visibleEndAngle,
-                  carState.speedProgress,
-                )!,
+            angle: Angle.lerp(
+              visibleStartAngle,
+              visibleEndAngle,
+              carState.speedProgress,
+            ),
             width: 3,
             color: AppColors.red1,
           ),

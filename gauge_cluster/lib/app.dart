@@ -26,9 +26,7 @@ class App extends StatelessWidget {
           textTheme: Typography.material2021().englishLike.apply(
             fontFamily: 'Tomorrow',
           ),
-        ).copyWith(
-          splashFactory: InkSparkle.splashFactory
-        ),
+        ).copyWith(splashFactory: InkSparkle.splashFactory),
         home: PlaygroundScreen(),
       ),
     );

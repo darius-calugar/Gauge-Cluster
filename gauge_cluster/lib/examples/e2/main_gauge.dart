@@ -15,8 +15,8 @@ class E2MainGauge extends StatelessWidget {
   Widget build(BuildContext context) {
     final carState = context.watch<CarCubit>().state;
 
-    final startAngle = -200.0;
-    final endAngle = 20.0;
+    final startAngle = -200.deg;
+    final endAngle = 20.deg;
     final sweepAngle = endAngle - startAngle;
 
     return SizedBox.square(
@@ -41,16 +41,15 @@ class E2MainGauge extends StatelessWidget {
             startAngle: startAngle,
             sweepAngle: sweepAngle * carState.revsProgress,
             gradient: SweepGradient(
-              transform: GradientRotation(startAngle * toRadians),
-              endAngle: sweepAngle * toRadians,
+              transform: GradientRotation(startAngle),
+              endAngle: sweepAngle,
               colors: [AppColors.yellow1, AppColors.orange1],
             ),
           ),
-          // Steps
           // Speed
           GaugeTextFeature(
             position: GaugeFeaturePointPosition(innerInset: 60),
-            angle: -90,
+            angle: Angle.up,
             keepRotation: true,
             text: '${carState.speed.floor()}',
             style: TextStyle(fontSize: 100, fontWeight: FontWeight.w700),
@@ -58,7 +57,7 @@ class E2MainGauge extends StatelessWidget {
           // KMH
           GaugeTextFeature(
             position: GaugeFeaturePointPosition(innerInset: 0),
-            angle: -90,
+            angle: Angle.up,
             keepRotation: true,
             text: 'KM/H',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
@@ -66,7 +65,7 @@ class E2MainGauge extends StatelessWidget {
           // Time
           GaugeTextFeature(
             position: GaugeFeaturePointPosition(innerInset: 100),
-            angle: 90,
+            angle: Angle.down,
             keepRotation: true,
             text: '13:53',
             style: TextStyle(fontSize: 30, fontWeight: FontWeight.w300),

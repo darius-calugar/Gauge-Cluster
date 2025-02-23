@@ -16,7 +16,7 @@ class GaugeBoxFeature extends GaugeFeature {
 
   @override
   final GaugeFeatureSectorPosition position;
-  final double angle;
+  final Angle angle;
   final double width;
   final Color color;
 }
@@ -26,17 +26,17 @@ class GaugeSliceFeature extends GaugeFeature {
     required this.position,
     this.color,
     this.gradient,
-    this.startAngle = 0,
-    this.sweepAngle = 360,
+    this.startAngle = Angle.zero,
+    this.sweepAngle = Angle.full,
   }) : assert(color == null || gradient == null),
-       assert(sweepAngle >= 0 && sweepAngle <= 360);
+       assert(sweepAngle >= Angle.zero && sweepAngle <= Angle.full);
 
   @override
   final GaugeFeatureSectorPosition position;
   final Color? color;
   final Gradient? gradient;
-  final double startAngle;
-  final double sweepAngle;
+  final Angle startAngle;
+  final Angle sweepAngle;
 }
 
 class GaugeTextFeature extends GaugeFeature {
@@ -50,7 +50,7 @@ class GaugeTextFeature extends GaugeFeature {
 
   @override
   final GaugeFeaturePointPosition position;
-  final double angle;
+  final Angle angle;
   final bool keepRotation;
   final String text;
   final TextStyle? style;
@@ -66,7 +66,7 @@ class GaugeCustomFeature extends GaugeFeature {
 
   @override
   final GaugeFeaturePointPosition position;
-  final double angle;
+  final Angle angle;
   final bool keepRotation;
   final WidgetBuilder builder;
 }

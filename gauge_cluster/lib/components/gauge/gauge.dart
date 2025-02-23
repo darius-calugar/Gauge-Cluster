@@ -66,8 +66,8 @@ class _SliceClipper extends CustomClipper<Path> {
     final position = feature.position.evaluate(radius);
 
     final center = size.center(Offset.zero);
-    final startAngleRadians = feature.startAngle * toRadians;
-    final sweepAngleRadians = feature.sweepAngle * toRadians;
+    final startAngleRadians = feature.startAngle;
+    final sweepAngleRadians = feature.sweepAngle;
     final innerRect = Rect.fromCircle(
       center: center,
       radius: position.innerRadius,
@@ -108,7 +108,7 @@ class _BoxFeatureWidget extends StatelessWidget {
         transform:
             Matrix4.identity()
               ..translate(size.width / 2, size.height / 2, 0)
-              ..rotateZ(feature.angle * toRadians)
+              ..rotateZ(feature.angle)
               ..translate(position.innerInset, -size.height / 2, 0),
       ),
     );
@@ -155,9 +155,9 @@ class _TextFeatureWidget extends StatelessWidget {
       alignment: Alignment.center,
       transform:
           Matrix4.identity()
-            ..rotateZ(feature.angle * toRadians)
+            ..rotateZ(feature.angle)
             ..translate((position.innerInset + position.outerRadius) / 2, 0, 0)
-            ..rotateZ((feature.keepRotation ? -feature.angle : 90) * toRadians),
+            ..rotateZ(feature.keepRotation ? -feature.angle : 90.deg),
       child: OverflowBox(
         maxHeight: double.infinity,
         maxWidth: double.infinity,
@@ -183,9 +183,9 @@ class _CustomFeatureWidget extends StatelessWidget {
       alignment: Alignment.center,
       transform:
           Matrix4.identity()
-            ..rotateZ(feature.angle * toRadians)
+            ..rotateZ(feature.angle)
             ..translate((position.innerInset + position.outerRadius) / 2, 0, 0)
-            ..rotateZ((feature.keepRotation ? -feature.angle : 90) * toRadians),
+            ..rotateZ(feature.keepRotation ? -feature.angle : 90.deg),
       child: OverflowBox(
         maxHeight: double.infinity,
         maxWidth: double.infinity,
