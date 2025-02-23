@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:gauge_cluster/utils/math.dart';
+import 'package:gauge_cluster/utils/math/angle_math.dart';
 
 part 'gauge_feature_position.dart';
 part 'gauge_feature.dart';
@@ -80,7 +80,7 @@ class _SliceClipper extends CustomClipper<Path> {
     final innerPath = Path()..addOval(innerRect);
     final outerPath =
         Path()
-          ..addArc(outerRect, startAngleRadians, sweepAngleRadians)
+          ..addArc(outerRect, startAngleRadians.toRad, sweepAngleRadians.toRad)
           ..lineTo(center.dx, center.dy);
 
     return Path.combine(PathOperation.difference, outerPath, innerPath);
@@ -108,7 +108,7 @@ class _BoxFeatureWidget extends StatelessWidget {
         transform:
             Matrix4.identity()
               ..translate(size.width / 2, size.height / 2, 0)
-              ..rotateZ(feature.angle)
+              ..rotateZ(feature.angle.toRad)
               ..translate(position.innerInset, -size.height / 2, 0),
       ),
     );
@@ -155,9 +155,9 @@ class _TextFeatureWidget extends StatelessWidget {
       alignment: Alignment.center,
       transform:
           Matrix4.identity()
-            ..rotateZ(feature.angle)
+            ..rotateZ(feature.angle.toRad)
             ..translate((position.innerInset + position.outerRadius) / 2, 0, 0)
-            ..rotateZ(feature.keepRotation ? -feature.angle : 90.deg),
+            ..rotateZ(feature.keepRotation ? -feature.angle.toRad : 90.deg.toRad),
       child: OverflowBox(
         maxHeight: double.infinity,
         maxWidth: double.infinity,
@@ -183,9 +183,9 @@ class _CustomFeatureWidget extends StatelessWidget {
       alignment: Alignment.center,
       transform:
           Matrix4.identity()
-            ..rotateZ(feature.angle)
+            ..rotateZ(feature.angle.toRad)
             ..translate((position.innerInset + position.outerRadius) / 2, 0, 0)
-            ..rotateZ(feature.keepRotation ? -feature.angle : 90.deg),
+            ..rotateZ(feature.keepRotation ? -feature.angle.toRad : 90.deg.toRad),
       child: OverflowBox(
         maxHeight: double.infinity,
         maxWidth: double.infinity,

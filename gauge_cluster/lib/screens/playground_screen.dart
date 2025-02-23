@@ -7,6 +7,9 @@ import 'package:gauge_cluster/examples/e0/gauge_cluster.dart';
 import 'package:gauge_cluster/examples/e1/gauge_cluster.dart';
 import 'package:gauge_cluster/examples/e2/gauge_cluster.dart';
 import 'package:gauge_cluster/utils/assets.dart';
+import 'package:gauge_cluster/utils/math/distance_math.dart';
+import 'package:gauge_cluster/utils/math/rot_freq_math.dart';
+import 'package:gauge_cluster/utils/math/speed_math.dart';
 
 class PlaygroundScreen extends StatefulWidget {
   const PlaygroundScreen({super.key});
@@ -114,48 +117,61 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
                               children: [
                                 _Slider(
                                   name: 'Max Speed (km/h)',
-                                  min: 20,
-                                  max: 400,
+                                  min: Speed.unit.toKmh,
+                                  max: Speed.unit.toKmh * 20,
                                   divisions: 19,
-                                  value: carCubit.state.maxSpeed,
-                                  onChanged: carCubit.setMaxSpeed,
+                                  value: carCubit.state.maxSpeed.toKmh,
+                                  onChanged:
+                                      (value) =>
+                                          carCubit.setMaxSpeed(value.kmh),
                                 ),
                                 _Slider(
                                   name: 'Speed (km/h)',
-                                  max: carCubit.state.maxSpeed,
-                                  value: carCubit.state.speed,
-                                  onChanged: carCubit.setSpeed,
+                                  min: 0,
+                                  max: carCubit.state.maxSpeed.toKmh,
+                                  value: carCubit.state.speed.toKmh,
+                                  onChanged:
+                                      (value) => carCubit.setSpeed(value.kmh),
                                 ),
                                 SizedBox(height: 16),
                                 _Slider(
                                   name: 'Max Revs (rpm)',
-                                  min: 1000,
-                                  max: 12000,
+                                  min: RotFreq.unit.toRpm,
+                                  max: RotFreq.unit.toRpm * 12,
                                   divisions: 11,
-                                  value: carCubit.state.maxRevs,
-                                  onChanged: carCubit.setMaxRevs,
+                                  value: carCubit.state.maxRevs.toRpm,
+                                  onChanged:
+                                      (value) => carCubit.setMaxRevs(value.rpm),
                                 ),
                                 _Slider(
                                   name: 'Redline (rpm)',
-                                  max: carCubit.state.maxRevs,
-                                  divisions: carCubit.state.maxRevs ~/ 1000,
-                                  value: carCubit.state.redline,
-                                  onChanged: carCubit.setRedline,
+                                  min: RotFreq.unit.toRpm,
+                                  max: carCubit.state.maxRevs.toRpm,
+                                  divisions:
+                                      RotFreq.ratio(
+                                        carCubit.state.maxRevs,
+                                        RotFreq.unit,
+                                      ).floor(),
+                                  value: carCubit.state.redline.toRpm,
+                                  onChanged:
+                                      (value) => carCubit.setRedline(value.rpm),
                                 ),
                                 _Slider(
                                   name: 'Revs (rpm)',
-                                  max: carCubit.state.maxRevs,
-                                  value: carCubit.state.revs,
-                                  onChanged: carCubit.setRevs,
+                                  min: 0.0,
+                                  max: carCubit.state.maxRevs.toRpm,
+                                  value: carCubit.state.revs.toRpm,
+                                  onChanged:
+                                      (value) => carCubit.setRevs(value.rpm),
                                 ),
                                 SizedBox(height: 16),
                                 _Slider(
                                   name: 'Mileage (km)',
+                                  min: 0,
                                   max: 999999,
-                                  value: carCubit.state.mileage.toDouble(),
+                                  value: carCubit.state.mileage.toKm,
                                   onChanged:
-                                      (mileage) =>
-                                          carCubit.setMileage(mileage.round()),
+                                      (value) => carCubit.setMileage(value.km),
                                 ),
                                 _Slider(
                                   name: 'Gear',
@@ -170,11 +186,15 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
                                 ),
                                 _Slider(
                                   name: 'Fuel',
+                                  min: 0.0,
+                                  max: 1.0,
                                   value: carCubit.state.fuel,
                                   onChanged: carCubit.setFuel,
                                 ),
                                 _Slider(
                                   name: 'Temperature',
+                                  min: 0.0,
+                                  max: 1.0,
                                   value: carCubit.state.temperature,
                                   onChanged: carCubit.setTemperature,
                                 ),
@@ -243,8 +263,8 @@ class _Slider extends StatelessWidget {
   const _Slider({
     required this.name,
     required this.value,
-    this.min = 0,
-    this.max = 1,
+    required this.min,
+    required this.max,
     this.divisions,
     this.onChanged,
   });

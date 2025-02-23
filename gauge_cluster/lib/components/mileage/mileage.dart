@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:gauge_cluster/utils/app_colors.dart';
+import 'package:gauge_cluster/utils/math/distance_math.dart';
 
 part 'mileage_digit.dart';
 
 class Mileage extends StatelessWidget {
-  const Mileage({super.key, required this.value, required this.digitCount});
+  const Mileage({super.key, required this.distance, required this.digitCount});
 
-  final int value;
+  final Distance distance;
   final int digitCount;
 
   @override
@@ -14,7 +15,7 @@ class Mileage extends StatelessWidget {
     final digits =
         [
           for (
-            var i = 0, loopValue = value;
+            var i = 0, loopValue = distance.toKm.toInt();
             i < digitCount;
             i++, loopValue ~/= 10
           )

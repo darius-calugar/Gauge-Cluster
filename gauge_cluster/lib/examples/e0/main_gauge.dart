@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gauge_cluster/components/gauge/gauge.dart';
-import 'package:gauge_cluster/utils/math.dart';
+import 'package:gauge_cluster/utils/math/angle_math.dart';
 
 class E0MainGauge extends StatelessWidget {
   const E0MainGauge({super.key});

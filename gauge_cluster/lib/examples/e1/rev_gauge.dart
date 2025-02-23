@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gauge_cluster/utils/app_colors.dart';
 import 'package:gauge_cluster/blocs/car/car_cubit.dart';
 import 'package:gauge_cluster/components/gauge/gauge.dart';
-import 'package:gauge_cluster/utils/math.dart';
+import 'package:gauge_cluster/utils/math/angle_math.dart';
 
 class E1RevGauge extends StatelessWidget {
   const E1RevGauge({super.key});
@@ -17,9 +17,9 @@ class E1RevGauge extends StatelessWidget {
     final visibleEndAngle = -55.0.deg;
     final visibleSweepAngle = visibleEndAngle - visibleStartAngle;
 
-    final steps = (carState.maxRevs ~/ 100) + 1;
+    final steps = (carState.maxRevs.toRpm ~/ 100) + 1;
     final stepAngleSweep = visibleSweepAngle / (steps - 1);
-    final redlineStep = carState.redline ~/ 100;
+    final redlineStep = carState.redline.toRpm ~/ 100;
     final redlineStepSnapped = (redlineStep / 10).round() * 10;
 
     return SizedBox.square(

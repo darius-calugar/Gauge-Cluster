@@ -22,12 +22,12 @@ class CarState extends Equatable {
   });
 
   const CarState.initial()
-    : maxSpeed = 260,
-      speed = 0,
-      maxRevs = 7000,
-      revs = 0,
-      redline = 5000,
-      mileage = 0,
+    : maxSpeed = const Speed.fromKmh(260),
+      speed = Speed.zero,
+      maxRevs = const RotFreq.fromRpm(7000),
+      revs = RotFreq.zero,
+      redline = const RotFreq.fromRpm(5000),
+      mileage = Distance.zero,
       gear = 0,
       fuel = 1,
       temperature = 0.5,
@@ -43,12 +43,12 @@ class CarState extends Equatable {
   final int minGears = -1;
   final int maxGears = 6;
 
-  final double maxSpeed;
-  final double speed;
-  final double maxRevs;
-  final double revs;
-  final double redline;
-  final int mileage;
+  final Speed maxSpeed;
+  final Speed speed;
+  final RotFreq maxRevs;
+  final RotFreq revs;
+  final RotFreq redline;
+  final Distance mileage;
   final int gear;
   final double fuel;
   final double temperature;
@@ -61,18 +61,18 @@ class CarState extends Equatable {
   final bool engineSignal;
   final bool serviceSignal;
 
-  double get speedProgress => speed / maxSpeed;
-  double get revsProgress => revs / maxRevs;
+  double get speedProgress => Speed.ratio(speed, maxSpeed);
+  double get revsProgress => RotFreq.ratio(revs, maxRevs);
   bool get fuelSignal => fuel < .1;
   bool get temperatureSignal => temperature > .9;
 
   CarState copyWith({
-    double? maxSpeed,
-    double? speed,
-    double? maxRevs,
-    double? revs,
-    double? redline,
-    int? mileage,
+    Speed? maxSpeed,
+    Speed? speed,
+    RotFreq? maxRevs,
+    RotFreq? revs,
+    RotFreq? redline,
+    Distance? mileage,
     int? gear,
     double? fuel,
     double? temperature,

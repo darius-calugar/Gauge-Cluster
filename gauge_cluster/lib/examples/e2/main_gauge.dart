@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gauge_cluster/utils/app_colors.dart';
 import 'package:gauge_cluster/blocs/car/car_cubit.dart';
 import 'package:gauge_cluster/components/gauge/gauge.dart';
-import 'package:gauge_cluster/utils/math.dart';
+import 'package:gauge_cluster/utils/math/angle_math.dart';
 
 class E2MainGauge extends StatelessWidget {
   const E2MainGauge({super.key});
@@ -41,8 +41,8 @@ class E2MainGauge extends StatelessWidget {
             startAngle: startAngle,
             sweepAngle: sweepAngle * carState.revsProgress,
             gradient: SweepGradient(
-              transform: GradientRotation(startAngle),
-              endAngle: sweepAngle,
+              transform: GradientRotation(startAngle.toRad),
+              endAngle: sweepAngle.toRad,
               colors: [AppColors.yellow1, AppColors.orange1],
             ),
           ),
@@ -51,7 +51,7 @@ class E2MainGauge extends StatelessWidget {
             position: GaugeFeaturePointPosition(innerInset: 60),
             angle: Angle.up,
             keepRotation: true,
-            text: '${carState.speed.floor()}',
+            text: '${carState.speed.toKmh.floor()}',
             style: TextStyle(fontSize: 100, fontWeight: FontWeight.w700),
           ),
           // KMH

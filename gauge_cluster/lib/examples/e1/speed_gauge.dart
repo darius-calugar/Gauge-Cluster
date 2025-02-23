@@ -4,8 +4,7 @@ import 'package:gauge_cluster/utils/app_colors.dart';
 import 'package:gauge_cluster/blocs/car/car_cubit.dart';
 import 'package:gauge_cluster/components/gauge/gauge.dart';
 import 'package:gauge_cluster/components/mileage/mileage.dart';
-import 'package:gauge_cluster/utils/conversions.dart';
-import 'package:gauge_cluster/utils/math.dart';
+import 'package:gauge_cluster/utils/math/angle_math.dart';
 
 class E1SpeedGauge extends StatelessWidget {
   const E1SpeedGauge({super.key});
@@ -21,10 +20,10 @@ class E1SpeedGauge extends StatelessWidget {
     final visibleEndAngle = 30.0.deg;
     final visibleSweepAngle = visibleEndAngle - visibleStartAngle;
 
-    final outerSteps = carState.maxSpeed ~/ 2 + 1;
+    final outerSteps = carState.maxSpeed.toKmh ~/ 2 + 1;
     final outerStepAngleSweep = visibleSweepAngle / (outerSteps - 1);
 
-    final innerSteps = carState.maxSpeed.kmhToMph ~/ 10 + 1;
+    final innerSteps = carState.maxSpeed.toMph ~/ 10 + 1;
     final innerStepAngleSweep = visibleSweepAngle / (innerSteps - 1);
 
     return SizedBox.square(
@@ -157,7 +156,7 @@ class E1SpeedGauge extends StatelessWidget {
             angle: Angle.down,
             keepRotation: true,
             builder:
-                (context) => Mileage(value: carState.mileage, digitCount: 6),
+                (context) => Mileage(distance: carState.mileage, digitCount: 6),
           ),
           // Knob base
           GaugeSliceFeature(
