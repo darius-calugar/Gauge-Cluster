@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gauge_cluster/utils/app_colors.dart';
-import 'package:gauge_cluster/examples/e2/main_gauge.dart';
+import 'package:gauge_cluster/examples/e0/main_gauge.dart';
 
-class E2GaugeCluster extends StatelessWidget {
-  const E2GaugeCluster({super.key});
+class E0GaugeCluster extends StatelessWidget {
+  const E0GaugeCluster({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class E2GaugeCluster extends StatelessWidget {
           shape: BoxShape.circle,
           color: AppColors.black1,
         ),
-        child: Stack(children: [Center(child: E2MainGauge())]),
+        child: Stack(children: [Center(child: E0MainGauge())]),
       ),
     );
   }

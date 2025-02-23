@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gauge_cluster/blocs/car/car_cubit.dart';
 import 'package:gauge_cluster/blocs/playground/playground_cubit.dart';
 import 'package:gauge_cluster/components/svg_icon/svg_icon.dart';
+import 'package:gauge_cluster/examples/e0/gauge_cluster.dart';
 import 'package:gauge_cluster/examples/e1/gauge_cluster.dart';
 import 'package:gauge_cluster/examples/e2/gauge_cluster.dart';
 import 'package:gauge_cluster/utils/assets.dart';
@@ -58,6 +59,7 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
                                   child: child,
                                 ),
                             child: switch (playgroundCubit.state) {
+                              PlaygroundState(example: 0) => E0GaugeCluster(),
                               PlaygroundState(example: 1) => E1GaugeCluster(),
                               PlaygroundState(example: 2) => E2GaugeCluster(),
                               _ => SizedBox.shrink(),

@@ -12,7 +12,7 @@ class PlaygroundCubit extends Cubit<PlaygroundState> {
   void setExample(int example) async {
     emit(
       PlaygroundState(
-        example: (example - 1) % exampleCount + 1,
+        example: example % exampleCount,
         areControlsExpanded: state.areControlsExpanded,
       ),
     );

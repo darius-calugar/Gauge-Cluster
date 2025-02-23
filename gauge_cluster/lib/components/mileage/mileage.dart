@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gauge_cluster/app_colors.dart';
+import 'package:gauge_cluster/utils/app_colors.dart';
 
 part 'mileage_digit.dart';
 

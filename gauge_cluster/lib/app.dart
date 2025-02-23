@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gauge_cluster/app_colors.dart';
+import 'package:gauge_cluster/utils/app_colors.dart';
 import 'package:gauge_cluster/blocs/car/car_cubit.dart';
 import 'package:gauge_cluster/blocs/playground/playground_cubit.dart';
 import 'package:gauge_cluster/screens/playground_screen.dart';
@@ -14,7 +14,7 @@ class App extends StatelessWidget {
     return MultiProvider(
       providers: [
         BlocProvider(create: (_) => CarCubit()),
-        BlocProvider(create: (_) => PlaygroundCubit(exampleCount: 2)),
+        BlocProvider(create: (_) => PlaygroundCubit(exampleCount: 3)),
       ],
       child: MaterialApp(
         theme: ThemeData.from(
