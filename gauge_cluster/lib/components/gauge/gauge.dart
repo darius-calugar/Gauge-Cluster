@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:gauge_cluster/utils/math/angle_math.dart';
+import 'package:gauge_cluster/utils/math/units/angle.dart';
 
 part 'gauge_feature_position.dart';
 part 'gauge_feature.dart';

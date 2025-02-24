@@ -5,8 +5,8 @@ import 'package:gauge_cluster/examples/e2/gear_bar.dart';
 import 'package:gauge_cluster/utils/app_colors.dart';
 import 'package:gauge_cluster/blocs/car/car_cubit.dart';
 import 'package:gauge_cluster/components/gauge/gauge.dart';
-import 'package:gauge_cluster/utils/math/angle_math.dart';
-import 'package:gauge_cluster/utils/math/rot_freq_math.dart';
+import 'package:gauge_cluster/utils/math/units/angle.dart';
+import 'package:gauge_cluster/utils/math/units/rot_freq.dart';
 
 class E2MainGauge extends StatelessWidget {
   const E2MainGauge({super.key});

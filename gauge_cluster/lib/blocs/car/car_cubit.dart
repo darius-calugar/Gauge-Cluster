@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gauge_cluster/utils/math/distance_math.dart';
-import 'package:gauge_cluster/utils/math/rot_freq_math.dart';
-import 'package:gauge_cluster/utils/math/speed_math.dart';
+import 'package:gauge_cluster/utils/math/units/distance.dart';
+import 'package:gauge_cluster/utils/math/units/rot_freq.dart';
+import 'package:gauge_cluster/utils/math/units/speed.dart';
 
 part 'car_state.dart';
 

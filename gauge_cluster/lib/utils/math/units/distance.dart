@@ -32,7 +32,7 @@ extension type const Distance._(double _km) {
   double get toMi => _km / _kmhToMphFactor;
 }
 
-extension DistanceMathUtils on num {
+extension DistanceUtils on num {
   Distance get km => Distance.fromKm(toDouble());
   Distance get mi => Distance.fromMi(toDouble());
 }

@@ -4,7 +4,7 @@ import 'package:gauge_cluster/utils/app_colors.dart';
 import 'package:gauge_cluster/blocs/car/car_cubit.dart';
 import 'package:gauge_cluster/components/gauge/gauge.dart';
 import 'package:gauge_cluster/components/mileage/mileage.dart';
-import 'package:gauge_cluster/utils/math/angle_math.dart';
+import 'package:gauge_cluster/utils/math/units/angle.dart';
 
 class E1SpeedGauge extends StatelessWidget {
   const E1SpeedGauge({super.key});

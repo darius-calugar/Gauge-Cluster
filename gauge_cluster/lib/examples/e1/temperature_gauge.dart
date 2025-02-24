@@ -5,7 +5,7 @@ import 'package:gauge_cluster/blocs/car/car_cubit.dart';
 import 'package:gauge_cluster/components/gauge/gauge.dart';
 import 'package:gauge_cluster/components/svg_icon/svg_icon.dart';
 import 'package:gauge_cluster/utils/assets.dart';
-import 'package:gauge_cluster/utils/math/angle_math.dart';
+import 'package:gauge_cluster/utils/math/units/angle.dart';
 
 class E1TemperatureGauge extends StatelessWidget {
   const E1TemperatureGauge({super.key});

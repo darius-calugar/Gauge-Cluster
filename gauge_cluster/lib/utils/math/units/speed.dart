@@ -32,7 +32,7 @@ extension type const Speed._(double _kmh) {
   double get toMph => _kmh / _kmhToMphFactor;
 }
 
-extension SpeedMathUtils on num {
+extension SpeedUtils on num {
   Speed get kmh => Speed.fromKmh(toDouble());
   Speed get mph => Speed.fromMph(toDouble());
 }

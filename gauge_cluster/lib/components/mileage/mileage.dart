@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gauge_cluster/utils/app_colors.dart';
-import 'package:gauge_cluster/utils/math/distance_math.dart';
+import 'package:gauge_cluster/utils/math/units/distance.dart';
 
 part 'mileage_digit.dart';
 

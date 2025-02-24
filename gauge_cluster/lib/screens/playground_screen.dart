@@ -5,13 +5,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gauge_cluster/blocs/car/car_cubit.dart';
 import 'package:gauge_cluster/blocs/playground/playground_cubit.dart';
 import 'package:gauge_cluster/components/svg_icon/svg_icon.dart';
-import 'package:gauge_cluster/examples/e0/gauge_cluster.dart';
+import 'package:gauge_cluster/examples/e0_v2/gauge_cluster.dart';
 import 'package:gauge_cluster/examples/e1/gauge_cluster.dart';
 import 'package:gauge_cluster/examples/e2/gauge_cluster.dart';
 import 'package:gauge_cluster/utils/assets.dart';
-import 'package:gauge_cluster/utils/math/distance_math.dart';
-import 'package:gauge_cluster/utils/math/rot_freq_math.dart';
-import 'package:gauge_cluster/utils/math/speed_math.dart';
+import 'package:gauge_cluster/utils/math/units/distance.dart';
+import 'package:gauge_cluster/utils/math/units/rot_freq.dart';
+import 'package:gauge_cluster/utils/math/units/speed.dart';
 
 class PlaygroundScreen extends StatefulWidget {
   const PlaygroundScreen({super.key});

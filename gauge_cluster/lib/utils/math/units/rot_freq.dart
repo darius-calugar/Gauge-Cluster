@@ -28,6 +28,6 @@ extension type const RotFreq._(double _rpm) {
   double get toRpm => _rpm;
 }
 
-extension RotFreqMathUtils on num {
+extension RotFreqUtils on num {
   RotFreq get rpm => RotFreq.fromRpm(toDouble());
 }
