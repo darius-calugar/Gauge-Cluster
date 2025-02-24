@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gauge_cluster/examples/e2/gear_bar.dart';
 import 'package:gauge_cluster/utils/app_colors.dart';
 import 'package:gauge_cluster/blocs/car/car_cubit.dart';
 import 'package:gauge_cluster/components/gauge/gauge.dart';
@@ -48,6 +50,14 @@ class E2MainGauge extends StatelessWidget {
         features: [
           // Backgrounds
           GaugeSliceFeature(
+            position: GaugeFeatureSectorPosition(thickness: 200),
+            gradient: RadialGradient(
+              transform: GradientRotation(startAngle.toRad),
+              colors: [AppColors.black2, AppColors.black1],
+              stops: [0.8, 1.0],
+            ),
+          ),
+          GaugeSliceFeature(
             position: GaugeFeatureSectorPosition(
               outerInset: 120,
               thickness: 80,
@@ -63,7 +73,7 @@ class E2MainGauge extends StatelessWidget {
             gradient: RadialGradient(
               transform: GradientRotation(startAngle.toRad),
               colors: [AppColors.black3, AppColors.black2],
-              stops: [0.75, 1.0],
+              stops: [0.8, 1.0],
             ),
           ),
           GaugeSliceFeature(
@@ -73,7 +83,7 @@ class E2MainGauge extends StatelessWidget {
             gradient: RadialGradient(
               transform: GradientRotation(startAngle.toRad),
               colors: [AppColors.red3, AppColors.red5],
-              stops: [0.75, 1.0],
+              stops: [0.8, 1.0],
             ),
           ),
           GaugeSliceFeature(
@@ -83,16 +93,19 @@ class E2MainGauge extends StatelessWidget {
             gradient: RadialGradient(
               transform: GradientRotation(startAngle.toRad),
               colors: [primaryColor, secondaryColor],
-              stops: [0.75, 1.0],
+              stops: [0.8, 1.0],
             ),
           ),
           // Outline
           GaugeSliceFeature(
-            position: GaugeFeatureSectorPosition(outerInset: 80, thickness: 2),
+            position: GaugeFeatureSectorPosition(
+              outerInset: 80 - 4,
+              thickness: 4,
+            ),
             color: AppColors.white2,
           ),
           GaugeSliceFeature(
-            position: GaugeFeatureSectorPosition(outerInset: 120, thickness: 1),
+            position: GaugeFeatureSectorPosition(outerInset: 120, thickness: 2),
             color: AppColors.white2,
           ),
           GaugeSliceFeature(
@@ -153,17 +166,19 @@ class E2MainGauge extends StatelessWidget {
                         ? AppColors.white3
                         : AppColors.red3,
               ),
-          // Revs
+          // Marker
           GaugeSliceFeature(
-            position: GaugeFeatureSectorPosition(outerInset: 116, thickness: 5),
+            position: GaugeFeatureSectorPosition(
+              outerInset: 120 - 4,
+              thickness: 6,
+            ),
             startAngle: startAngle,
             sweepAngle: sweepAngle * carState.revsRatio,
             color: primaryColor,
           ),
-          // Rev Marker
           GaugeBoxFeature(
-            position: GaugeFeatureSectorPosition(outerInset: 80, thickness: 40),
-            width: 4,
+            position: GaugeFeatureSectorPosition(outerInset: 80, thickness: 42),
+            width: 6,
             angle: startAngle + sweepAngle * carState.revsRatio,
             color: primaryColor,
           ),
@@ -183,12 +198,34 @@ class E2MainGauge extends StatelessWidget {
             text: 'KM/H',
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
           ),
-          // Time
-          GaugeTextFeature(
-            position: GaugeFeaturePointPosition(innerInset: 100),
+          // Gear
+          GaugeCustomFeature(
+            position: GaugeFeaturePointPosition(innerInset: 80),
             angle: Angle.down,
             keepRotation: true,
-            text: '13:53',
+            builder: (context) => E2GearBar(),
+          ),
+          // Mileage
+          GaugeTextFeature(
+            position: GaugeFeaturePointPosition(innerInset: 300),
+            angle: Angle.down,
+            keepRotation: true,
+            text: '${carState.mileage.toKm.floor()}',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w200),
+          ),
+          GaugeTextFeature(
+            position: GaugeFeaturePointPosition(innerInset: 320),
+            angle: Angle.down,
+            keepRotation: true,
+            text: 'KM',
+            style: TextStyle(fontSize: 12, fontWeight: FontWeight.w200),
+          ),
+          // Time
+          GaugeTextFeature(
+            position: GaugeFeaturePointPosition(innerInset: 230),
+            angle: Angle.down,
+            keepRotation: true,
+            text: DateFormat('HH:mm').format(DateTime.now()),
             style: TextStyle(fontSize: 30, fontWeight: FontWeight.w300),
           ),
         ],
