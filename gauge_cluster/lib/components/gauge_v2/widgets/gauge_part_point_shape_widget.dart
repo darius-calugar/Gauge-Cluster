@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:gauge_cluster/components/gauge_v2/gauge.dart';
+import 'package:gauge_cluster/utils/math/units/angle.dart';
 
 class GaugePartPointShapeWidget extends StatelessWidget {
   const GaugePartPointShapeWidget({
@@ -20,8 +21,15 @@ class GaugePartPointShapeWidget extends StatelessWidget {
 
     return Positioned(
       left: circleRadius + point.radius * point.angle.cos,
-      top: circleRadius - point.radius * point.angle.sin,
-      child: SizedOverflowBox(size: Size.zero, child: part.child),
+      top: circleRadius + point.radius * point.angle.sin,
+      child: SizedOverflowBox(
+        size: Size.zero,
+        child: Transform.rotate(
+          angle:
+              part.isRotated ? (Angle.quarter + point.angle).toRad : 0,
+          child: part.child,
+        ),
+      ),
     );
   }
 }

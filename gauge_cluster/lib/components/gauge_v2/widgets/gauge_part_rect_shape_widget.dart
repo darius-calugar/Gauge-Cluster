@@ -4,6 +4,7 @@ import 'package:gauge_cluster/components/gauge_v2/models/gauge_part_fill.dart';
 import 'package:gauge_cluster/components/gauge_v2/models/gauge_part_shape.dart';
 import 'package:gauge_cluster/utils/math/circle/circle.dart';
 import 'package:gauge_cluster/utils/math/circle/circle_line.dart';
+import 'package:gauge_cluster/utils/math/units/angle.dart';
 
 class GaugePartRectShapeWidget extends StatelessWidget {
   const GaugePartRectShapeWidget({
@@ -33,7 +34,16 @@ class GaugePartRectShapeWidget extends StatelessWidget {
               Positioned(
                 left: circleRadius + rect.center.offset.dx,
                 top: circleRadius + rect.center.offset.dy,
-                child: SizedOverflowBox(size: Size.zero, child: part.child),
+                child: SizedOverflowBox(
+                  size: Size.zero,
+                  child: Transform.rotate(
+                    angle:
+                        part.isRotated
+                            ? (Angle.quarter + rect.center.angle).toRad
+                            : 0,
+                    child: part.child,
+                  ),
+                ),
               ),
             ],
           ),

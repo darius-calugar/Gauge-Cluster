@@ -35,7 +35,16 @@ class GaugePartSectorShapeWidget extends StatelessWidget {
               Positioned(
                 left: circleRadius + sector.center.offset.dx,
                 top: circleRadius + sector.center.offset.dy,
-                child: SizedOverflowBox(size: Size.zero, child: part.child),
+                child: SizedOverflowBox(
+                  size: Size.zero,
+                  child: Transform.rotate(
+                    angle:
+                        part.isRotated
+                            ? (Angle.quarter + sector.center.angle).toRad
+                            : 0,
+                    child: part.child,
+                  ),
+                ),
               ),
             ],
           ),
