@@ -1,8 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:gauge_cluster/components/gauge_v2/gauge_part.dart';
 import 'package:gauge_cluster/components/gauge_v2/gauge_part_shape.dart';
-import 'package:gauge_cluster/utils/app_colors.dart';
-import 'package:gauge_cluster/utils/math/circle/circle_sector.dart';
 import 'package:gauge_cluster/utils/math/units/angle.dart';
 
 class Gauge extends StatelessWidget {
@@ -61,7 +59,13 @@ class _PointShapeWidget extends StatelessWidget {
     return Positioned(
       left: circleRadius + point.radius * point.angle.cos,
       top: circleRadius - point.radius * point.angle.sin,
-      child: Container(width: 1, height: 1, color: AppColors.red1),
+      child: SizedOverflowBox(
+        size: Size.zero,
+        child: Container(
+          decoration: BoxDecoration(color: part.decoration?.color),
+          child: part.child,
+        ),
+      ),
     );
   }
 }
@@ -78,26 +82,46 @@ class _SectorShapeWidget extends StatelessWidget {
     final shape = part.shape as GaugePartSectorShape;
     final sector = shape.sector;
 
+    final clipper = _SectorClipper(part: part);
+    final painter = _SectorPainter(part: part, clipper: clipper);
+
     return Positioned.fill(
-      child: CustomPaint(painter: _SectorPainter(sector: sector)),
+      child: CustomPaint(
+        painter: painter,
+        child: ClipPath(
+          clipper: clipper,
+          child: Stack(
+            children: [
+              Positioned(
+                left: circleRadius + sector.center.offset.dx,
+                top: circleRadius + sector.center.offset.dy,
+                child: SizedOverflowBox(size: Size.zero, child: part.child),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
 
-class _SectorPainter extends CustomPainter {
-  _SectorPainter({required this.sector});
+class _SectorClipper extends CustomClipper<Path> {
+  _SectorClipper({required this.part});
 
-  final CircleSector sector;
+  final GaugePart part;
 
   @override
-  void paint(Canvas canvas, Size size) {
-    final center = size.center(Offset.zero);
+  Path getClip(Size size) {
+    final shape = part.shape as GaugePartSectorShape;
+    final sector = shape.sector;
+
+    final circleCenter = size.center(Offset.zero);
     final innerRect = Rect.fromCircle(
-      center: center,
+      center: circleCenter,
       radius: sector.innerRadius,
     );
     final outerRect = Rect.fromCircle(
-      center: center,
+      center: circleCenter,
       radius: sector.outerRadius,
     );
 
@@ -105,16 +129,35 @@ class _SectorPainter extends CustomPainter {
     final outerPath =
         sector.sweepAngle == Angle.full ? (Path()..addOval(outerRect)) : Path()
           ..addArc(outerRect, sector.startAngle.toRad, sector.sweepAngle.toRad)
-          ..lineTo(center.dx, center.dy);
+          ..lineTo(circleCenter.dx, circleCenter.dy);
     final path = Path.combine(PathOperation.difference, outerPath, innerPath);
 
-    final paint = Paint()..color = AppColors.green1;
+    return path;
+  }
+
+  @override
+  bool shouldReclip(covariant _SectorClipper oldClipper) =>
+      part != oldClipper.part;
+}
+
+class _SectorPainter extends CustomPainter {
+  _SectorPainter({required this.part, required this.clipper});
+
+  final GaugePart part;
+  final _SectorClipper clipper;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final path = clipper.getClip(size);
+
+    final paint = Paint()..color = part.decoration?.color ?? Color(0x00000000);
 
     canvas.drawPath(path, paint);
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+  bool shouldRepaint(covariant _SectorPainter oldDelegate) =>
+      part != oldDelegate.part;
 }
 
 /// Widget that renders a rect shape.
@@ -129,18 +172,69 @@ class _RectShapeWidget extends StatelessWidget {
     final shape = part.shape as GaugePartRectShape;
     final rect = shape.rect;
 
-    final size = Size(rect.ring.thickness, rect.width);
+    final clipper = _RectClipper(part: part);
+    final painter = _RectPainter(part: part, clipper: clipper);
 
-    return SizedBox.fromSize(
-      size: size,
-      child: Container(
-        color: AppColors.blue1,
-        transform:
-            Matrix4.identity()
-              ..translate(size.width / 2, size.height / 2, 0)
-              ..rotateZ(rect.angle.toRad)
-              ..translate(rect.innerRadius, -size.height / 2, 0),
+    return Positioned.fill(
+      child: CustomPaint(
+        painter: painter,
+        child: ClipPath(
+          clipper: clipper,
+          child: Stack(
+            children: [
+              Positioned(
+                left: circleRadius + rect.center.offset.dx,
+                top: circleRadius + rect.center.offset.dy,
+                child: SizedOverflowBox(size: Size.zero, child: part.child),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
+}
+
+class _RectClipper extends CustomClipper<Path> {
+  _RectClipper({required this.part});
+
+  final GaugePart part;
+
+  @override
+  Path getClip(Size size) {
+    final shape = part.shape as GaugePartRectShape;
+    final rect = shape.rect;
+
+    final circleCenter = size.center(Offset.zero);
+    return Path()..addPolygon([
+      circleCenter + rect.innerStart.offset,
+      circleCenter + rect.innerEnd.offset,
+      circleCenter + rect.outerEnd.offset,
+      circleCenter + rect.outerStart.offset,
+    ], true);
+  }
+
+  @override
+  bool shouldReclip(covariant _RectClipper oldClipper) =>
+      part != oldClipper.part;
+}
+
+class _RectPainter extends CustomPainter {
+  _RectPainter({required this.part, required this.clipper});
+
+  final GaugePart part;
+  final _RectClipper clipper;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final path = clipper.getClip(size);
+
+    final paint = Paint()..color = part.decoration?.color ?? Color(0x00000000);
+
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant _RectPainter oldDelegate) =>
+      part != oldDelegate.part;
 }

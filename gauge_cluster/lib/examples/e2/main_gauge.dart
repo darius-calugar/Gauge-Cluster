@@ -40,9 +40,9 @@ class E2MainGauge extends StatelessWidget {
     final redlineSweepAngle = redlineEndAngle - redlineStartAngle;
 
     final primaryColor =
-        carState.revs < carState.redline ? AppColors.yellow1 : AppColors.red1;
+        carState.revs < carState.redline ? AppColors.blue1 : AppColors.red1;
     final secondaryColor =
-        carState.revs < carState.redline ? AppColors.yellow5 : AppColors.red5;
+        carState.revs < carState.redline ? AppColors.blue5 : AppColors.red5;
 
     return SizedBox.square(
       dimension: radius * 2,
