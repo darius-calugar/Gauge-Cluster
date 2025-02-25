@@ -19,6 +19,9 @@ class CircleSlice extends Equatable {
     }
   }
 
+  factory CircleSlice.full() =>
+      CircleSlice(startAngle: Angle.zero, endAngle: Angle.full);
+
   late final Angle startAngle;
   late final Angle endAngle;
   late final Angle sweepAngle;

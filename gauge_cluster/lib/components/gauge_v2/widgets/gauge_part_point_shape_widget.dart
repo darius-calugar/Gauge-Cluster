@@ -16,6 +16,8 @@ class GaugePartPointShapeWidget extends StatelessWidget {
     final shape = part.shape as GaugePartPointShape;
     final point = shape.point;
 
+    assert(part.decoration == null, 'Point parts do not support decoration.');
+
     return Positioned(
       left: circleRadius + point.radius * point.angle.cos,
       top: circleRadius - point.radius * point.angle.sin,

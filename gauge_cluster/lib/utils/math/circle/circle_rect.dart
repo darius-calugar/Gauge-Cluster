@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:gauge_cluster/utils/math/circle/circle_point.dart';
 import 'package:gauge_cluster/utils/math/circle/circle_ring.dart';
+import 'package:gauge_cluster/utils/math/circle/circle_slice.dart';
 import 'package:gauge_cluster/utils/math/units/angle.dart';
 
 class CircleRect extends Equatable {
@@ -63,6 +64,11 @@ class CircleRect extends Equatable {
   CirclePoint get outerEnd =>
       CirclePoint(radius: ring.outerRadius, angle: angle) +
       CirclePoint(radius: width / 2, angle: angle + 90.deg);
+
+  CircleSlice get innerSlice =>
+      CircleSlice(startAngle: innerStart.angle, endAngle: innerEnd.angle);
+  CircleSlice get outerSlice =>
+      CircleSlice(startAngle: outerStart.angle, endAngle: outerEnd.angle);
 
   @override
   List<Object?> get props => [width, angle, ring];

@@ -1,6 +1,6 @@
-import 'dart:ui';
-
 import 'package:equatable/equatable.dart';
+import 'package:flutter/widgets.dart';
+import 'package:gauge_cluster/utils/math/circle/circle_slice.dart';
 
 /// Base class for gauge decorations.
 ///
@@ -10,10 +10,32 @@ sealed class GaugePartDecoration extends Equatable {
 }
 
 final class GaugePartSolidDecoration extends GaugePartDecoration {
-  const GaugePartSolidDecoration({this.color});
+  const GaugePartSolidDecoration({required this.color});
 
-  final Color? color;
+  final Color color;
 
   @override
   List<Object?> get props => [color];
+}
+
+final class GaugePartSweepGradientDecoration extends GaugePartDecoration {
+  const GaugePartSweepGradientDecoration({
+    required this.colors,
+    this.stops = const [0, 1],
+    this.slice,
+  });
+
+  final List<Color> colors;
+  final List<double> stops;
+  final CircleSlice? slice;
+
+  SweepGradient getGradient(CircleSlice slice) => SweepGradient(
+    stops: stops,
+    colors: colors,
+    transform: GradientRotation((this.slice ?? slice).startAngle.toRad),
+    endAngle: (this.slice ?? slice).sweepAngle.toRad,
+  );
+
+  @override
+  List<Object?> get props => [stops, colors];
 }

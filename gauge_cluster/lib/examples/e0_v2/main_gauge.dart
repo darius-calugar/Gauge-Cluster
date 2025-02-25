@@ -3,6 +3,7 @@ import 'package:gauge_cluster/components/gauge_v2/gauge.dart';
 import 'package:gauge_cluster/components/svg_icon/svg_icon.dart';
 import 'package:gauge_cluster/utils/app_colors.dart';
 import 'package:gauge_cluster/utils/assets.dart';
+import 'package:gauge_cluster/utils/math/circle/circle_slice.dart';
 import 'package:gauge_cluster/utils/math/units/angle.dart';
 
 class E0MainGauge extends StatelessWidget {
@@ -12,8 +13,8 @@ class E0MainGauge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final uStepCount = 20;
-    final vStepCount = 20;
+    final uStepCount = 10;
+    final vStepCount = 10;
 
     final uStep = Angle.full / uStepCount;
     final vStep = circleRadius / vStepCount;
@@ -32,20 +33,18 @@ class E0MainGauge extends StatelessWidget {
                   startAngle: uStep * u,
                   sweepAngle: uStep,
                 ),
-                decoration: GaugePartSolidDecoration(
-                  color: Color.fromARGB(
-                    255,
-                    (u / uStepCount * 255).toInt(),
-                    (v / vStepCount * 255).toInt(),
-                    0,
-                  ),
+                decoration: GaugePartSweepGradientDecoration(
+                  slice: CircleSlice.full(),
+                  colors: [
+                    Color.fromARGB(255, 0, (v / vStepCount * 255).toInt(), 0),
+                    Color.fromARGB(255, 255, (v / vStepCount * 255).toInt(), 0),
+                  ],
                 ),
               ),
             ],
           ],
           GaugePart(
             shape: GaugePartPointShape(radius: 200, angle: Angle.up),
-            decoration: GaugePartSolidDecoration(color: AppColors.white1),
             child: SvgIcon(SvgIcons.battery, color: AppColors.black1),
           ),
           GaugePart(
@@ -55,7 +54,9 @@ class E0MainGauge extends StatelessWidget {
               thickness: 100,
               sweepAngle: 100.deg,
             ),
-            decoration: GaugePartSolidDecoration(color: AppColors.white1),
+            decoration: GaugePartSweepGradientDecoration(
+              colors: [AppColors.white1, AppColors.white3],
+            ),
             child: SvgIcon(SvgIcons.battery, color: AppColors.black1),
           ),
           GaugePart(
@@ -66,7 +67,9 @@ class E0MainGauge extends StatelessWidget {
               innerInset: 20,
               outerInset: 70,
             ),
-            decoration: GaugePartSolidDecoration(color: AppColors.white1),
+            decoration: GaugePartSweepGradientDecoration(
+              colors: [AppColors.white1, AppColors.white3],
+            ),
             child: SvgIcon(SvgIcons.battery, color: AppColors.black1),
           ),
         ],

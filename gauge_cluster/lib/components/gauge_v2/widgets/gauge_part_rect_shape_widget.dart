@@ -73,12 +73,19 @@ class _RectPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
+    final shape = part.shape as GaugePartRectShape;
+    final rect = shape.rect;
+
     final path = clipper.getClip(size);
 
     final paint = switch (part.decoration) {
       null => null,
-      GaugePartSolidDecoration decoration =>
-        Paint()..color = decoration.color ?? Color(0x00000000),
+      GaugePartSolidDecoration decoration => Paint()..color = decoration.color,
+      GaugePartSweepGradientDecoration decoration =>
+        Paint()
+          ..shader = decoration
+              .getGradient(rect.innerSlice)
+              .createShader(Offset.zero & size),
     };
 
     if (paint != null) {
