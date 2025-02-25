@@ -7,8 +7,8 @@ import 'package:gauge_cluster/utils/math/circle/circle.dart';
 import 'package:gauge_cluster/utils/math/circle/circle_slice.dart';
 import 'package:gauge_cluster/utils/math/units/angle.dart';
 
-class E0MainGauge extends StatelessWidget {
-  const E0MainGauge({super.key});
+class DebugMainGauge extends StatelessWidget {
+  const DebugMainGauge({super.key});
 
   static Circle circle = Circle(radius: 400);
 
@@ -90,19 +90,19 @@ class E0MainGauge extends StatelessWidget {
             child: SvgIcon(SvgIcons.battery, color: AppColors.black1),
           ),
           // Rects
-            GaugePart(
-              shape: GaugePartRectShape.inset(
-                circle: circle,
-                width: 100,
-                angle: -30.deg,
-                innerInset: 120,
-                outerInset: 40,
-              ),
-              fill: GaugePartSweepGradientFill(
-                colors: [AppColors.white1, AppColors.black1],
-              ),
-              child: SvgIcon(SvgIcons.battery, color: AppColors.black1),
+          GaugePart(
+            shape: GaugePartRectShape.inset(
+              circle: circle,
+              width: 100,
+              angle: -30.deg,
+              innerInset: 120,
+              outerInset: 40,
             ),
+            fill: GaugePartSweepGradientFill(
+              colors: [AppColors.white1, AppColors.black1],
+            ),
+            child: SvgIcon(SvgIcons.battery, color: AppColors.black1),
+          ),
           GaugePart(
             shape: GaugePartRectShape.inset(
               circle: circle,
@@ -116,19 +116,19 @@ class E0MainGauge extends StatelessWidget {
             ),
             child: SvgIcon(SvgIcons.battery, color: AppColors.black1),
           ),
-            GaugePart(
-              shape: GaugePartRectShape.inset(
-                circle: circle,
-                width: 100,
-                angle: -150.deg,
-                innerInset: 120,
-                outerInset: 40,
-              ),
-              fill: GaugePartRadialGradientFill(
-                colors: [AppColors.white1, AppColors.black1],
-              ),
-              child: SvgIcon(SvgIcons.battery, color: AppColors.black1),
+          GaugePart(
+            shape: GaugePartRectShape.inset(
+              circle: circle,
+              width: 100,
+              angle: -150.deg,
+              innerInset: 120,
+              outerInset: 40,
             ),
+            fill: GaugePartRadialGradientFill(
+              colors: [AppColors.white1, AppColors.black1],
+            ),
+            child: SvgIcon(SvgIcons.battery, color: AppColors.black1),
+          ),
         ],
       ),
     );
