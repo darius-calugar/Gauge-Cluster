@@ -2,15 +2,18 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gauge_cluster/utils/math/circle/circle_slice.dart';
 
-/// Base class for gauge decorations.
+/// Base class for gauge fills.
 ///
-/// Gauge decorations define the appearance of the gauge parts.
-sealed class GaugePartDecoration extends Equatable {
-  const GaugePartDecoration();
+/// Gauge fills define the appearance of the gauge parts.
+sealed class GaugePartFill extends Equatable {
+  const GaugePartFill();
 }
 
-final class GaugePartSolidDecoration extends GaugePartDecoration {
-  const GaugePartSolidDecoration({required this.color});
+/// Solid fill.
+///
+/// The part is filled with a solid color.
+final class GaugePartSolidFill extends GaugePartFill {
+  const GaugePartSolidFill({required this.color});
 
   final Color color;
 
@@ -18,8 +21,11 @@ final class GaugePartSolidDecoration extends GaugePartDecoration {
   List<Object?> get props => [color];
 }
 
-final class GaugePartSweepGradientDecoration extends GaugePartDecoration {
-  const GaugePartSweepGradientDecoration({
+/// Sweep gradient fill.
+///
+/// The part is filled with a sweep gradient.
+final class GaugePartSweepGradientFill extends GaugePartFill {
+  const GaugePartSweepGradientFill({
     required this.colors,
     this.stops = const [0, 1],
     this.slice,

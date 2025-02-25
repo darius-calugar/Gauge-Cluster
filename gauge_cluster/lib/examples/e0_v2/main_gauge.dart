@@ -33,7 +33,7 @@ class E0MainGauge extends StatelessWidget {
                   startAngle: uStep * u,
                   sweepAngle: uStep,
                 ),
-                decoration: GaugePartSweepGradientDecoration(
+                fill: GaugePartSweepGradientFill(
                   slice: CircleSlice.full(),
                   colors: [
                     Color.fromARGB(255, 0, (v / vStepCount * 255).toInt(), 0),
@@ -54,7 +54,7 @@ class E0MainGauge extends StatelessWidget {
               thickness: 100,
               sweepAngle: 100.deg,
             ),
-            decoration: GaugePartSweepGradientDecoration(
+            fill: GaugePartSweepGradientFill(
               colors: [AppColors.white1, AppColors.white3],
             ),
             child: SvgIcon(SvgIcons.battery, color: AppColors.black1),
@@ -67,7 +67,7 @@ class E0MainGauge extends StatelessWidget {
               innerInset: 20,
               outerInset: 70,
             ),
-            decoration: GaugePartSweepGradientDecoration(
+            fill: GaugePartSweepGradientFill(
               colors: [AppColors.white1, AppColors.white3],
             ),
             child: SvgIcon(SvgIcons.battery, color: AppColors.black1),

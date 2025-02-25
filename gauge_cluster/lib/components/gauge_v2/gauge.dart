@@ -5,7 +5,7 @@ import 'package:gauge_cluster/components/gauge_v2/widgets/gauge_part_point_shape
 import 'package:gauge_cluster/components/gauge_v2/widgets/gauge_part_rect_shape_widget.dart';
 import 'package:gauge_cluster/components/gauge_v2/widgets/gauge_part_sector_shape_widget.dart';
 
-export 'package:gauge_cluster/components/gauge_v2/models/gauge_part_decoration.dart';
+export 'package:gauge_cluster/components/gauge_v2/models/gauge_part_fill.dart';
 export 'package:gauge_cluster/components/gauge_v2/models/gauge_part_shape.dart';
 export 'package:gauge_cluster/components/gauge_v2/models/gauge_part.dart';
 

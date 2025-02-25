@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:gauge_cluster/components/gauge_v2/models/gauge_part.dart';
-import 'package:gauge_cluster/components/gauge_v2/models/gauge_part_decoration.dart';
+import 'package:gauge_cluster/components/gauge_v2/models/gauge_part_fill.dart';
 import 'package:gauge_cluster/components/gauge_v2/models/gauge_part_shape.dart';
 import 'package:gauge_cluster/utils/math/units/angle.dart';
 
@@ -90,10 +90,10 @@ class _SectorPainter extends CustomPainter {
 
     final path = clipper.getClip(size);
 
-    final paint = switch (part.decoration) {
+    final paint = switch (part.fill) {
       null => null,
-      GaugePartSolidDecoration decoration => Paint()..color = decoration.color,
-      GaugePartSweepGradientDecoration decoration =>
+      GaugePartSolidFill decoration => Paint()..color = decoration.color,
+      GaugePartSweepGradientFill decoration =>
         Paint()
           ..shader = decoration
               .getGradient(sector.slice)
