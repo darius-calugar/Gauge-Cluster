@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:gauge_cluster/components/gauge_v2/models/gauge_part.dart';
 import 'package:gauge_cluster/components/gauge_v2/models/gauge_part_fill.dart';
 import 'package:gauge_cluster/components/gauge_v2/models/gauge_part_shape.dart';
+import 'package:gauge_cluster/utils/math/circle/circle.dart';
 import 'package:gauge_cluster/utils/math/circle/circle_line.dart';
 
 class GaugePartRectShapeWidget extends StatelessWidget {
@@ -77,25 +78,30 @@ class _RectPainter extends CustomPainter {
     final shape = part.shape as GaugePartRectShape;
     final rect = shape.rect;
 
-    final circleRadius = size.shortestSide / 2;
+    final circle = Circle.fromSize(size);
 
     final path = clipper.getClip(size);
 
     final paint = switch (part.fill) {
       null => null,
-      GaugePartSolidFill decoration => Paint()..color = decoration.color,
-      GaugePartSweepGradientFill decoration =>
+      GaugePartSolidFill fill => Paint()..color = fill.color,
+      GaugePartLinearGradientFill fill =>
         Paint()
-          ..shader = decoration
-              .getGradient(rect.innerSlice)
-              .createShader(Offset.zero & size),
-      GaugePartLinearGradientFill decoration =>
-        Paint()
-          ..shader = decoration
+          ..shader = fill
               .getGradient(
-                circleRadius,
+                circle,
                 CircleLine(start: rect.innerMid, end: rect.outerMid),
               )
+              .createShader(Offset.zero & size),
+      GaugePartSweepGradientFill fill =>
+        Paint()
+          ..shader = fill
+              .getGradient(rect.innerSlice)
+              .createShader(Offset.zero & size),
+      GaugePartRadialGradientFill fill =>
+        Paint()
+          ..shader = fill
+              .getGradient(circle, rect.ring)
               .createShader(Offset.zero & size),
     };
 

@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:gauge_cluster/components/gauge_v2/models/gauge_part.dart';
 import 'package:gauge_cluster/components/gauge_v2/models/gauge_part_fill.dart';
 import 'package:gauge_cluster/components/gauge_v2/models/gauge_part_shape.dart';
+import 'package:gauge_cluster/utils/math/circle/circle.dart';
 import 'package:gauge_cluster/utils/math/circle/circle_line.dart';
 import 'package:gauge_cluster/utils/math/circle/circle_point.dart';
 import 'package:gauge_cluster/utils/math/units/angle.dart';
@@ -90,23 +91,18 @@ class _SectorPainter extends CustomPainter {
     final shape = part.shape as GaugePartSectorShape;
     final sector = shape.sector;
 
-    final circleRadius = size.shortestSide / 2;
+    final circle = Circle.fromSize(size);
 
     final path = clipper.getClip(size);
 
     final paint = switch (part.fill) {
       null => null,
-      GaugePartSolidFill decoration => Paint()..color = decoration.color,
-      GaugePartSweepGradientFill decoration =>
+      GaugePartSolidFill fill => Paint()..color = fill.color,
+      GaugePartLinearGradientFill fill =>
         Paint()
-          ..shader = decoration
-              .getGradient(sector.slice)
-              .createShader(Offset.zero & size),
-      GaugePartLinearGradientFill decoration =>
-        Paint()
-          ..shader = decoration
+          ..shader = fill
               .getGradient(
-                circleRadius,
+                circle,
                 CircleLine(
                   start: sector.innerLine.middle,
                   end: CirclePoint(
@@ -115,6 +111,16 @@ class _SectorPainter extends CustomPainter {
                   ),
                 ),
               )
+              .createShader(Offset.zero & size),
+      GaugePartSweepGradientFill fill =>
+        Paint()
+          ..shader = fill
+              .getGradient(sector.slice)
+              .createShader(Offset.zero & size),
+      GaugePartRadialGradientFill fill =>
+        Paint()
+          ..shader = fill
+              .getGradient(circle, sector.ring)
               .createShader(Offset.zero & size),
     };
 

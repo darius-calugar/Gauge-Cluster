@@ -35,6 +35,9 @@ class CircleRing extends Equatable {
     thickness: thickness,
   );
 
+  factory CircleRing.full(Circle circle) =>
+      CircleRing(circle: circle, innerRadius: 0, outerRadius: circle.radius);
+
   late final double innerRadius;
   late final double outerRadius;
   late final double thickness;

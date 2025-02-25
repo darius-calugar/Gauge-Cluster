@@ -1,9 +1,13 @@
+import 'dart:ui';
+
 import 'package:equatable/equatable.dart';
 import 'package:gauge_cluster/utils/math/circle/circle_point.dart';
 import 'package:gauge_cluster/utils/math/units/angle.dart';
 
 class Circle extends Equatable {
   const Circle({required this.radius});
+
+  Circle.fromSize(Size size) : radius = size.shortestSide / 2;
 
   static const Circle zero = Circle(radius: 0);
 

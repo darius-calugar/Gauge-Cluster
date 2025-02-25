@@ -1,6 +1,10 @@
+import 'dart:ui';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
+import 'package:gauge_cluster/utils/math/circle/circle.dart';
 import 'package:gauge_cluster/utils/math/circle/circle_line.dart';
+import 'package:gauge_cluster/utils/math/circle/circle_ring.dart';
 import 'package:gauge_cluster/utils/math/circle/circle_slice.dart';
 
 /// Base class for gauge fills.
@@ -36,13 +40,19 @@ final class GaugePartLinearGradientFill extends GaugePartFill {
   final List<double> stops;
   final CircleLine? line;
 
-  LinearGradient getGradient(double circleRadius, CircleLine line) =>
-      LinearGradient(
-        colors: colors,
-        stops: stops,
-        begin: (this.line ?? line).start.alignment(circleRadius),
-        end: (this.line ?? line).end.alignment(circleRadius),
-      );
+  LinearGradient getGradient(Circle circle, CircleLine line) {
+    print((
+      (this.line ?? line).start.alignment(circle.radius),
+      (this.line ?? line).end.alignment(circle.radius),
+    ));
+
+    return LinearGradient(
+      colors: colors,
+      stops: stops,
+      begin: (this.line ?? line).start.alignment(circle.radius),
+      end: (this.line ?? line).end.alignment(circle.radius),
+    );
+  }
 
   @override
   List<Object?> get props => [colors, stops, line];
@@ -71,4 +81,31 @@ final class GaugePartSweepGradientFill extends GaugePartFill {
 
   @override
   List<Object?> get props => [stops, colors];
+}
+
+/// Radial gradient fill.
+///
+/// The part is filled with a radial gradient.
+final class GaugePartRadialGradientFill extends GaugePartFill {
+  const GaugePartRadialGradientFill({
+    required this.colors,
+    this.stops = const [0, 1],
+    this.ring,
+  });
+
+  final List<Color> colors;
+  final List<double> stops;
+  final CircleRing? ring;
+
+  RadialGradient getGradient(Circle circle, CircleRing ring) => RadialGradient(
+    colors: colors,
+    stops: [
+      for (final stop in stops)
+        ((this.ring ?? ring).innerRadius / circle.radius) +
+            stop * ((this.ring ?? ring).thickness / circle.radius),
+    ],
+  );
+
+  @override
+  List<Object?> get props => [colors, stops, ring];
 }
