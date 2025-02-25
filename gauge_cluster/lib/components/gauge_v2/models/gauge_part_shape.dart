@@ -14,7 +14,7 @@ sealed class GaugePartShape extends Equatable {
 /// Gauge shape that represents a point on a circle.
 ///
 /// Gauge parts built with this shape are centered at the point.
-class GaugePartPointShape extends GaugePartShape {
+final class GaugePartPointShape extends GaugePartShape {
   GaugePartPointShape({required double radius, required Angle angle})
     : point = CirclePoint(radius: radius, angle: angle);
 
@@ -29,7 +29,7 @@ class GaugePartPointShape extends GaugePartShape {
 /// Gauge shape that represents a sector on a circle.
 ///
 /// Gauge parts built with this shape fill the sector.
-class GaugePartSectorShape extends GaugePartShape {
+final class GaugePartSectorShape extends GaugePartShape {
   GaugePartSectorShape({
     required double circleRadius,
     double? innerRadius,
@@ -77,7 +77,7 @@ class GaugePartSectorShape extends GaugePartShape {
 /// Gauge shape that represents a rectangle.
 ///
 /// Gauge parts built with this shape fill the rectangle.
-class GaugePartRectShape extends GaugePartShape {
+final class GaugePartRectShape extends GaugePartShape {
   GaugePartRectShape({
     required double circleRadius,
     required double width,

@@ -5,8 +5,12 @@ import 'package:equatable/equatable.dart';
 /// Base class for gauge decorations.
 ///
 /// Gauge decorations define the appearance of the gauge parts.
-class GaugePartDecoration extends Equatable {
-  const GaugePartDecoration({this.color});
+sealed class GaugePartDecoration extends Equatable {
+  const GaugePartDecoration();
+}
+
+final class GaugePartSolidDecoration extends GaugePartDecoration {
+  const GaugePartSolidDecoration({this.color});
 
   final Color? color;
 

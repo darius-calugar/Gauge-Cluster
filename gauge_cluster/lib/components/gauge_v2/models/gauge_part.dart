@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
-import 'package:gauge_cluster/components/gauge_v2/gauge_part_decoration.dart';
-import 'package:gauge_cluster/components/gauge_v2/gauge_part_shape.dart';
+import 'package:gauge_cluster/components/gauge_v2/models/gauge_part_decoration.dart';
+import 'package:gauge_cluster/components/gauge_v2/models/gauge_part_shape.dart';
 
 class GaugePart extends Equatable {
   const GaugePart({required this.shape, this.decoration, this.child});

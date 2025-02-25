@@ -1,8 +1,5 @@
 import 'package:flutter/widgets.dart';
 import 'package:gauge_cluster/components/gauge_v2/gauge.dart';
-import 'package:gauge_cluster/components/gauge_v2/gauge_part.dart';
-import 'package:gauge_cluster/components/gauge_v2/gauge_part_decoration.dart';
-import 'package:gauge_cluster/components/gauge_v2/gauge_part_shape.dart';
 import 'package:gauge_cluster/components/svg_icon/svg_icon.dart';
 import 'package:gauge_cluster/utils/app_colors.dart';
 import 'package:gauge_cluster/utils/assets.dart';
@@ -35,7 +32,7 @@ class E0MainGauge extends StatelessWidget {
                   startAngle: uStep * u,
                   sweepAngle: uStep,
                 ),
-                decoration: GaugePartDecoration(
+                decoration: GaugePartSolidDecoration(
                   color: Color.fromARGB(
                     255,
                     (u / uStepCount * 255).toInt(),
@@ -48,7 +45,7 @@ class E0MainGauge extends StatelessWidget {
           ],
           GaugePart(
             shape: GaugePartPointShape(radius: 200, angle: Angle.up),
-            decoration: GaugePartDecoration(color: AppColors.white1),
+            decoration: GaugePartSolidDecoration(color: AppColors.white1),
             child: SvgIcon(SvgIcons.battery, color: AppColors.black1),
           ),
           GaugePart(
@@ -58,7 +55,7 @@ class E0MainGauge extends StatelessWidget {
               thickness: 100,
               sweepAngle: 100.deg,
             ),
-            decoration: GaugePartDecoration(color: AppColors.white1),
+            decoration: GaugePartSolidDecoration(color: AppColors.white1),
             child: SvgIcon(SvgIcons.battery, color: AppColors.black1),
           ),
           GaugePart(
@@ -69,7 +66,7 @@ class E0MainGauge extends StatelessWidget {
               innerInset: 20,
               outerInset: 70,
             ),
-            decoration: GaugePartDecoration(color: AppColors.white1),
+            decoration: GaugePartSolidDecoration(color: AppColors.white1),
             child: SvgIcon(SvgIcons.battery, color: AppColors.black1),
           ),
         ],
