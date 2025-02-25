@@ -13,9 +13,9 @@ extension type const Angle._(double _rad) {
   static const Angle full = Angle.fromRad(2 * _pi);
 
   static const Angle right = Angle.fromRad(0);
-  static const Angle down = Angle.fromRad(_pi / 2);
+  static const Angle bottom = Angle.fromRad(_pi / 2);
   static const Angle left = Angle.fromRad(_pi);
-  static const Angle up = Angle.fromRad(3 * _pi / 2);
+  static const Angle top = Angle.fromRad(3 * _pi / 2);
 
   static Angle lerp(Angle a, Angle b, double t) => a + (b - a) * t;
 

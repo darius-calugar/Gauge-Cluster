@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:gauge_cluster/utils/math/circle/circle.dart';
 import 'package:gauge_cluster/utils/math/circle/circle_point.dart';
 import 'package:gauge_cluster/utils/math/circle/circle_rect.dart';
 import 'package:gauge_cluster/utils/math/circle/circle_sector.dart';
@@ -26,12 +27,54 @@ final class GaugePartPointShape extends GaugePartShape {
   List<Object?> get props => [point];
 }
 
+/// Gauge shape that represents a rectangle.
+///
+/// Gauge parts built with this shape fill the rectangle.
+final class GaugePartRectShape extends GaugePartShape {
+  GaugePartRectShape({
+    required Circle circle,
+    required double width,
+    required Angle angle,
+    double? innerRadius,
+    double? outerRadius,
+    double? thickness,
+  }) : rect = CircleRect(
+         circle: circle,
+         width: width,
+         angle: angle,
+         innerRadius: innerRadius,
+         outerRadius: outerRadius,
+         thickness: thickness,
+       );
+
+  GaugePartRectShape.inset({
+    required Circle circle,
+    required double width,
+    required Angle angle,
+    double? innerInset,
+    double? outerInset,
+    double? thickness,
+  }) : rect = CircleRect.inset(
+         circle: circle,
+         width: width,
+         angle: angle,
+         innerInset: innerInset,
+         outerInset: outerInset,
+         thickness: thickness,
+       );
+
+  final CircleRect rect;
+
+  @override
+  List<Object?> get props => [rect];
+}
+
 /// Gauge shape that represents a sector on a circle.
 ///
 /// Gauge parts built with this shape fill the sector.
 final class GaugePartSectorShape extends GaugePartShape {
   GaugePartSectorShape({
-    required double circleRadius,
+    required Circle circle,
     double? innerRadius,
     double? outerRadius,
     double? thickness,
@@ -39,7 +82,7 @@ final class GaugePartSectorShape extends GaugePartShape {
     Angle? endAngle,
     Angle? sweepAngle,
   }) : sector = CircleSector(
-         circleRadius: circleRadius,
+         circle: circle,
          innerRadius: innerRadius,
          outerRadius: outerRadius,
          thickness: thickness,
@@ -49,7 +92,7 @@ final class GaugePartSectorShape extends GaugePartShape {
        );
 
   GaugePartSectorShape.inset({
-    required double circleRadius,
+    required Circle circle,
     double? innerInset,
     double? outerInset,
     double? thickness,
@@ -57,7 +100,7 @@ final class GaugePartSectorShape extends GaugePartShape {
     Angle? endAngle,
     Angle? sweepAngle,
   }) : sector = CircleSector.inset(
-         circleRadius: circleRadius,
+         circle: circle,
          innerInset: innerInset,
          outerInset: outerInset,
          thickness: thickness,
@@ -72,46 +115,4 @@ final class GaugePartSectorShape extends GaugePartShape {
 
   @override
   List<Object?> get props => [sector];
-}
-
-/// Gauge shape that represents a rectangle.
-///
-/// Gauge parts built with this shape fill the rectangle.
-final class GaugePartRectShape extends GaugePartShape {
-  GaugePartRectShape({
-    required double circleRadius,
-    required double width,
-    required Angle angle,
-    double? innerRadius,
-    double? outerRadius,
-    double? thickness,
-  }) : rect = CircleRect(
-         circleRadius: circleRadius,
-         width: width,
-         angle: angle,
-         innerRadius: innerRadius,
-         outerRadius: outerRadius,
-         thickness: thickness,
-       );
-
-  GaugePartRectShape.inset({
-    required double circleRadius,
-    required double width,
-    required Angle angle,
-    double? innerInset,
-    double? outerInset,
-    double? thickness,
-  }) : rect = CircleRect.inset(
-         circleRadius: circleRadius,
-         width: width,
-         angle: angle,
-         innerInset: innerInset,
-         outerInset: outerInset,
-         thickness: thickness,
-       );
-
-  final CircleRect rect;
-
-  @override
-  List<Object?> get props => [rect];
 }

@@ -79,7 +79,7 @@ class E2MainGauge extends StatelessWidget {
           GaugeSliceFeature(
             position: GaugeFeatureSectorPosition(outerInset: 80, thickness: 40),
             startAngle: redlineStartAngle,
-            sweepAngle: redlineSweepAngle + (Angle.down - endAngle),
+            sweepAngle: redlineSweepAngle + (Angle.bottom - endAngle),
             gradient: RadialGradient(
               transform: GradientRotation(startAngle.toRad),
               colors: [AppColors.red3, AppColors.red5],
@@ -88,8 +88,8 @@ class E2MainGauge extends StatelessWidget {
           ),
           GaugeSliceFeature(
             position: GaugeFeatureSectorPosition(outerInset: 80, thickness: 40),
-            startAngle: Angle.down,
-            sweepAngle: Angle.up + startAngle + sweepAngle * carState.revsRatio,
+            startAngle: Angle.bottom,
+            sweepAngle: Angle.top + startAngle + sweepAngle * carState.revsRatio,
             gradient: RadialGradient(
               transform: GradientRotation(startAngle.toRad),
               colors: [primaryColor, secondaryColor],
@@ -185,7 +185,7 @@ class E2MainGauge extends StatelessWidget {
           // Speed
           GaugeTextFeature(
             position: GaugeFeaturePointPosition(innerInset: 50),
-            angle: Angle.up,
+            angle: Angle.top,
             keepRotation: true,
             text: '${carState.speed.toKmh.floor()}',
             style: TextStyle(fontSize: 100, fontWeight: FontWeight.w700),
@@ -193,7 +193,7 @@ class E2MainGauge extends StatelessWidget {
           // KMH
           GaugeTextFeature(
             position: GaugeFeaturePointPosition(innerInset: 20),
-            angle: Angle.down,
+            angle: Angle.bottom,
             keepRotation: true,
             text: 'KM/H',
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
@@ -201,21 +201,21 @@ class E2MainGauge extends StatelessWidget {
           // Gear
           GaugeCustomFeature(
             position: GaugeFeaturePointPosition(innerInset: 80),
-            angle: Angle.down,
+            angle: Angle.bottom,
             keepRotation: true,
             builder: (context) => E2GearBar(),
           ),
           // Mileage
           GaugeTextFeature(
             position: GaugeFeaturePointPosition(innerInset: 300),
-            angle: Angle.down,
+            angle: Angle.bottom,
             keepRotation: true,
             text: '${carState.mileage.toKm.floor()}',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.w200),
           ),
           GaugeTextFeature(
             position: GaugeFeaturePointPosition(innerInset: 320),
-            angle: Angle.down,
+            angle: Angle.bottom,
             keepRotation: true,
             text: 'KM',
             style: TextStyle(fontSize: 12, fontWeight: FontWeight.w200),
@@ -223,7 +223,7 @@ class E2MainGauge extends StatelessWidget {
           // Time
           GaugeTextFeature(
             position: GaugeFeaturePointPosition(innerInset: 230),
-            angle: Angle.down,
+            angle: Angle.bottom,
             keepRotation: true,
             text: DateFormat('HH:mm').format(DateTime.now()),
             style: TextStyle(fontSize: 30, fontWeight: FontWeight.w300),

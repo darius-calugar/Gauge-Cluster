@@ -2,6 +2,8 @@ import 'package:flutter/widgets.dart';
 import 'package:gauge_cluster/components/gauge_v2/models/gauge_part.dart';
 import 'package:gauge_cluster/components/gauge_v2/models/gauge_part_fill.dart';
 import 'package:gauge_cluster/components/gauge_v2/models/gauge_part_shape.dart';
+import 'package:gauge_cluster/utils/math/circle/circle_line.dart';
+import 'package:gauge_cluster/utils/math/circle/circle_point.dart';
 import 'package:gauge_cluster/utils/math/units/angle.dart';
 
 class GaugePartSectorShapeWidget extends StatelessWidget {
@@ -88,6 +90,8 @@ class _SectorPainter extends CustomPainter {
     final shape = part.shape as GaugePartSectorShape;
     final sector = shape.sector;
 
+    final circleRadius = size.shortestSide / 2;
+
     final path = clipper.getClip(size);
 
     final paint = switch (part.fill) {
@@ -97,6 +101,20 @@ class _SectorPainter extends CustomPainter {
         Paint()
           ..shader = decoration
               .getGradient(sector.slice)
+              .createShader(Offset.zero & size),
+      GaugePartLinearGradientFill decoration =>
+        Paint()
+          ..shader = decoration
+              .getGradient(
+                circleRadius,
+                CircleLine(
+                  start: sector.innerLine.middle,
+                  end: CirclePoint(
+                    radius: sector.outerRadius,
+                    angle: sector.midAngle,
+                  ),
+                ),
+              )
               .createShader(Offset.zero & size),
     };
 

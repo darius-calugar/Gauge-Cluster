@@ -1,4 +1,6 @@
 import 'package:equatable/equatable.dart';
+import 'package:gauge_cluster/utils/math/circle/circle.dart';
+import 'package:gauge_cluster/utils/math/circle/circle_line.dart';
 import 'package:gauge_cluster/utils/math/circle/circle_point.dart';
 import 'package:gauge_cluster/utils/math/circle/circle_ring.dart';
 import 'package:gauge_cluster/utils/math/circle/circle_slice.dart';
@@ -6,28 +8,28 @@ import 'package:gauge_cluster/utils/math/units/angle.dart';
 
 class CircleRect extends Equatable {
   CircleRect({
-    required double circleRadius,
+    required Circle circle,
     required this.width,
     required this.angle,
     double? innerRadius,
     double? outerRadius,
     double? thickness,
   }) : ring = CircleRing(
-         circleRadius: circleRadius,
+         circle: circle,
          innerRadius: innerRadius,
          outerRadius: outerRadius,
          thickness: thickness,
        );
 
   CircleRect.inset({
-    required double circleRadius,
+    required Circle circle,
     required this.width,
     required this.angle,
     double? innerInset,
     double? outerInset,
     double? thickness,
   }) : ring = CircleRing.inset(
-         circleRadius: circleRadius,
+         circle: circle,
          innerInset: innerInset,
          outerInset: outerInset,
          thickness: thickness,
@@ -52,18 +54,23 @@ class CircleRect extends Equatable {
     radius: (ring.innerRadius + ring.outerRadius) / 2,
     angle: angle,
   );
+  CirclePoint get innerMid =>
+      CirclePoint(radius: ring.innerRadius, angle: angle);
   CirclePoint get innerStart =>
-      CirclePoint(radius: ring.innerRadius, angle: angle) +
-      CirclePoint(radius: width / 2, angle: angle - 90.deg);
+      innerMid + CirclePoint(radius: width / 2, angle: angle - 90.deg);
   CirclePoint get innerEnd =>
-      CirclePoint(radius: ring.innerRadius, angle: angle) +
-      CirclePoint(radius: width / 2, angle: angle + 90.deg);
+      innerMid + CirclePoint(radius: width / 2, angle: angle + 90.deg);
+  CirclePoint get outerMid =>
+      CirclePoint(radius: ring.outerRadius, angle: angle);
   CirclePoint get outerStart =>
-      CirclePoint(radius: ring.outerRadius, angle: angle) +
-      CirclePoint(radius: width / 2, angle: angle - 90.deg);
+      outerMid + CirclePoint(radius: width / 2, angle: angle - 90.deg);
   CirclePoint get outerEnd =>
-      CirclePoint(radius: ring.outerRadius, angle: angle) +
-      CirclePoint(radius: width / 2, angle: angle + 90.deg);
+      outerMid + CirclePoint(radius: width / 2, angle: angle + 90.deg);
+
+  CircleLine get innerLine => CircleLine(start: innerStart, end: innerEnd);
+  CircleLine get outerLine => CircleLine(start: outerStart, end: outerEnd);
+  CircleLine get startLine => CircleLine(start: innerStart, end: outerStart);
+  CircleLine get endLine => CircleLine(start: innerEnd, end: outerEnd);
 
   CircleSlice get innerSlice =>
       CircleSlice(startAngle: innerStart.angle, endAngle: innerEnd.angle);

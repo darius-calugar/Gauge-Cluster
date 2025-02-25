@@ -19,6 +19,9 @@ class CirclePoint extends Equatable {
 
   Offset get offset => Offset.fromDirection(angle.toRad, radius);
 
+  Alignment alignment(double circleRadius) =>
+      Alignment(offset.dx / circleRadius, offset.dy / circleRadius);
+
   @override
   List<Object?> get props => [radius, angle];
 }

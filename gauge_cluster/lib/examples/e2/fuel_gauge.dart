@@ -19,7 +19,7 @@ class E2FuelGauge extends StatelessWidget {
     final baseInset = 20.0;
 
     final startAngle = Angle.left + 10.deg;
-    final endAngle = Angle.up - 30.deg;
+    final endAngle = Angle.top - 30.deg;
     final sweepAngle = endAngle - startAngle;
 
     final stepCount = 40;

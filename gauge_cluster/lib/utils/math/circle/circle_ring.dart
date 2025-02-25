@@ -1,15 +1,16 @@
 import 'package:equatable/equatable.dart';
+import 'package:gauge_cluster/utils/math/circle/circle.dart';
 
 class CircleRing extends Equatable {
   CircleRing({
-    required double circleRadius,
+    required Circle circle,
     double? innerRadius,
     double? outerRadius,
     double? thickness,
   }) : assert(innerRadius == null || outerRadius == null || thickness == null) {
     if (outerRadius == null) {
       this.innerRadius = innerRadius ?? 0;
-      this.thickness = thickness ?? (circleRadius - this.innerRadius);
+      this.thickness = thickness ?? (circle.radius - this.innerRadius);
       this.outerRadius = this.innerRadius + this.thickness;
     } else if (innerRadius == null) {
       this.outerRadius = outerRadius;
@@ -23,14 +24,14 @@ class CircleRing extends Equatable {
   }
 
   factory CircleRing.inset({
-    required double circleRadius,
+    required Circle circle,
     double? innerInset,
     double? outerInset,
     double? thickness,
   }) => CircleRing(
-    circleRadius: circleRadius,
+    circle: circle,
     innerRadius: innerInset,
-    outerRadius: outerInset != null ? circleRadius - outerInset : null,
+    outerRadius: outerInset != null ? circle.radius - outerInset : null,
     thickness: thickness,
   );
 

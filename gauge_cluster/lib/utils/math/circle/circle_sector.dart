@@ -1,4 +1,6 @@
 import 'package:equatable/equatable.dart';
+import 'package:gauge_cluster/utils/math/circle/circle.dart';
+import 'package:gauge_cluster/utils/math/circle/circle_line.dart';
 import 'package:gauge_cluster/utils/math/circle/circle_point.dart';
 import 'package:gauge_cluster/utils/math/circle/circle_ring.dart';
 import 'package:gauge_cluster/utils/math/circle/circle_slice.dart';
@@ -6,7 +8,7 @@ import 'package:gauge_cluster/utils/math/units/angle.dart';
 
 class CircleSector extends Equatable {
   CircleSector({
-    required double circleRadius,
+    required Circle circle,
     double? innerRadius,
     double? outerRadius,
     double? thickness,
@@ -14,7 +16,7 @@ class CircleSector extends Equatable {
     Angle? endAngle,
     Angle? sweepAngle,
   }) : ring = CircleRing(
-         circleRadius: circleRadius,
+         circle: circle,
          innerRadius: innerRadius,
          outerRadius: outerRadius,
          thickness: thickness,
@@ -26,7 +28,7 @@ class CircleSector extends Equatable {
        );
 
   CircleSector.inset({
-    required double circleRadius,
+    required Circle circle,
     double? innerInset,
     double? outerInset,
     double? thickness,
@@ -34,7 +36,7 @@ class CircleSector extends Equatable {
     Angle? endAngle,
     Angle? sweepAngle,
   }) : ring = CircleRing.inset(
-         circleRadius: circleRadius,
+         circle: circle,
          innerInset: innerInset,
          outerInset: outerInset,
          thickness: thickness,
@@ -46,7 +48,7 @@ class CircleSector extends Equatable {
        );
 
   CircleSector.raw({CircleRing? ring, CircleSlice? slice})
-    : ring = ring ?? CircleRing(circleRadius: 0),
+    : ring = ring ?? CircleRing(circle: Circle.zero),
       slice = slice ?? CircleSlice();
 
   final CircleRing ring;
@@ -56,6 +58,7 @@ class CircleSector extends Equatable {
   double get outerRadius => ring.outerRadius;
   double get thickness => ring.thickness;
   Angle get startAngle => slice.startAngle;
+  Angle get midAngle => slice.midAngle;
   Angle get endAngle => slice.endAngle;
   Angle get sweepAngle => slice.sweepAngle;
 
@@ -69,6 +72,9 @@ class CircleSector extends Equatable {
   CirclePoint get outerStart =>
       CirclePoint(radius: outerRadius, angle: startAngle);
   CirclePoint get outerEnd => CirclePoint(radius: outerRadius, angle: endAngle);
+
+  CircleLine get innerLine => CircleLine(start: innerStart, end: innerEnd);
+  CircleLine get outerLine => CircleLine(start: outerStart, end: outerEnd);
 
   @override
   List<Object?> get props => [ring, slice];

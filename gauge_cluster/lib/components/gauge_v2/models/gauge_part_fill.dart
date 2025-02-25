@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
+import 'package:gauge_cluster/utils/math/circle/circle_line.dart';
 import 'package:gauge_cluster/utils/math/circle/circle_slice.dart';
 
 /// Base class for gauge fills.
@@ -19,6 +20,32 @@ final class GaugePartSolidFill extends GaugePartFill {
 
   @override
   List<Object?> get props => [color];
+}
+
+/// Linear gradient fill.
+///
+/// The part is filled with a linear gradient.
+final class GaugePartLinearGradientFill extends GaugePartFill {
+  const GaugePartLinearGradientFill({
+    required this.colors,
+    this.stops = const [0, 1],
+    this.line,
+  });
+
+  final List<Color> colors;
+  final List<double> stops;
+  final CircleLine? line;
+
+  LinearGradient getGradient(double circleRadius, CircleLine line) =>
+      LinearGradient(
+        colors: colors,
+        stops: stops,
+        begin: (this.line ?? line).start.alignment(circleRadius),
+        end: (this.line ?? line).end.alignment(circleRadius),
+      );
+
+  @override
+  List<Object?> get props => [colors, stops, line];
 }
 
 /// Sweep gradient fill.

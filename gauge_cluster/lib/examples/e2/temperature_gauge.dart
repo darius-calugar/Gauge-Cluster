@@ -18,7 +18,7 @@ class E2TemperatureGauge extends StatelessWidget {
 
     final baseInset = 20.0;
 
-    final startAngle = Angle.up + 30.deg;
+    final startAngle = Angle.top + 30.deg;
     final endAngle = Angle.full - 10.deg;
     final sweepAngle = endAngle - startAngle;
 

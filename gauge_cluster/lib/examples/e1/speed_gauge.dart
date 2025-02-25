@@ -153,7 +153,7 @@ class E1SpeedGauge extends StatelessWidget {
           // Mileage
           GaugeCustomFeature(
             position: GaugeFeaturePointPosition(innerInset: 50),
-            angle: Angle.down,
+            angle: Angle.bottom,
             keepRotation: true,
             builder:
                 (context) => Mileage(distance: carState.mileage, digitCount: 6),

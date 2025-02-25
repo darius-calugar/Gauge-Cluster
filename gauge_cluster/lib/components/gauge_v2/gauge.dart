@@ -33,11 +33,11 @@ class Gauge extends StatelessWidget {
                     part: part,
                     circleRadius: circleRadius,
                   ),
-                  GaugePartSectorShape() => GaugePartSectorShapeWidget(
+                  GaugePartRectShape() => GaugePartRectShapeWidget(
                     part: part,
                     circleRadius: circleRadius,
                   ),
-                  GaugePartRectShape() => GaugePartRectShapeWidget(
+                  GaugePartSectorShape() => GaugePartSectorShapeWidget(
                     part: part,
                     circleRadius: circleRadius,
                   ),

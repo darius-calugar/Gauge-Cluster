@@ -30,7 +30,7 @@ class E1RevGauge extends StatelessWidget {
           // RPM legend
           GaugeTextFeature(
             position: GaugeFeaturePointPosition(outerInset: 100),
-            angle: Angle.up,
+            angle: Angle.top,
             keepRotation: true,
             text: 'RPM x 1000',
             style: TextStyle(
