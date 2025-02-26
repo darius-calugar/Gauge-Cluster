@@ -40,9 +40,17 @@ class E2MainGauge extends StatelessWidget {
     final redlineSweepAngle = redlineEndAngle - redlineStartAngle;
 
     final primaryColor =
-        carState.revs < carState.redline ? AppColors.blue1 : AppColors.red1;
+        carState.revs < carState.redline - 250.rpm
+            ? AppColors.blue1
+            : carState.revs < carState.redline
+            ? AppColors.green1
+            : AppColors.red1;
     final secondaryColor =
-        carState.revs < carState.redline ? AppColors.blue5 : AppColors.red5;
+        carState.revs < carState.redline - 250.rpm
+            ? AppColors.blue5
+            : carState.revs < carState.redline
+            ? AppColors.green5
+            : AppColors.red5;
 
     return SizedBox.square(
       dimension: radius * 2,
@@ -78,6 +86,16 @@ class E2MainGauge extends StatelessWidget {
           ),
           GaugeSliceFeature(
             position: GaugeFeatureSectorPosition(outerInset: 80, thickness: 40),
+            startAngle: redlineStartAngle - stepSweepAngle,
+            sweepAngle: stepSweepAngle,
+            gradient: RadialGradient(
+              transform: GradientRotation(startAngle.toRad),
+              colors: [AppColors.green3, AppColors.green5],
+              stops: [0.8, 1.0],
+            ),
+          ),
+          GaugeSliceFeature(
+            position: GaugeFeatureSectorPosition(outerInset: 80, thickness: 40),
             startAngle: redlineStartAngle,
             sweepAngle: redlineSweepAngle + (Angle.bottom - endAngle),
             gradient: RadialGradient(
@@ -89,7 +107,8 @@ class E2MainGauge extends StatelessWidget {
           GaugeSliceFeature(
             position: GaugeFeatureSectorPosition(outerInset: 80, thickness: 40),
             startAngle: Angle.bottom,
-            sweepAngle: Angle.top + startAngle + sweepAngle * carState.revsRatio,
+            sweepAngle:
+                Angle.top + startAngle + sweepAngle * carState.revsRatio,
             gradient: RadialGradient(
               transform: GradientRotation(startAngle.toRad),
               colors: [primaryColor, secondaryColor],
