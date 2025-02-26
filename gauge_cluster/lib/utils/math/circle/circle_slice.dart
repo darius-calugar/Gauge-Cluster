@@ -28,6 +28,8 @@ class CircleSlice extends Equatable {
 
   Angle get midAngle => startAngle + sweepAngle / 2;
 
+  Angle atRatio(double ratio) => startAngle + sweepAngle * ratio;
+
   @override
   List<Object?> get props => [startAngle, endAngle, sweepAngle];
 }

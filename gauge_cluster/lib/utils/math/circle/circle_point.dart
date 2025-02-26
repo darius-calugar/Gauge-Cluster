@@ -1,9 +1,19 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
+import 'package:gauge_cluster/utils/math/circle/circle.dart';
 import 'package:gauge_cluster/utils/math/units/angle.dart';
 
 class CirclePoint extends Equatable {
   const CirclePoint({required this.radius, required this.angle});
+
+  CirclePoint.inset({
+    required Circle circle,
+    double? innerInset,
+    double? outerInset,
+    required this.angle,
+  }) : assert(innerInset != null || outerInset != null),
+       assert(innerInset == null || outerInset == null),
+       radius = innerInset ?? (circle.radius - outerInset!);
 
   CirclePoint.fromOffset(Offset offset)
     : radius = offset.distance,

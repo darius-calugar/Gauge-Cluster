@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gauge_cluster/examples/1_brawn/rev_gauge.dart';
 import 'package:gauge_cluster/examples/1_brawn/speed_gauge.dart';
 import 'package:gauge_cluster/utils/app_colors.dart';
 import 'package:gauge_cluster/blocs/car/car_cubit.dart';
@@ -19,6 +20,7 @@ class BrawnGaugeCluster extends StatelessWidget {
       child: Stack(
         children: [
           Positioned.fill(left: null, child: BrawnSpeedGauge()),
+          Positioned.fill(right: null, child: BrawnRevGauge()),
           Positioned(
             bottom: 290,
             right: 450,

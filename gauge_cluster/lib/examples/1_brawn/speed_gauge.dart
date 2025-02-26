@@ -5,6 +5,7 @@ import 'package:gauge_cluster/components/gauge_v2/gauge.dart';
 import 'package:gauge_cluster/components/mileage/mileage.dart';
 import 'package:gauge_cluster/utils/app_colors.dart';
 import 'package:gauge_cluster/utils/math/circle/circle.dart';
+import 'package:gauge_cluster/utils/math/circle/circle_slice.dart';
 import 'package:gauge_cluster/utils/math/units/angle.dart';
 
 class BrawnSpeedGauge extends StatelessWidget {
@@ -16,26 +17,23 @@ class BrawnSpeedGauge extends StatelessWidget {
   Widget build(BuildContext context) {
     final carState = context.watch<CarCubit>().state;
 
-    final startAngle = -180.0.deg;
-    final endAngle = 30.0.deg;
-    final sweepAngle = endAngle - startAngle;
+    final slice = CircleSlice(startAngle: -180.deg, endAngle: 30.deg);
 
     final outerSteps = carState.maxSpeed.toKmh ~/ 2 + 1;
-    final outerStepAngleSweep = sweepAngle / (outerSteps - 1);
+    final outerStepAngleSweep = slice.sweepAngle / (outerSteps - 1);
 
     final innerSteps = carState.maxSpeed.toMph ~/ 10 + 1;
-    final innerStepAngleSweep = sweepAngle / (innerSteps - 1);
+    final innerStepAngleSweep = slice.sweepAngle / (innerSteps - 1);
 
     return Gauge(
       circle: circle,
       parts: [
         // KMH
         GaugePart(
-          shape: GaugePartPointShape(
-            radius: circle.radius - 45,
-            angle: endAngle + 10.deg,
+          shape: GaugePartPointShape.inset(
+            outerInset: 45,
+            angle: slice.endAngle + 10.deg,
           ),
-          isRotated: false,
           child: Text(
             'KM/H',
             style: TextStyle(
@@ -51,8 +49,8 @@ class BrawnSpeedGauge extends StatelessWidget {
           shape: GaugePartSectorShape.inset(
             outerInset: 30,
             thickness: 2,
-            startAngle: startAngle,
-            sweepAngle: sweepAngle,
+            startAngle: slice.startAngle,
+            sweepAngle: slice.sweepAngle,
           ),
           fill: GaugePartSolidFill(color: AppColors.white2),
         ),
@@ -64,7 +62,7 @@ class BrawnSpeedGauge extends StatelessWidget {
                 outerInset: 30,
                 thickness: 16,
                 width: 4,
-                angle: startAngle + outerStepAngleSweep * step,
+                angle: slice.startAngle + outerStepAngleSweep * step,
               ),
               fill: GaugePartLinearGradientFill(
                 colors: [AppColors.white1, AppColors.white2],
@@ -72,9 +70,9 @@ class BrawnSpeedGauge extends StatelessWidget {
             ),
             // Step labels
             GaugePart(
-              shape: GaugePartPointShape(
-                radius: circle.radius - 60,
-                angle: startAngle + outerStepAngleSweep * step,
+              shape: GaugePartPointShape.inset(
+                outerInset: 60,
+                angle: slice.startAngle + outerStepAngleSweep * step,
               ),
               isRotated: true,
               child: Text(
@@ -93,7 +91,7 @@ class BrawnSpeedGauge extends StatelessWidget {
                 outerInset: 36,
                 thickness: 6,
                 width: 2,
-                angle: startAngle + outerStepAngleSweep * step,
+                angle: slice.startAngle + outerStepAngleSweep * step,
               ),
               fill: GaugePartSolidFill(color: AppColors.white1),
             )
@@ -104,24 +102,24 @@ class BrawnSpeedGauge extends StatelessWidget {
                 outerInset: 36,
                 thickness: 2,
                 width: 1,
-                angle: startAngle + outerStepAngleSweep * step,
+                angle: slice.startAngle + outerStepAngleSweep * step,
               ),
               fill: GaugePartSolidFill(color: AppColors.white1),
             ),
 
         // MPH
         GaugePart(
-          shape: GaugePartPointShape(
-            radius: circle.radius - 100,
-            angle: endAngle + 10.deg,
+          shape: GaugePartPointShape.inset(
+            outerInset: 100,
+            angle: slice.endAngle + 10.deg,
           ),
           isRotated: false,
           child: Text(
             'MPH',
             style: TextStyle(
               fontSize: 12,
-              fontWeight: FontWeight.w600,
-              color: AppColors.white1,
+              fontWeight: FontWeight.w400,
+              color: AppColors.white2,
               fontStyle: FontStyle.italic,
             ),
           ),
@@ -134,15 +132,15 @@ class BrawnSpeedGauge extends StatelessWidget {
                 outerInset: 100,
                 thickness: 8,
                 width: 2,
-                angle: startAngle + innerStepAngleSweep * step,
+                angle: slice.startAngle + innerStepAngleSweep * step,
               ),
               fill: GaugePartSolidFill(color: AppColors.white2),
             ),
             // Step labels
             GaugePart(
-              shape: GaugePartPointShape(
-                radius: circle.radius - 120,
-                angle: startAngle + innerStepAngleSweep * step,
+              shape: GaugePartPointShape.inset(
+                outerInset: 120,
+                angle: slice.startAngle + innerStepAngleSweep * step,
               ),
               isRotated: true,
               child: Text(
@@ -161,7 +159,7 @@ class BrawnSpeedGauge extends StatelessWidget {
                 outerInset: 100,
                 thickness: 4,
                 width: 1,
-                angle: startAngle + innerStepAngleSweep * step,
+                angle: slice.startAngle + innerStepAngleSweep * step,
               ),
               fill: GaugePartSolidFill(color: AppColors.white2),
             ),
@@ -182,7 +180,7 @@ class BrawnSpeedGauge extends StatelessWidget {
           shape: GaugePartRectShape.inset(
             width: 3,
             outerInset: 40,
-            angle: Angle.lerp(startAngle, endAngle, carState.speedRatio),
+            angle: slice.atRatio(carState.speedRatio),
           ),
           fill: GaugePartSolidFill(color: AppColors.red1),
         ),

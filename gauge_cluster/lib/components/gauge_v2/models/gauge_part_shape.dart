@@ -19,6 +19,18 @@ final class GaugePartPointShape extends GaugePartShape {
   GaugePartPointShape({required double radius, required Angle angle})
     : getPoint = ((circle) => CirclePoint(radius: radius, angle: angle));
 
+  GaugePartPointShape.inset({
+    double? innerInset,
+    double? outerInset,
+    required Angle angle,
+  }) : getPoint =
+           ((circle) => CirclePoint.inset(
+             circle: circle,
+             innerInset: innerInset,
+             outerInset: outerInset,
+             angle: angle,
+           ));
+
   GaugePartPointShape.raw(CirclePoint point) : getPoint = ((_) => point);
 
   final CirclePoint Function(Circle circle) getPoint;

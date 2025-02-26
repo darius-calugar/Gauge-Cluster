@@ -15,7 +15,7 @@ class E1RevGauge extends StatelessWidget {
     final carState = context.watch<CarCubit>().state;
 
     final visibleStartAngle = -210.0.deg;
-    final visibleEndAngle = -55.0.deg;
+    final visibleEndAngle = -50.0.deg;
     final visibleSweepAngle = visibleEndAngle - visibleStartAngle;
 
     final steps = (carState.maxRevs.toRpm ~/ 100) + 1;
