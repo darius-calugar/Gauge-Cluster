@@ -157,7 +157,9 @@ class _TextFeatureWidget extends StatelessWidget {
           Matrix4.identity()
             ..rotateZ(feature.angle.toRad)
             ..translate((position.innerInset + position.outerRadius) / 2, 0, 0)
-            ..rotateZ(feature.keepRotation ? -feature.angle.toRad : 90.deg.toRad),
+            ..rotateZ(
+              feature.keepRotation ? -feature.angle.toRad : 90.deg.toRad,
+            ),
       child: OverflowBox(
         maxHeight: double.infinity,
         maxWidth: double.infinity,
@@ -185,7 +187,9 @@ class _CustomFeatureWidget extends StatelessWidget {
           Matrix4.identity()
             ..rotateZ(feature.angle.toRad)
             ..translate((position.innerInset + position.outerRadius) / 2, 0, 0)
-            ..rotateZ(feature.keepRotation ? -feature.angle.toRad : 90.deg.toRad),
+            ..rotateZ(
+              feature.keepRotation ? -feature.angle.toRad : 90.deg.toRad,
+            ),
       child: OverflowBox(
         maxHeight: double.infinity,
         maxWidth: double.infinity,

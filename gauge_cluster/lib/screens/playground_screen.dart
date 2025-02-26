@@ -52,18 +52,17 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
                   child: Material(
                     color: theme.colorScheme.surface,
                     child: Padding(
-                      padding: EdgeInsets.all(8),
-                      child: FittedBox(
-                        child: SizedBox(
-                          width: 1000,
-                          height: 800,
-                          child: AnimatedSwitcher(
-                            duration: Durations.medium1,
-                            transitionBuilder:
-                                (child, animation) => FadeTransition(
-                                  opacity: animation,
-                                  child: child,
-                                ),
+                      padding: EdgeInsets.all(16),
+                      child: AnimatedSwitcher(
+                        duration: Durations.medium1,
+                        transitionBuilder:
+                            (child, animation) => FadeTransition(
+                              opacity: animation,
+                              child: child,
+                            ),
+                        child: SizedBox.expand(
+                          key: ValueKey(playgroundCubit.state.example),
+                          child: FittedBox(
                             child: switch (playgroundCubit.state) {
                               PlaygroundState(example: 0) =>
                                 DebugGaugeCluster(),

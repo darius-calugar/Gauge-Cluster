@@ -101,7 +101,7 @@ class E1SpeedGauge extends StatelessWidget {
                 width: 2,
                 color: AppColors.white1,
               ),
-
+    
           // MPH
           GaugeTextFeature(
             position: GaugeFeaturePointPosition(outerInset: 100),
