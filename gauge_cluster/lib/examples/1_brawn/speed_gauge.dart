@@ -49,7 +49,6 @@ class BrawnSpeedGauge extends StatelessWidget {
         // Border
         GaugePart(
           shape: GaugePartSectorShape.inset(
-            circle: circle,
             outerInset: 30,
             thickness: 2,
             startAngle: startAngle,
@@ -62,7 +61,6 @@ class BrawnSpeedGauge extends StatelessWidget {
             // Steps
             GaugePart(
               shape: GaugePartRectShape.inset(
-                circle: circle,
                 outerInset: 30,
                 thickness: 16,
                 width: 4,
@@ -92,7 +90,6 @@ class BrawnSpeedGauge extends StatelessWidget {
             // Half-steps
             GaugePart(
               shape: GaugePartRectShape.inset(
-                circle: circle,
                 outerInset: 36,
                 thickness: 6,
                 width: 2,
@@ -104,7 +101,6 @@ class BrawnSpeedGauge extends StatelessWidget {
             // Quarter-steps
             GaugePart(
               shape: GaugePartRectShape.inset(
-                circle: circle,
                 outerInset: 36,
                 thickness: 2,
                 width: 1,
@@ -135,7 +131,6 @@ class BrawnSpeedGauge extends StatelessWidget {
             // Steps
             GaugePart(
               shape: GaugePartRectShape.inset(
-                circle: circle,
                 outerInset: 100,
                 thickness: 8,
                 width: 2,
@@ -163,7 +158,6 @@ class BrawnSpeedGauge extends StatelessWidget {
             // Half-steps
             GaugePart(
               shape: GaugePartRectShape.inset(
-                circle: circle,
                 outerInset: 100,
                 thickness: 4,
                 width: 1,
@@ -180,13 +174,12 @@ class BrawnSpeedGauge extends StatelessWidget {
 
         // Knob base
         GaugePart(
-          shape: GaugePartSectorShape(circle: circle, outerRadius: 20),
+          shape: GaugePartSectorShape(outerRadius: 20),
           fill: GaugePartSolidFill(color: AppColors.black2),
         ),
-        // // Pin
+        // Pin
         GaugePart(
           shape: GaugePartRectShape.inset(
-            circle: circle,
             width: 3,
             outerInset: 40,
             angle: Angle.lerp(startAngle, endAngle, carState.speedRatio),
@@ -195,18 +188,10 @@ class BrawnSpeedGauge extends StatelessWidget {
         ),
         // Knob
         GaugePart(
-          shape: GaugePartSectorShape(circle: circle, outerRadius: 16),
+          shape: GaugePartSectorShape(outerRadius: 16),
           fill: GaugePartSolidFill(color: AppColors.black3),
         ),
       ],
     );
-
-    // return SizedBox.square(
-    //   dimension: circle.diameter,
-    //   child: Gauge(
-    //     features: [
-    //     ],
-    //   ),
-    // );
   }
 }

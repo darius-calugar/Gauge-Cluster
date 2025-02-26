@@ -1,28 +1,35 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gauge_cluster/components/gauge_v2/models/gauge_part.dart';
 import 'package:gauge_cluster/components/gauge_v2/models/gauge_part_fill.dart';
 import 'package:gauge_cluster/components/gauge_v2/models/gauge_part_shape.dart';
 import 'package:gauge_cluster/utils/math/circle/circle.dart';
 import 'package:gauge_cluster/utils/math/circle/circle_line.dart';
+import 'package:gauge_cluster/utils/math/circle/circle_rect.dart';
 import 'package:gauge_cluster/utils/math/units/angle.dart';
 
 class GaugePartRectShapeWidget extends StatelessWidget {
   const GaugePartRectShapeWidget({
     super.key,
+    required this.circle,
     required this.part,
-    required this.circleRadius,
   });
 
+  final Circle circle;
   final GaugePart part;
-  final double circleRadius;
 
   @override
   Widget build(BuildContext context) {
     final shape = part.shape as GaugePartRectShape;
-    final rect = shape.rect;
+    final rect = shape.getRect(circle);
 
-    final clipper = _RectClipper(part: part);
-    final painter = _RectPainter(part: part, clipper: clipper);
+    final clipper = _RectClipper(circle: circle, part: part, rect: rect);
+    final painter = _RectPainter(
+      circle: circle,
+      part: part,
+      rect: rect,
+      clipper: clipper,
+    );
 
     return Positioned.fill(
       child: CustomPaint(
@@ -32,8 +39,8 @@ class GaugePartRectShapeWidget extends StatelessWidget {
           child: Stack(
             children: [
               Positioned(
-                left: circleRadius + rect.center.offset.dx,
-                top: circleRadius + rect.center.offset.dy,
+                left: circle.radius + rect.center.offset.dx,
+                top: circle.radius + rect.center.offset.dy,
                 child: SizedOverflowBox(
                   size: Size.zero,
                   child: Transform.rotate(
@@ -54,21 +61,20 @@ class GaugePartRectShapeWidget extends StatelessWidget {
 }
 
 class _RectClipper extends CustomClipper<Path> {
-  _RectClipper({required this.part});
+  _RectClipper({required this.circle, required this.part, required this.rect});
 
+  final Circle circle;
   final GaugePart part;
+  final CircleRect rect;
 
   @override
   Path getClip(Size size) {
-    final shape = part.shape as GaugePartRectShape;
-    final rect = shape.rect;
-
-    final circleCenter = size.center(Offset.zero);
+    final circleCenterOffset = Offset(circle.radius, circle.radius);
     return Path()..addPolygon([
-      circleCenter + rect.innerStart.offset,
-      circleCenter + rect.innerEnd.offset,
-      circleCenter + rect.outerEnd.offset,
-      circleCenter + rect.outerStart.offset,
+      circleCenterOffset + rect.innerStart.offset,
+      circleCenterOffset + rect.innerEnd.offset,
+      circleCenterOffset + rect.outerEnd.offset,
+      circleCenterOffset + rect.outerStart.offset,
     ], true);
   }
 
@@ -78,18 +84,20 @@ class _RectClipper extends CustomClipper<Path> {
 }
 
 class _RectPainter extends CustomPainter {
-  _RectPainter({required this.part, required this.clipper});
+  _RectPainter({
+    required this.circle,
+    required this.part,
+    required this.rect,
+    required this.clipper,
+  });
 
+  final Circle circle;
   final GaugePart part;
+  final CircleRect rect;
   final _RectClipper clipper;
 
   @override
   void paint(Canvas canvas, Size size) {
-    final shape = part.shape as GaugePartRectShape;
-    final rect = shape.rect;
-
-    final circle = Circle.fromSize(size);
-
     final path = clipper.getClip(size);
 
     final paint = switch (part.fill) {

@@ -27,7 +27,6 @@ class DebugMainGauge extends StatelessWidget {
           for (var v = 0; v < vStepCount; v++) ...[
             GaugePart(
               shape: GaugePartSectorShape(
-                circle: circle,
                 innerRadius: vStep * v,
                 thickness: vStep,
                 startAngle: uStep * u,
@@ -59,7 +58,6 @@ class DebugMainGauge extends StatelessWidget {
         // Sectors
         GaugePart(
           shape: GaugePartSectorShape.inset(
-            circle: circle,
             outerInset: 40,
             thickness: 80,
             startAngle: 0.deg,
@@ -73,7 +71,6 @@ class DebugMainGauge extends StatelessWidget {
         ),
         GaugePart(
           shape: GaugePartSectorShape.inset(
-            circle: circle,
             outerInset: 40,
             thickness: 80,
             startAngle: 60.deg,
@@ -87,7 +84,6 @@ class DebugMainGauge extends StatelessWidget {
         ),
         GaugePart(
           shape: GaugePartSectorShape.inset(
-            circle: circle,
             outerInset: 40,
             thickness: 80,
             startAngle: 120.deg,
@@ -102,7 +98,6 @@ class DebugMainGauge extends StatelessWidget {
         // Rects
         GaugePart(
           shape: GaugePartRectShape.inset(
-            circle: circle,
             width: 100,
             angle: -30.deg,
             innerInset: 120,
@@ -116,7 +111,6 @@ class DebugMainGauge extends StatelessWidget {
         ),
         GaugePart(
           shape: GaugePartRectShape.inset(
-            circle: circle,
             width: 100,
             angle: -90.deg,
             innerInset: 120,
@@ -130,7 +124,6 @@ class DebugMainGauge extends StatelessWidget {
         ),
         GaugePart(
           shape: GaugePartRectShape.inset(
-            circle: circle,
             width: 100,
             angle: -150.deg,
             innerInset: 120,

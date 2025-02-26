@@ -5,25 +5,31 @@ import 'package:gauge_cluster/components/gauge_v2/models/gauge_part_shape.dart';
 import 'package:gauge_cluster/utils/math/circle/circle.dart';
 import 'package:gauge_cluster/utils/math/circle/circle_line.dart';
 import 'package:gauge_cluster/utils/math/circle/circle_point.dart';
+import 'package:gauge_cluster/utils/math/circle/circle_sector.dart';
 import 'package:gauge_cluster/utils/math/units/angle.dart';
 
 class GaugePartSectorShapeWidget extends StatelessWidget {
   const GaugePartSectorShapeWidget({
     super.key,
+    required this.circle,
     required this.part,
-    required this.circleRadius,
   });
 
+  final Circle circle;
   final GaugePart part;
-  final double circleRadius;
 
   @override
   Widget build(BuildContext context) {
     final shape = part.shape as GaugePartSectorShape;
-    final sector = shape.sector;
+    final sector = shape.getSector(circle);
 
-    final clipper = _SectorClipper(part: part);
-    final painter = _SectorPainter(part: part, clipper: clipper);
+    final clipper = _SectorClipper(circle: circle, part: part, sector: sector);
+    final painter = _SectorPainter(
+      circle: circle,
+      part: part,
+      sector: sector,
+      clipper: clipper,
+    );
 
     return Positioned.fill(
       child: CustomPaint(
@@ -33,8 +39,8 @@ class GaugePartSectorShapeWidget extends StatelessWidget {
           child: Stack(
             children: [
               Positioned(
-                left: circleRadius + sector.center.offset.dx,
-                top: circleRadius + sector.center.offset.dy,
+                left: circle.radius + sector.center.offset.dx,
+                top: circle.radius + sector.center.offset.dy,
                 child: SizedOverflowBox(
                   size: Size.zero,
                   child: Transform.rotate(
@@ -55,22 +61,25 @@ class GaugePartSectorShapeWidget extends StatelessWidget {
 }
 
 class _SectorClipper extends CustomClipper<Path> {
-  _SectorClipper({required this.part});
+  _SectorClipper({
+    required this.circle,
+    required this.part,
+    required this.sector,
+  });
 
+  final Circle circle;
   final GaugePart part;
+  final CircleSector sector;
 
   @override
   Path getClip(Size size) {
-    final shape = part.shape as GaugePartSectorShape;
-    final sector = shape.sector;
-
-    final circleCenter = size.center(Offset.zero);
+    final circleCenterOffset = Offset(circle.radius, circle.radius);
     final innerRect = Rect.fromCircle(
-      center: circleCenter,
+      center: circleCenterOffset,
       radius: sector.innerRadius,
     );
     final outerRect = Rect.fromCircle(
-      center: circleCenter,
+      center: circleCenterOffset,
       radius: sector.outerRadius,
     );
 
@@ -78,7 +87,7 @@ class _SectorClipper extends CustomClipper<Path> {
     final outerPath =
         sector.sweepAngle == Angle.full ? (Path()..addOval(outerRect)) : Path()
           ..addArc(outerRect, sector.startAngle.toRad, sector.sweepAngle.toRad)
-          ..lineTo(circleCenter.dx, circleCenter.dy);
+          ..lineTo(circleCenterOffset.dx, circleCenterOffset.dy);
     final path = Path.combine(PathOperation.difference, outerPath, innerPath);
 
     return path;
@@ -90,18 +99,20 @@ class _SectorClipper extends CustomClipper<Path> {
 }
 
 class _SectorPainter extends CustomPainter {
-  _SectorPainter({required this.part, required this.clipper});
+  _SectorPainter({
+    required this.circle,
+    required this.part,
+    required this.sector,
+    required this.clipper,
+  });
 
+  final Circle circle;
   final GaugePart part;
+  final CircleSector sector;
   final _SectorClipper clipper;
 
   @override
   void paint(Canvas canvas, Size size) {
-    final shape = part.shape as GaugePartSectorShape;
-    final sector = shape.sector;
-
-    final circle = Circle.fromSize(size);
-
     final path = clipper.getClip(size);
 
     final paint = switch (part.fill) {

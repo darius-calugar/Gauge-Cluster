@@ -1,32 +1,32 @@
 import 'package:flutter/widgets.dart';
 import 'package:gauge_cluster/components/gauge_v2/gauge.dart';
+import 'package:gauge_cluster/utils/math/circle/circle.dart';
 import 'package:gauge_cluster/utils/math/units/angle.dart';
 
 class GaugePartPointShapeWidget extends StatelessWidget {
   const GaugePartPointShapeWidget({
     super.key,
+    required this.circle,
     required this.part,
-    required this.circleRadius,
   });
 
+  final Circle circle;
   final GaugePart part;
-  final double circleRadius;
 
   @override
   Widget build(BuildContext context) {
     final shape = part.shape as GaugePartPointShape;
-    final point = shape.point;
+    final point = shape.getPoint(circle);
 
     assert(part.fill == null, 'Point parts do not support fills.');
 
     return Positioned(
-      left: circleRadius + point.radius * point.angle.cos,
-      top: circleRadius + point.radius * point.angle.sin,
+      left: circle.radius + point.offset.dx,
+      top: circle.radius + point.offset.dy,
       child: SizedOverflowBox(
         size: Size.zero,
         child: Transform.rotate(
-          angle:
-              part.isRotated ? (Angle.quarter + point.angle).toRad : 0,
+          angle: part.isRotated ? (Angle.quarter + point.angle).toRad : 0,
           child: part.child,
         ),
       ),

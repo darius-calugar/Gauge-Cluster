@@ -17,14 +17,14 @@ sealed class GaugePartShape extends Equatable {
 /// Gauge parts built with this shape are centered at the point.
 final class GaugePartPointShape extends GaugePartShape {
   GaugePartPointShape({required double radius, required Angle angle})
-    : point = CirclePoint(radius: radius, angle: angle);
+    : getPoint = ((circle) => CirclePoint(radius: radius, angle: angle));
 
-  const GaugePartPointShape.raw({required this.point});
+  GaugePartPointShape.raw(CirclePoint point) : getPoint = ((_) => point);
 
-  final CirclePoint point;
+  final CirclePoint Function(Circle circle) getPoint;
 
   @override
-  List<Object?> get props => [point];
+  List<Object?> get props => [getPoint];
 }
 
 /// Gauge shape that represents a rectangle.
@@ -32,41 +32,43 @@ final class GaugePartPointShape extends GaugePartShape {
 /// Gauge parts built with this shape fill the rectangle.
 final class GaugePartRectShape extends GaugePartShape {
   GaugePartRectShape({
-    required Circle circle,
     required double width,
     required Angle angle,
     double? innerRadius,
     double? outerRadius,
     double? thickness,
-  }) : rect = CircleRect(
-         circle: circle,
-         width: width,
-         angle: angle,
-         innerRadius: innerRadius,
-         outerRadius: outerRadius,
-         thickness: thickness,
-       );
+  }) : getRect =
+           ((circle) => CircleRect(
+             circle: circle,
+             width: width,
+             angle: angle,
+             innerRadius: innerRadius,
+             outerRadius: outerRadius,
+             thickness: thickness,
+           ));
 
   GaugePartRectShape.inset({
-    required Circle circle,
     required double width,
     required Angle angle,
     double? innerInset,
     double? outerInset,
     double? thickness,
-  }) : rect = CircleRect.inset(
-         circle: circle,
-         width: width,
-         angle: angle,
-         innerInset: innerInset,
-         outerInset: outerInset,
-         thickness: thickness,
-       );
+  }) : getRect =
+           ((circle) => CircleRect.inset(
+             circle: circle,
+             width: width,
+             angle: angle,
+             innerInset: innerInset,
+             outerInset: outerInset,
+             thickness: thickness,
+           ));
 
-  final CircleRect rect;
+  GaugePartRectShape.raw(CircleRect rect) : getRect = ((_) => rect);
+
+  final CircleRect Function(Circle circle) getRect;
 
   @override
-  List<Object?> get props => [rect];
+  List<Object?> get props => [getRect];
 }
 
 /// Gauge shape that represents a sector on a circle.
@@ -74,45 +76,45 @@ final class GaugePartRectShape extends GaugePartShape {
 /// Gauge parts built with this shape fill the sector.
 final class GaugePartSectorShape extends GaugePartShape {
   GaugePartSectorShape({
-    required Circle circle,
     double? innerRadius,
     double? outerRadius,
     double? thickness,
     Angle? startAngle,
     Angle? endAngle,
     Angle? sweepAngle,
-  }) : sector = CircleSector(
-         circle: circle,
-         innerRadius: innerRadius,
-         outerRadius: outerRadius,
-         thickness: thickness,
-         startAngle: startAngle,
-         endAngle: endAngle,
-         sweepAngle: sweepAngle,
-       );
+  }) : getSector =
+           ((circle) => CircleSector(
+             circle: circle,
+             innerRadius: innerRadius,
+             outerRadius: outerRadius,
+             thickness: thickness,
+             startAngle: startAngle,
+             endAngle: endAngle,
+             sweepAngle: sweepAngle,
+           ));
 
   GaugePartSectorShape.inset({
-    required Circle circle,
     double? innerInset,
     double? outerInset,
     double? thickness,
     Angle? startAngle,
     Angle? endAngle,
     Angle? sweepAngle,
-  }) : sector = CircleSector.inset(
-         circle: circle,
-         innerInset: innerInset,
-         outerInset: outerInset,
-         thickness: thickness,
-         startAngle: startAngle,
-         endAngle: endAngle,
-         sweepAngle: sweepAngle,
-       );
+  }) : getSector =
+           ((circle) => CircleSector.inset(
+             circle: circle,
+             innerInset: innerInset,
+             outerInset: outerInset,
+             thickness: thickness,
+             startAngle: startAngle,
+             endAngle: endAngle,
+             sweepAngle: sweepAngle,
+           ));
 
-  const GaugePartSectorShape.raw({required this.sector});
+  GaugePartSectorShape.raw(CircleSector sector) : getSector = ((_) => sector);
 
-  final CircleSector sector;
+  final CircleSector Function(Circle circle) getSector;
 
   @override
-  List<Object?> get props => [sector];
+  List<Object?> get props => [getSector];
 }

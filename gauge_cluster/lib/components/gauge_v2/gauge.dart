@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gauge_cluster/components/gauge_v2/models/gauge_part.dart';
 import 'package:gauge_cluster/components/gauge_v2/models/gauge_part_shape.dart';
@@ -27,16 +28,16 @@ class Gauge extends StatelessWidget {
             for (final part in parts)
               switch (part.shape) {
                 GaugePartPointShape() => GaugePartPointShapeWidget(
+                  circle: circle,
                   part: part,
-                  circleRadius: circle.radius,
                 ),
                 GaugePartRectShape() => GaugePartRectShapeWidget(
+                  circle: circle,
                   part: part,
-                  circleRadius: circle.radius,
                 ),
                 GaugePartSectorShape() => GaugePartSectorShapeWidget(
+                  circle: circle,
                   part: part,
-                  circleRadius: circle.radius,
                 ),
               },
           ],
