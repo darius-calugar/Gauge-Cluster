@@ -11,12 +11,14 @@ class GaugePart extends BaseGaugePart {
   const GaugePart({
     required this.shape,
     this.fill,
+    this.shadow,
     this.child,
     this.isRotated = false,
   });
 
   final GaugePartShape shape;
   final GaugePartFill? fill;
+  final Shadow? shadow;
   final Widget? child;
   final bool isRotated;
 

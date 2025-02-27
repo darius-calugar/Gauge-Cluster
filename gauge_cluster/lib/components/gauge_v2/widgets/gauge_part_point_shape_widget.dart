@@ -19,6 +19,7 @@ class GaugePartPointShapeWidget extends StatelessWidget {
     final point = shape.getPoint(circle);
 
     assert(part.fill == null, 'Point parts do not support fills.');
+    assert(part.shadow == null, 'Point parts do not support shadows.');
 
     return Positioned(
       left: circle.radius + point.offset.dx,

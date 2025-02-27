@@ -102,7 +102,12 @@ class _RectPainter extends CustomPainter {
     final path = clipper.getClip(size);
     final canvasRect = Offset.zero & Size.square(circle.diameter);
 
-    final paint = switch (part.fill) {
+    final shadowPaint = switch (part.shadow) {
+      null => null,
+      Shadow shadow => shadow.toPaint(),
+    };
+
+    final fillPaint = switch (part.fill) {
       null => null,
       GaugePartSolidFill fill => Paint()..color = fill.color,
       GaugePartLinearGradientFill fill =>
@@ -123,9 +128,8 @@ class _RectPainter extends CustomPainter {
               .createShader(canvasRect),
     };
 
-    if (paint != null) {
-      canvas.drawPath(path, paint);
-    }
+    if (shadowPaint != null) canvas.drawPath(path, shadowPaint);
+    if (fillPaint != null) canvas.drawPath(path, fillPaint);
   }
 
   @override
