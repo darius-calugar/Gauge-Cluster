@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gauge_cluster/examples/1_brawn/aux_gauge.dart';
 import 'package:gauge_cluster/examples/1_brawn/rev_gauge.dart';
 import 'package:gauge_cluster/examples/1_brawn/speed_gauge.dart';
 import 'package:gauge_cluster/utils/app_colors.dart';
@@ -14,6 +15,8 @@ class BrawnGaugeCluster extends StatelessWidget {
   Widget build(BuildContext context) {
     final carState = context.watch<CarCubit>().state;
 
+    // return BrawnSpeedGauge();
+
     return SizedBox(
       width: 1000,
       height: 500,
@@ -24,6 +27,28 @@ class BrawnGaugeCluster extends StatelessWidget {
           children: [
             Positioned.fill(left: null, child: BrawnSpeedGauge()),
             Positioned.fill(right: null, child: BrawnRevGauge()),
+            Positioned(
+              bottom: 0,
+              left: 160,
+              child: BrawnAuxGauge(
+                ratio: carState.fuel,
+                icon: SvgIcons.fuel,
+                lowText: 'E',
+                highText: 'F',
+                isLowDanger: true,
+              ),
+            ),
+            Positioned(
+              bottom: 0,
+              left: 300,
+              child: BrawnAuxGauge(
+                ratio: carState.temperature,
+                icon: SvgIcons.temperature,
+                lowText: 'C',
+                highText: 'H',
+                isHighDanger: true,
+              ),
+            ),
             Positioned(
               bottom: 90,
               right: 450,

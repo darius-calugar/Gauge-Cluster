@@ -114,6 +114,7 @@ class _SectorPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final path = clipper.getClip(size);
+    final canvasRect = Offset.zero & Size.square(circle.diameter);
 
     final paint = switch (part.fill) {
       null => null,
@@ -131,20 +132,19 @@ class _SectorPainter extends CustomPainter {
                   ),
                 ),
               )
-              .createShader(Offset.zero & size),
+              .createShader(canvasRect),
       GaugePartSweepGradientFill fill =>
         Paint()
-          ..shader = fill
-              .getGradient(sector.slice)
-              .createShader(Offset.zero & size),
+          ..shader = fill.getGradient(sector.slice).createShader(canvasRect),
       GaugePartRadialGradientFill fill =>
         Paint()
           ..shader = fill
               .getGradient(circle, sector.ring)
-              .createShader(Offset.zero & size),
+              .createShader(canvasRect),
     };
 
     if (paint != null) {
+      // canvas.drawRect(Offset.zero & size, paint);
       canvas.drawPath(path, paint);
     }
   }

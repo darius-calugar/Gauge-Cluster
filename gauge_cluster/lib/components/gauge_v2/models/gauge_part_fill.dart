@@ -30,19 +30,19 @@ final class GaugePartSolidFill extends GaugePartFill {
 final class GaugePartLinearGradientFill extends GaugePartFill {
   const GaugePartLinearGradientFill({
     required this.colors,
-    this.stops = const [0, 1],
+    this.stops,
     this.line,
   });
 
   final List<Color> colors;
-  final List<double> stops;
+  final List<double>? stops;
   final CircleLine? line;
 
   LinearGradient getGradient(Circle circle, CircleLine line) => LinearGradient(
     colors: colors,
     stops: stops,
-    begin: (this.line ?? line).start.alignment(circle.radius),
-    end: (this.line ?? line).end.alignment(circle.radius),
+    begin: (this.line ?? line).start.alignmentIn(circle),
+    end: (this.line ?? line).end.alignmentIn(circle),
   );
 
   @override
@@ -55,12 +55,12 @@ final class GaugePartLinearGradientFill extends GaugePartFill {
 final class GaugePartSweepGradientFill extends GaugePartFill {
   const GaugePartSweepGradientFill({
     required this.colors,
-    this.stops = const [0, 1],
+    this.stops,
     this.slice,
   });
 
   final List<Color> colors;
-  final List<double> stops;
+  final List<double>? stops;
   final CircleSlice? slice;
 
   SweepGradient getGradient(CircleSlice slice) => SweepGradient(
@@ -80,22 +80,27 @@ final class GaugePartSweepGradientFill extends GaugePartFill {
 final class GaugePartRadialGradientFill extends GaugePartFill {
   const GaugePartRadialGradientFill({
     required this.colors,
-    this.stops = const [0, 1],
+    this.stops,
     this.ring,
   });
 
   final List<Color> colors;
-  final List<double> stops;
+  final List<double>? stops;
   final CircleRing? ring;
 
-  RadialGradient getGradient(Circle circle, CircleRing ring) => RadialGradient(
-    colors: colors,
-    stops: [
-      for (final stop in stops)
-        ((this.ring ?? ring).innerRadius / circle.radius) +
-            stop * ((this.ring ?? ring).thickness / circle.radius),
-    ],
-  );
+  RadialGradient getGradient(Circle circle, CircleRing ring) {
+    final stops =
+        this.stops ??
+        [for (var i = 0; i < colors.length; i++) i / (colors.length - 1)];
+    return RadialGradient(
+      colors: colors,
+      stops: [
+        for (final stop in stops)
+          ((this.ring ?? ring).innerRadius / circle.radius) +
+              stop * ((this.ring ?? ring).thickness / circle.radius),
+      ],
+    );
+  }
 
   @override
   List<Object?> get props => [colors, stops, ring];

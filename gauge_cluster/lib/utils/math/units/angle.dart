@@ -38,6 +38,8 @@ extension type const Angle._(double _rad) {
   bool operator >(Angle other) => _rad > other._rad;
   bool operator >=(Angle other) => _rad >= other._rad;
 
+  Angle get abs => Angle.fromRad(_rad % (2 * _pi));
+
   double get sin => math.sin(_rad);
   double get cos => math.cos(_rad);
 

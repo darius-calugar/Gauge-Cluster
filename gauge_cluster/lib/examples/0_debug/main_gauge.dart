@@ -100,7 +100,7 @@ class DebugMainGauge extends StatelessWidget {
           shape: GaugePartRectShape.inset(
             width: 100,
             angle: -30.deg,
-            innerInset: 120,
+            innerInset: 200,
             outerInset: 40,
           ),
           fill: GaugePartSweepGradientFill(
@@ -113,7 +113,7 @@ class DebugMainGauge extends StatelessWidget {
           shape: GaugePartRectShape.inset(
             width: 100,
             angle: -90.deg,
-            innerInset: 120,
+            innerInset: 200,
             outerInset: 40,
           ),
           fill: GaugePartLinearGradientFill(
@@ -126,7 +126,7 @@ class DebugMainGauge extends StatelessWidget {
           shape: GaugePartRectShape.inset(
             width: 100,
             angle: -150.deg,
-            innerInset: 120,
+            innerInset: 200,
             outerInset: 40,
           ),
           fill: GaugePartRadialGradientFill(

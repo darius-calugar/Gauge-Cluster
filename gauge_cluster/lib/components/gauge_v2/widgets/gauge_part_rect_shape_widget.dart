@@ -70,6 +70,7 @@ class _RectClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     final circleCenterOffset = Offset(circle.radius, circle.radius);
+
     return Path()..addPolygon([
       circleCenterOffset + rect.innerStart.offset,
       circleCenterOffset + rect.innerEnd.offset,
@@ -99,6 +100,7 @@ class _RectPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final path = clipper.getClip(size);
+    final canvasRect = Offset.zero & Size.square(circle.diameter);
 
     final paint = switch (part.fill) {
       null => null,
@@ -110,17 +112,15 @@ class _RectPainter extends CustomPainter {
                 circle,
                 CircleLine(start: rect.innerMid, end: rect.outerMid),
               )
-              .createShader(Offset.zero & size),
+              .createShader(canvasRect),
       GaugePartSweepGradientFill fill =>
         Paint()
-          ..shader = fill
-              .getGradient(rect.innerSlice)
-              .createShader(Offset.zero & size),
+          ..shader = fill.getGradient(rect.innerSlice).createShader(canvasRect),
       GaugePartRadialGradientFill fill =>
         Paint()
           ..shader = fill
               .getGradient(circle, rect.ring)
-              .createShader(Offset.zero & size),
+              .createShader(canvasRect),
     };
 
     if (paint != null) {
