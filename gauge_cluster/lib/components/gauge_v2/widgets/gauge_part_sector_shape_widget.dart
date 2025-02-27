@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:gauge_cluster/components/gauge_v2/models/gauge_part.dart';
-import 'package:gauge_cluster/components/gauge_v2/models/gauge_part_fill.dart';
-import 'package:gauge_cluster/components/gauge_v2/models/gauge_part_shape.dart';
+import 'package:gauge_cluster/components/gauge_v2/models/gauge_fill.dart';
+import 'package:gauge_cluster/components/gauge_v2/models/gauge_shape.dart';
 import 'package:gauge_cluster/components/gauge_v2/models/gauge_shadow.dart';
 import 'package:gauge_cluster/utils/math/circle/circle.dart';
 import 'package:gauge_cluster/utils/math/circle/circle_line.dart';
@@ -21,7 +21,7 @@ class GaugePartSectorShapeWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final shape = part.shape as GaugePartSectorShape;
+    final shape = part.shape as GaugeSectorShape;
     final sector = shape.getSector(circle);
 
     final clipper = _SectorClipper(circle: circle, part: part, sector: sector);
@@ -134,8 +134,8 @@ class _SectorPainter extends CustomPainter {
     // Fill
     final fillPaint = switch (part.fill) {
       null => null,
-      GaugePartSolidFill fill => Paint()..color = fill.color,
-      GaugePartLinearGradientFill fill =>
+      GaugeSolidFill fill => Paint()..color = fill.color,
+      GaugeLinearGradientFill fill =>
         Paint()
           ..shader = fill
               .getGradient(
@@ -149,10 +149,10 @@ class _SectorPainter extends CustomPainter {
                 ),
               )
               .createShader(canvasRect),
-      GaugePartSweepGradientFill fill =>
+      GaugeSweepGradientFill fill =>
         Paint()
           ..shader = fill.getGradient(sector.slice).createShader(canvasRect),
-      GaugePartRadialGradientFill fill =>
+      GaugeRadialGradientFill fill =>
         Paint()
           ..shader = fill
               .getGradient(circle, sector.ring)

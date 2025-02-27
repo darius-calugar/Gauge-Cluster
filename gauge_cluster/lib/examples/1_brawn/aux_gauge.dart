@@ -41,55 +41,55 @@ class BrawnAuxGauge extends StatelessWidget {
       parts: [
         // Border
         GaugePart(
-          shape: GaugePartSectorShape.inset(
+          shape: GaugeSectorShape.inset(
             outerInset: 0,
             thickness: 2,
             startAngle: slice.startAngle,
             sweepAngle: slice.sweepAngle,
           ),
-          fill: GaugePartSolidFill(color: AppColors.white1),
+          fill: GaugeSolidFill(color: AppColors.white1),
         ),
 
         for (var step = 0; step < 5; step++) ...[
           // Steps
           GaugePart(
-            shape: GaugePartRectShape.inset(
+            shape: GaugeRectShape.inset(
               outerInset: 0,
               thickness: 8,
               width: 2,
               angle: 160.deg + 30.deg * step.toDouble(),
             ),
-            fill: GaugePartSolidFill(color: AppColors.white1),
+            fill: GaugeSolidFill(color: AppColors.white1),
           ),
         ],
 
         // Limits
         GaugePart(
-          shape: GaugePartSectorShape.inset(
+          shape: GaugeSectorShape.inset(
             outerInset: 0,
             thickness: 12,
             endAngle: slice.startAngle - 4.deg,
             sweepAngle: 8.deg,
           ),
-          fill: GaugePartSolidFill(
+          fill: GaugeSolidFill(
             color: isLowDanger ? AppColors.red8 : AppColors.white1,
           ),
         ),
         GaugePart(
-          shape: GaugePartSectorShape.inset(
+          shape: GaugeSectorShape.inset(
             outerInset: 0,
             thickness: 12,
             startAngle: slice.endAngle + 4.deg,
             sweepAngle: 8.deg,
           ),
-          fill: GaugePartSolidFill(
+          fill: GaugeSolidFill(
             color: isHighDanger ? AppColors.red8 : AppColors.white1,
           ),
         ),
 
         // Labels
         GaugePart(
-          shape: GaugePartPointShape.inset(
+          shape: GaugePointShape.inset(
             outerInset: 24,
             angle: slice.startAngle - 5.deg,
           ),
@@ -99,7 +99,7 @@ class BrawnAuxGauge extends StatelessWidget {
           ),
         ),
         GaugePart(
-          shape: GaugePartPointShape.inset(
+          shape: GaugePointShape.inset(
             outerInset: 24,
             angle: slice.endAngle + 5.deg,
           ),
@@ -111,10 +111,7 @@ class BrawnAuxGauge extends StatelessWidget {
 
         // Icon
         GaugePart(
-          shape: GaugePartPointShape.inset(
-            innerInset: 40,
-            angle: slice.midAngle,
-          ),
+          shape: GaugePointShape.inset(innerInset: 40, angle: slice.midAngle),
           child: SvgIcon(icon, color: AppColors.white1, size: 24),
         ),
 

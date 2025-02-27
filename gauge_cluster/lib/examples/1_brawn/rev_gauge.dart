@@ -34,7 +34,7 @@ class BrawnRevGauge extends StatelessWidget {
       parts: [
         // RPM legend
         GaugePart(
-          shape: GaugePartPointShape.inset(outerInset: 100, angle: Angle.top),
+          shape: GaugePointShape.inset(outerInset: 100, angle: Angle.top),
           child: Text(
             'RPM x 1000',
             style: TextStyle(
@@ -48,29 +48,29 @@ class BrawnRevGauge extends StatelessWidget {
 
         // Border
         GaugePart(
-          shape: GaugePartSectorShape.inset(
+          shape: GaugeSectorShape.inset(
             outerInset: 30,
             thickness: 2,
             startAngle: slice.startAngle,
             endAngle: redlineSlice.startAngle - stepAngleSweep / 2,
           ),
-          fill: GaugePartSolidFill(color: AppColors.white7),
+          fill: GaugeSolidFill(color: AppColors.white7),
         ),
         GaugePart(
-          shape: GaugePartSectorShape.inset(
+          shape: GaugeSectorShape.inset(
             outerInset: 30,
             thickness: 2,
             startAngle: redlineSlice.startAngle,
             endAngle: redlineSlice.endAngle,
           ),
-          fill: GaugePartSolidFill(color: AppColors.red7),
+          fill: GaugeSolidFill(color: AppColors.red7),
         ),
 
         for (var step = 0; step < steps; step++)
           if (step % 10 == 0) ...[
             // Steps
             GaugePart(
-              shape: GaugePartRectShape.inset(
+              shape: GaugeRectShape.inset(
                 outerInset: 30,
                 thickness: 16,
                 width: 4,
@@ -78,14 +78,14 @@ class BrawnRevGauge extends StatelessWidget {
               ),
               fill:
                   step < redlineStepSnapped
-                      ? GaugePartLinearGradientFill(
+                      ? GaugeLinearGradientFill(
                         colors: [AppColors.white1, AppColors.white7],
                       )
-                      : GaugePartSolidFill(color: AppColors.red7),
+                      : GaugeSolidFill(color: AppColors.red7),
             ),
             // Step labels
             GaugePart(
-              shape: GaugePartPointShape.inset(
+              shape: GaugePointShape.inset(
                 outerInset: 60,
                 angle: slice.startAngle + stepAngleSweep * step,
               ),
@@ -98,30 +98,30 @@ class BrawnRevGauge extends StatelessWidget {
           ] else if (step < redlineStepSnapped)
             // Quarter-steps
             GaugePart(
-              shape: GaugePartRectShape.inset(
+              shape: GaugeRectShape.inset(
                 outerInset: 36,
                 thickness: 2,
                 width: 1,
                 angle: slice.startAngle + stepAngleSweep * step,
               ),
-              fill: GaugePartSolidFill(color: AppColors.white1),
+              fill: GaugeSolidFill(color: AppColors.white1),
             )
           else
             // Redline Quarter-steps
             GaugePart(
-              shape: GaugePartRectShape.inset(
+              shape: GaugeRectShape.inset(
                 outerInset: 34,
                 thickness: 4,
                 width: 2,
                 angle: slice.startAngle + stepAngleSweep * step,
               ),
-              fill: GaugePartSolidFill(color: AppColors.red7),
+              fill: GaugeSolidFill(color: AppColors.red7),
             ),
 
         // Gears
         for (var gear = carState.minGears; gear <= carState.maxGears; gear++)
           GaugePart(
-            shape: GaugePartPointShape.inset(
+            shape: GaugePointShape.inset(
               outerInset: 15,
               angle: 145.deg + 8.deg * (gear + 1),
             ),

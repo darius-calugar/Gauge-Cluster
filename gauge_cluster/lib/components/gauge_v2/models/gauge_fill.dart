@@ -8,15 +8,15 @@ import 'package:gauge_cluster/utils/math/circle/circle_slice.dart';
 /// Base class for gauge fills.
 ///
 /// Gauge fills define the appearance of the gauge parts.
-sealed class GaugePartFill extends Equatable {
-  const GaugePartFill();
+sealed class GaugeFill extends Equatable {
+  const GaugeFill();
 }
 
 /// Solid fill.
 ///
 /// The part is filled with a solid color.
-final class GaugePartSolidFill extends GaugePartFill {
-  const GaugePartSolidFill({required this.color});
+final class GaugeSolidFill extends GaugeFill {
+  const GaugeSolidFill({required this.color});
 
   final Color color;
 
@@ -27,12 +27,8 @@ final class GaugePartSolidFill extends GaugePartFill {
 /// Linear gradient fill.
 ///
 /// The part is filled with a linear gradient.
-final class GaugePartLinearGradientFill extends GaugePartFill {
-  const GaugePartLinearGradientFill({
-    required this.colors,
-    this.stops,
-    this.line,
-  });
+final class GaugeLinearGradientFill extends GaugeFill {
+  const GaugeLinearGradientFill({required this.colors, this.stops, this.line});
 
   final List<Color> colors;
   final List<double>? stops;
@@ -52,12 +48,8 @@ final class GaugePartLinearGradientFill extends GaugePartFill {
 /// Sweep gradient fill.
 ///
 /// The part is filled with a sweep gradient.
-final class GaugePartSweepGradientFill extends GaugePartFill {
-  const GaugePartSweepGradientFill({
-    required this.colors,
-    this.stops,
-    this.slice,
-  });
+final class GaugeSweepGradientFill extends GaugeFill {
+  const GaugeSweepGradientFill({required this.colors, this.stops, this.slice});
 
   final List<Color> colors;
   final List<double>? stops;
@@ -77,12 +69,8 @@ final class GaugePartSweepGradientFill extends GaugePartFill {
 /// Radial gradient fill.
 ///
 /// The part is filled with a radial gradient.
-final class GaugePartRadialGradientFill extends GaugePartFill {
-  const GaugePartRadialGradientFill({
-    required this.colors,
-    this.stops,
-    this.ring,
-  });
+final class GaugeRadialGradientFill extends GaugeFill {
+  const GaugeRadialGradientFill({required this.colors, this.stops, this.ring});
 
   final List<Color> colors;
   final List<double>? stops;

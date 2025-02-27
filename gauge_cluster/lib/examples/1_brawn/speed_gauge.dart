@@ -31,7 +31,7 @@ class BrawnSpeedGauge extends StatelessWidget {
       parts: [
         // KMH
         GaugePart(
-          shape: GaugePartPointShape.inset(
+          shape: GaugePointShape.inset(
             outerInset: 45,
             angle: slice.endAngle + 10.deg,
           ),
@@ -47,31 +47,31 @@ class BrawnSpeedGauge extends StatelessWidget {
         ),
         // Border
         GaugePart(
-          shape: GaugePartSectorShape.inset(
+          shape: GaugeSectorShape.inset(
             outerInset: 30,
             thickness: 2,
             startAngle: slice.startAngle,
             sweepAngle: slice.sweepAngle,
           ),
-          fill: GaugePartSolidFill(color: AppColors.white7),
+          fill: GaugeSolidFill(color: AppColors.white7),
         ),
         for (var step = 0; step < outerSteps; step++)
           if (step % 10 == 0) ...[
             // Steps
             GaugePart(
-              shape: GaugePartRectShape.inset(
+              shape: GaugeRectShape.inset(
                 outerInset: 30,
                 thickness: 16,
                 width: 4,
                 angle: slice.startAngle + outerStepAngleSweep * step,
               ),
-              fill: GaugePartLinearGradientFill(
+              fill: GaugeLinearGradientFill(
                 colors: [AppColors.white1, AppColors.white7],
               ),
             ),
             // Step labels
             GaugePart(
-              shape: GaugePartPointShape.inset(
+              shape: GaugePointShape.inset(
                 outerInset: 60,
                 angle: slice.startAngle + outerStepAngleSweep * step,
               ),
@@ -88,29 +88,29 @@ class BrawnSpeedGauge extends StatelessWidget {
           ] else if (step % 5 == 0)
             // Half-steps
             GaugePart(
-              shape: GaugePartRectShape.inset(
+              shape: GaugeRectShape.inset(
                 outerInset: 36,
                 thickness: 6,
                 width: 2,
                 angle: slice.startAngle + outerStepAngleSweep * step,
               ),
-              fill: GaugePartSolidFill(color: AppColors.white1),
+              fill: GaugeSolidFill(color: AppColors.white1),
             )
           else
             // Quarter-steps
             GaugePart(
-              shape: GaugePartRectShape.inset(
+              shape: GaugeRectShape.inset(
                 outerInset: 36,
                 thickness: 2,
                 width: 1,
                 angle: slice.startAngle + outerStepAngleSweep * step,
               ),
-              fill: GaugePartSolidFill(color: AppColors.white1),
+              fill: GaugeSolidFill(color: AppColors.white1),
             ),
 
         // MPH
         GaugePart(
-          shape: GaugePartPointShape.inset(
+          shape: GaugePointShape.inset(
             outerInset: 100,
             angle: slice.endAngle + 10.deg,
           ),
@@ -129,17 +129,17 @@ class BrawnSpeedGauge extends StatelessWidget {
           if (step % 2 == 0) ...[
             // Steps
             GaugePart(
-              shape: GaugePartRectShape.inset(
+              shape: GaugeRectShape.inset(
                 outerInset: 100,
                 thickness: 8,
                 width: 2,
                 angle: slice.startAngle + innerStepAngleSweep * step,
               ),
-              fill: GaugePartSolidFill(color: AppColors.white7),
+              fill: GaugeSolidFill(color: AppColors.white7),
             ),
             // Step labels
             GaugePart(
-              shape: GaugePartPointShape.inset(
+              shape: GaugePointShape.inset(
                 outerInset: 120,
                 angle: slice.startAngle + innerStepAngleSweep * step,
               ),
@@ -156,18 +156,18 @@ class BrawnSpeedGauge extends StatelessWidget {
           ] else
             // Half-steps
             GaugePart(
-              shape: GaugePartRectShape.inset(
+              shape: GaugeRectShape.inset(
                 outerInset: 100,
                 thickness: 4,
                 width: 1,
                 angle: slice.startAngle + innerStepAngleSweep * step,
               ),
-              fill: GaugePartSolidFill(color: AppColors.white7),
+              fill: GaugeSolidFill(color: AppColors.white7),
             ),
 
         // Mileage
         GaugePart(
-          shape: GaugePartPointShape(radius: 50, angle: Angle.bottom),
+          shape: GaugePointShape(radius: 50, angle: Angle.bottom),
           child: Mileage(distance: carState.mileage, digitCount: 6),
         ),
 

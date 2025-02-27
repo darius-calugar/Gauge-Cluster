@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gauge_cluster/components/gauge_v2/models/gauge_part.dart';
-import 'package:gauge_cluster/components/gauge_v2/models/gauge_part_shape.dart';
+import 'package:gauge_cluster/components/gauge_v2/models/gauge_shape.dart';
 import 'package:gauge_cluster/components/gauge_v2/widgets/gauge_part_point_shape_widget.dart';
 import 'package:gauge_cluster/components/gauge_v2/widgets/gauge_part_rect_shape_widget.dart';
 import 'package:gauge_cluster/components/gauge_v2/widgets/gauge_part_sector_shape_widget.dart';
 import 'package:gauge_cluster/utils/math/circle/circle.dart';
 
-export 'package:gauge_cluster/components/gauge_v2/models/gauge_part_fill.dart';
-export 'package:gauge_cluster/components/gauge_v2/models/gauge_part_shape.dart';
+export 'package:gauge_cluster/components/gauge_v2/models/gauge_fill.dart';
+export 'package:gauge_cluster/components/gauge_v2/models/gauge_shape.dart';
 export 'package:gauge_cluster/components/gauge_v2/models/gauge_part.dart';
 
 class Gauge extends StatelessWidget {
@@ -35,15 +35,15 @@ class Gauge extends StatelessWidget {
           children: [
             for (final part in flatParts)
               switch (part.shape) {
-                GaugePartPointShape() => GaugePartPointShapeWidget(
+                GaugePointShape() => GaugePartPointShapeWidget(
                   circle: circle,
                   part: part,
                 ),
-                GaugePartRectShape() => GaugePartRectShapeWidget(
+                GaugeRectShape() => GaugePartRectShapeWidget(
                   circle: circle,
                   part: part,
                 ),
-                GaugePartSectorShape() => GaugePartSectorShapeWidget(
+                GaugeSectorShape() => GaugePartSectorShapeWidget(
                   circle: circle,
                   part: part,
                 ),

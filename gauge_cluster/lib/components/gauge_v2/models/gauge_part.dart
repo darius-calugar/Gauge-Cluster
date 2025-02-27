@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
-import 'package:gauge_cluster/components/gauge_v2/models/gauge_part_fill.dart';
-import 'package:gauge_cluster/components/gauge_v2/models/gauge_part_shape.dart';
+import 'package:gauge_cluster/components/gauge_v2/models/gauge_fill.dart';
+import 'package:gauge_cluster/components/gauge_v2/models/gauge_shape.dart';
 import 'package:gauge_cluster/components/gauge_v2/models/gauge_shadow.dart';
 import 'package:gauge_cluster/utils/math/circle/circle_point.dart';
 
@@ -19,8 +19,8 @@ class GaugePart extends BaseGaugePart {
     this.isRotated = false,
   });
 
-  final GaugePartShape shape;
-  final GaugePartFill? fill;
+  final GaugeShape shape;
+  final GaugeFill? fill;
   final CirclePoint centerOffset;
   final List<GaugeShadow>? shadows;
   final Widget? child;

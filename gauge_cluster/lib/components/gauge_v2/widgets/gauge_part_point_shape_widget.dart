@@ -15,7 +15,7 @@ class GaugePartPointShapeWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final shape = part.shape as GaugePartPointShape;
+    final shape = part.shape as GaugePointShape;
     final point = shape.getPoint(circle);
 
     assert(part.fill == null, 'Point parts do not support fills.');

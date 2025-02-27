@@ -8,18 +8,18 @@ import 'package:gauge_cluster/utils/math/units/angle.dart';
 /// Base class for gauge shapes.
 ///
 /// Gauge shapes define the geometry of the gauge parts.
-sealed class GaugePartShape extends Equatable {
-  const GaugePartShape();
+sealed class GaugeShape extends Equatable {
+  const GaugeShape();
 }
 
 /// Gauge shape that represents a point on a circle.
 ///
 /// Gauge parts built with this shape are centered at the point.
-final class GaugePartPointShape extends GaugePartShape {
-  GaugePartPointShape({required double radius, required Angle angle})
+final class GaugePointShape extends GaugeShape {
+  GaugePointShape({required double radius, required Angle angle})
     : getPoint = ((circle) => CirclePoint(radius: radius, angle: angle));
 
-  GaugePartPointShape.inset({
+  GaugePointShape.inset({
     double? innerInset,
     double? outerInset,
     required Angle angle,
@@ -31,7 +31,7 @@ final class GaugePartPointShape extends GaugePartShape {
              angle: angle,
            ));
 
-  GaugePartPointShape.raw(CirclePoint point) : getPoint = ((_) => point);
+  GaugePointShape.raw(CirclePoint point) : getPoint = ((_) => point);
 
   final CirclePoint Function(Circle circle) getPoint;
 
@@ -42,8 +42,8 @@ final class GaugePartPointShape extends GaugePartShape {
 /// Gauge shape that represents a rectangle.
 ///
 /// Gauge parts built with this shape fill the rectangle.
-final class GaugePartRectShape extends GaugePartShape {
-  GaugePartRectShape({
+final class GaugeRectShape extends GaugeShape {
+  GaugeRectShape({
     required double width,
     required Angle angle,
     double? innerRadius,
@@ -59,7 +59,7 @@ final class GaugePartRectShape extends GaugePartShape {
              thickness: thickness,
            ));
 
-  GaugePartRectShape.inset({
+  GaugeRectShape.inset({
     required double width,
     required Angle angle,
     double? innerInset,
@@ -75,7 +75,7 @@ final class GaugePartRectShape extends GaugePartShape {
              thickness: thickness,
            ));
 
-  GaugePartRectShape.raw(CircleRect rect) : getRect = ((_) => rect);
+  GaugeRectShape.raw(CircleRect rect) : getRect = ((_) => rect);
 
   final CircleRect Function(Circle circle) getRect;
 
@@ -86,8 +86,8 @@ final class GaugePartRectShape extends GaugePartShape {
 /// Gauge shape that represents a sector on a circle.
 ///
 /// Gauge parts built with this shape fill the sector.
-final class GaugePartSectorShape extends GaugePartShape {
-  GaugePartSectorShape({
+final class GaugeSectorShape extends GaugeShape {
+  GaugeSectorShape({
     double? innerRadius,
     double? outerRadius,
     double? thickness,
@@ -105,7 +105,7 @@ final class GaugePartSectorShape extends GaugePartShape {
              sweepAngle: sweepAngle,
            ));
 
-  GaugePartSectorShape.inset({
+  GaugeSectorShape.inset({
     double? innerInset,
     double? outerInset,
     double? thickness,
@@ -123,7 +123,7 @@ final class GaugePartSectorShape extends GaugePartShape {
              sweepAngle: sweepAngle,
            ));
 
-  GaugePartSectorShape.raw(CircleSector sector) : getSector = ((_) => sector);
+  GaugeSectorShape.raw(CircleSector sector) : getSector = ((_) => sector);
 
   final CircleSector Function(Circle circle) getSector;
 

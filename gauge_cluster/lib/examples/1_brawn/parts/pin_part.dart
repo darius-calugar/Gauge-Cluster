@@ -1,6 +1,6 @@
 import 'package:gauge_cluster/components/gauge_v2/models/gauge_part.dart';
-import 'package:gauge_cluster/components/gauge_v2/models/gauge_part_fill.dart';
-import 'package:gauge_cluster/components/gauge_v2/models/gauge_part_shape.dart';
+import 'package:gauge_cluster/components/gauge_v2/models/gauge_fill.dart';
+import 'package:gauge_cluster/components/gauge_v2/models/gauge_shape.dart';
 import 'package:gauge_cluster/components/gauge_v2/models/gauge_shadow.dart';
 import 'package:gauge_cluster/utils/app_colors.dart';
 import 'package:gauge_cluster/utils/math/circle/circle_line.dart';
@@ -16,13 +16,13 @@ class PinPart extends CompositeGaugePart {
          parts: [
            // Pin
            GaugePart(
-             shape: GaugePartRectShape.inset(
+             shape: GaugeRectShape.inset(
                innerInset: knobRadius,
                outerInset: outerInset,
                width: 3,
                angle: angle,
              ),
-             fill: GaugePartLinearGradientFill(
+             fill: GaugeLinearGradientFill(
                colors: [AppColors.red7, AppColors.red5],
              ),
              shadows: [
@@ -36,8 +36,8 @@ class PinPart extends CompositeGaugePart {
            ),
            // Knob
            GaugePart(
-             shape: GaugePartSectorShape(outerRadius: knobRadius),
-             fill: GaugePartRadialGradientFill(
+             shape: GaugeSectorShape(outerRadius: knobRadius),
+             fill: GaugeRadialGradientFill(
                colors: [AppColors.black4, AppColors.black3],
                stops: [0.3, 1],
              ),
@@ -50,12 +50,12 @@ class PinPart extends CompositeGaugePart {
              ],
            ),
            GaugePart(
-             shape: GaugePartSectorShape(outerRadius: knobRadius, thickness: 1),
-             fill: GaugePartSolidFill(color: AppColors.black4),
+             shape: GaugeSectorShape(outerRadius: knobRadius, thickness: 1),
+             fill: GaugeSolidFill(color: AppColors.black4),
            ),
            GaugePart(
-             shape: GaugePartSectorShape(outerRadius: knobRadius),
-             fill: GaugePartLinearGradientFill(
+             shape: GaugeSectorShape(outerRadius: knobRadius),
+             fill: GaugeLinearGradientFill(
                line: CircleLine(
                  start: CirclePoint(
                    radius: knobRadius,

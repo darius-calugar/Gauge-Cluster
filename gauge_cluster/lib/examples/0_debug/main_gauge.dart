@@ -26,13 +26,13 @@ class DebugMainGauge extends StatelessWidget {
         for (var u = 0; u < uStepCount; u++) ...[
           for (var v = 0; v < vStepCount; v++) ...[
             GaugePart(
-              shape: GaugePartSectorShape(
+              shape: GaugeSectorShape(
                 innerRadius: vStep * v,
                 thickness: vStep,
                 startAngle: uStep * u,
                 sweepAngle: uStep,
               ),
-              fill: GaugePartSweepGradientFill(
+              fill: GaugeSweepGradientFill(
                 slice: CircleSlice.full(),
                 colors: [
                   Color.fromARGB(255, 0, (v / vStepCount * 255).toInt(), 0),
@@ -45,51 +45,51 @@ class DebugMainGauge extends StatelessWidget {
         // Points
         for (var u = 0; u < uStepCount; u++) ...[
           GaugePart(
-            shape: GaugePartPointShape(radius: 60, angle: 30.deg + 60.deg * u),
+            shape: GaugePointShape(radius: 60, angle: 30.deg + 60.deg * u),
             isRotated: true,
             child: SvgIcon(SvgIcons.battery, color: AppColors.white1),
           ),
         ],
         GaugePart(
-          shape: GaugePartPointShape(radius: 140, angle: 90.deg),
+          shape: GaugePointShape(radius: 140, angle: 90.deg),
           isRotated: false,
           child: SvgIcon(SvgIcons.battery, color: AppColors.white1),
         ),
         // Sectors
         GaugePart(
-          shape: GaugePartSectorShape.inset(
+          shape: GaugeSectorShape.inset(
             outerInset: 40,
             thickness: 80,
             startAngle: 0.deg,
             sweepAngle: 60.deg,
           ),
-          fill: GaugePartSweepGradientFill(
+          fill: GaugeSweepGradientFill(
             colors: [AppColors.white1, AppColors.black1],
           ),
           isRotated: true,
           child: SvgIcon(SvgIcons.battery, color: AppColors.black1),
         ),
         GaugePart(
-          shape: GaugePartSectorShape.inset(
+          shape: GaugeSectorShape.inset(
             outerInset: 40,
             thickness: 80,
             startAngle: 60.deg,
             sweepAngle: 60.deg,
           ),
-          fill: GaugePartLinearGradientFill(
+          fill: GaugeLinearGradientFill(
             colors: [AppColors.white1, AppColors.black1],
           ),
           isRotated: true,
           child: SvgIcon(SvgIcons.battery, color: AppColors.black1),
         ),
         GaugePart(
-          shape: GaugePartSectorShape.inset(
+          shape: GaugeSectorShape.inset(
             outerInset: 40,
             thickness: 80,
             startAngle: 120.deg,
             sweepAngle: 60.deg,
           ),
-          fill: GaugePartRadialGradientFill(
+          fill: GaugeRadialGradientFill(
             colors: [AppColors.white1, AppColors.black1],
           ),
           isRotated: true,
@@ -97,39 +97,39 @@ class DebugMainGauge extends StatelessWidget {
         ),
         // Rects
         GaugePart(
-          shape: GaugePartRectShape.inset(
+          shape: GaugeRectShape.inset(
             width: 100,
             angle: -30.deg,
             innerInset: 200,
             outerInset: 40,
           ),
-          fill: GaugePartSweepGradientFill(
+          fill: GaugeSweepGradientFill(
             colors: [AppColors.white1, AppColors.black1],
           ),
           isRotated: true,
           child: SvgIcon(SvgIcons.battery, color: AppColors.black1),
         ),
         GaugePart(
-          shape: GaugePartRectShape.inset(
+          shape: GaugeRectShape.inset(
             width: 100,
             angle: -90.deg,
             innerInset: 200,
             outerInset: 40,
           ),
-          fill: GaugePartLinearGradientFill(
+          fill: GaugeLinearGradientFill(
             colors: [AppColors.white1, AppColors.black1],
           ),
           isRotated: true,
           child: SvgIcon(SvgIcons.battery, color: AppColors.black1),
         ),
         GaugePart(
-          shape: GaugePartRectShape.inset(
+          shape: GaugeRectShape.inset(
             width: 100,
             angle: -150.deg,
             innerInset: 200,
             outerInset: 40,
           ),
-          fill: GaugePartRadialGradientFill(
+          fill: GaugeRadialGradientFill(
             colors: [AppColors.white1, AppColors.black1],
           ),
           isRotated: true,
