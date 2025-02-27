@@ -15,14 +15,12 @@ class BrawnGaugeCluster extends StatelessWidget {
   Widget build(BuildContext context) {
     final carState = context.watch<CarCubit>().state;
 
-    // return BrawnSpeedGauge();
-
     return SizedBox(
       width: 1000,
       height: 500,
       child: PhysicalShape(
         clipper: _BackgroundClipper(),
-        color: AppColors.black1,
+        color: AppColors.black3,
         child: Stack(
           children: [
             Positioned.fill(left: null, child: BrawnSpeedGauge()),
@@ -58,8 +56,8 @@ class BrawnGaugeCluster extends StatelessWidget {
                   SvgIcons.doors,
                   color:
                       carState.doorSignal
-                          ? AppColors.orange1
-                          : AppColors.black2,
+                          ? AppColors.orange5
+                          : AppColors.black4,
                 ),
               ),
             ),
@@ -72,8 +70,8 @@ class BrawnGaugeCluster extends StatelessWidget {
                   SvgIcons.battery,
                   color:
                       carState.batterySignal
-                          ? AppColors.orange1
-                          : AppColors.black2,
+                          ? AppColors.orange5
+                          : AppColors.black4,
                 ),
               ),
             ),
@@ -86,8 +84,8 @@ class BrawnGaugeCluster extends StatelessWidget {
                   SvgIcons.left,
                   color:
                       carState.leftTurnSignal
-                          ? AppColors.green1
-                          : AppColors.black2,
+                          ? AppColors.green5
+                          : AppColors.black4,
                 ),
               ),
             ),
@@ -99,7 +97,7 @@ class BrawnGaugeCluster extends StatelessWidget {
                 child: SvgIcon(
                   SvgIcons.brakes,
                   color:
-                      carState.brakesSignal ? AppColors.red1 : AppColors.black2,
+                      carState.brakesSignal ? AppColors.red5 : AppColors.black4,
                 ),
               ),
             ),
@@ -112,8 +110,8 @@ class BrawnGaugeCluster extends StatelessWidget {
                   SvgIcons.right,
                   color:
                       carState.rightTurnSignal
-                          ? AppColors.green1
-                          : AppColors.black2,
+                          ? AppColors.green5
+                          : AppColors.black4,
                 ),
               ),
             ),
@@ -125,7 +123,7 @@ class BrawnGaugeCluster extends StatelessWidget {
                 child: SvgIcon(
                   SvgIcons.fuel,
                   color:
-                      carState.fuelSignal ? AppColors.red1 : AppColors.black2,
+                      carState.fuelSignal ? AppColors.red5 : AppColors.black4,
                 ),
               ),
             ),
@@ -138,8 +136,8 @@ class BrawnGaugeCluster extends StatelessWidget {
                   SvgIcons.temperature,
                   color:
                       carState.temperatureSignal
-                          ? AppColors.red1
-                          : AppColors.black2,
+                          ? AppColors.red5
+                          : AppColors.black4,
                 ),
               ),
             ),
@@ -152,8 +150,8 @@ class BrawnGaugeCluster extends StatelessWidget {
                   SvgIcons.transmission,
                   color:
                       carState.transmissionSignal
-                          ? AppColors.red1
-                          : AppColors.black2,
+                          ? AppColors.red5
+                          : AppColors.black4,
                 ),
               ),
             ),
@@ -166,8 +164,8 @@ class BrawnGaugeCluster extends StatelessWidget {
                   SvgIcons.wrench,
                   color:
                       carState.serviceSignal
-                          ? AppColors.red1
-                          : AppColors.black2,
+                          ? AppColors.red5
+                          : AppColors.black4,
                 ),
               ),
             ),
@@ -180,8 +178,8 @@ class BrawnGaugeCluster extends StatelessWidget {
                   SvgIcons.engine,
                   color:
                       carState.engineSignal
-                          ? AppColors.orange1
-                          : AppColors.black2,
+                          ? AppColors.orange5
+                          : AppColors.black4,
                 ),
               ),
             ),

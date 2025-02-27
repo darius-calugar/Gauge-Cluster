@@ -45,7 +45,7 @@ class E2GearBar extends StatelessWidget {
                                 : TextStyle(
                                   fontSize: 24,
                                   fontWeight: FontWeight.w400,
-                                  color: AppColors.white3,
+                                  color: AppColors.white9,
                                 ),
                         child:
                             gear >= carState.minGears &&

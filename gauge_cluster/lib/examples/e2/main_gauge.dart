@@ -41,16 +41,16 @@ class E2MainGauge extends StatelessWidget {
 
     final primaryColor =
         carState.revs < carState.redline - 250.rpm
-            ? AppColors.blue1
-            : carState.revs < carState.redline
-            ? AppColors.green1
-            : AppColors.red1;
-    final secondaryColor =
-        carState.revs < carState.redline - 250.rpm
             ? AppColors.blue5
             : carState.revs < carState.redline
             ? AppColors.green5
             : AppColors.red5;
+    final secondaryColor =
+        carState.revs < carState.redline - 250.rpm
+            ? AppColors.blue9
+            : carState.revs < carState.redline
+            ? AppColors.green9
+            : AppColors.red9;
 
     return SizedBox.square(
       dimension: radius * 2,
@@ -61,7 +61,7 @@ class E2MainGauge extends StatelessWidget {
             position: GaugeFeatureSectorPosition(thickness: 200),
             gradient: RadialGradient(
               transform: GradientRotation(startAngle.toRad),
-              colors: [AppColors.black2, AppColors.black1],
+              colors: [AppColors.black4, AppColors.black2],
               stops: [0.8, 1.0],
             ),
           ),
@@ -72,7 +72,7 @@ class E2MainGauge extends StatelessWidget {
             ),
             gradient: RadialGradient(
               transform: GradientRotation(startAngle.toRad),
-              colors: [AppColors.black2, AppColors.black1],
+              colors: [AppColors.black4, AppColors.black2],
               stops: [0.8, 1.0],
             ),
           ),
@@ -80,7 +80,7 @@ class E2MainGauge extends StatelessWidget {
             position: GaugeFeatureSectorPosition(outerInset: 80, thickness: 40),
             gradient: RadialGradient(
               transform: GradientRotation(startAngle.toRad),
-              colors: [AppColors.black3, AppColors.black2],
+              colors: [AppColors.black6, AppColors.black4],
               stops: [0.8, 1.0],
             ),
           ),
@@ -90,7 +90,7 @@ class E2MainGauge extends StatelessWidget {
             sweepAngle: stepSweepAngle,
             gradient: RadialGradient(
               transform: GradientRotation(startAngle.toRad),
-              colors: [AppColors.green3, AppColors.green5],
+              colors: [AppColors.green8, AppColors.green9],
               stops: [0.8, 1.0],
             ),
           ),
@@ -100,7 +100,7 @@ class E2MainGauge extends StatelessWidget {
             sweepAngle: redlineSweepAngle + (Angle.bottom - endAngle),
             gradient: RadialGradient(
               transform: GradientRotation(startAngle.toRad),
-              colors: [AppColors.red3, AppColors.red5],
+              colors: [AppColors.red8, AppColors.red9],
               stops: [0.8, 1.0],
             ),
           ),
@@ -121,15 +121,15 @@ class E2MainGauge extends StatelessWidget {
               outerInset: 80 - 4,
               thickness: 4,
             ),
-            color: AppColors.white2,
+            color: AppColors.white9,
           ),
           GaugeSliceFeature(
             position: GaugeFeatureSectorPosition(outerInset: 120, thickness: 2),
-            color: AppColors.white2,
+            color: AppColors.white9,
           ),
           GaugeSliceFeature(
             position: GaugeFeatureSectorPosition(outerInset: 200, thickness: 2),
-            color: AppColors.black3,
+            color: AppColors.black6,
           ),
           // Overlay
           GaugeSliceFeature(
@@ -137,7 +137,7 @@ class E2MainGauge extends StatelessWidget {
             gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: [AppColors.black1.withAlpha(0x00), AppColors.black1],
+              colors: [AppColors.black3.withAlpha(0x00), AppColors.black3],
               stops: [0.3, .75],
             ),
           ),
@@ -182,8 +182,8 @@ class E2MainGauge extends StatelessWidget {
                     carState.revs >= (carState.maxRevs / stepCount) * step
                         ? primaryColor
                         : step < redlineStep
-                        ? AppColors.white3
-                        : AppColors.red3,
+                        ? AppColors.white9
+                        : AppColors.red7,
               ),
           // Marker
           GaugeSliceFeature(

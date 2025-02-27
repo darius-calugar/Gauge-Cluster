@@ -39,7 +39,7 @@ class BrawnRevGauge extends StatelessWidget {
             'RPM x 1000',
             style: TextStyle(
               fontSize: 12,
-              color: AppColors.white2,
+              color: AppColors.white9,
               fontWeight: FontWeight.w400,
               fontStyle: FontStyle.italic,
             ),
@@ -54,7 +54,7 @@ class BrawnRevGauge extends StatelessWidget {
             startAngle: slice.startAngle,
             endAngle: redlineSlice.startAngle - stepAngleSweep / 2,
           ),
-          fill: GaugePartSolidFill(color: AppColors.white2),
+          fill: GaugePartSolidFill(color: AppColors.white7),
         ),
         GaugePart(
           shape: GaugePartSectorShape.inset(
@@ -63,7 +63,7 @@ class BrawnRevGauge extends StatelessWidget {
             startAngle: redlineSlice.startAngle,
             endAngle: redlineSlice.endAngle,
           ),
-          fill: GaugePartSolidFill(color: AppColors.red2),
+          fill: GaugePartSolidFill(color: AppColors.red7),
         ),
 
         for (var step = 0; step < steps; step++)
@@ -79,9 +79,9 @@ class BrawnRevGauge extends StatelessWidget {
               fill:
                   step < redlineStepSnapped
                       ? GaugePartLinearGradientFill(
-                        colors: [AppColors.white1, AppColors.white2],
+                        colors: [AppColors.white1, AppColors.white7],
                       )
-                      : GaugePartSolidFill(color: AppColors.red2),
+                      : GaugePartSolidFill(color: AppColors.red7),
             ),
             // Step labels
             GaugePart(
@@ -115,7 +115,7 @@ class BrawnRevGauge extends StatelessWidget {
                 width: 2,
                 angle: slice.startAngle + stepAngleSweep * step,
               ),
-              fill: GaugePartSolidFill(color: AppColors.red2),
+              fill: GaugePartSolidFill(color: AppColors.red7),
             ),
 
         // Gears
@@ -133,7 +133,7 @@ class BrawnRevGauge extends StatelessWidget {
               },
               style: TextStyle(
                 color:
-                    gear == carState.gear ? AppColors.red1 : AppColors.black3,
+                    gear == carState.gear ? AppColors.red5 : AppColors.black4,
                 fontWeight: FontWeight.w600,
               ),
             ),

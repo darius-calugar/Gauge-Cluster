@@ -26,9 +26,9 @@ class E2TemperatureGauge extends StatelessWidget {
     final stepSweepAngle = sweepAngle / stepCount;
 
     final primaryColor =
-        carState.temperatureSignal ? AppColors.red1 : AppColors.white1;
+        carState.temperatureSignal ? AppColors.red5 : AppColors.white1;
     final secondaryColor =
-        carState.temperatureSignal ? AppColors.red2 : AppColors.white2;
+        carState.temperatureSignal ? AppColors.red7 : AppColors.white7;
 
     return SizedBox.square(
       dimension: radius * 2,
@@ -42,7 +42,7 @@ class E2TemperatureGauge extends StatelessWidget {
             ),
             startAngle: startAngle,
             sweepAngle: sweepAngle,
-            color: AppColors.black2,
+            color: AppColors.black3,
           ),
           GaugeSliceFeature(
             position: GaugeFeatureSectorPosition(
@@ -66,7 +66,7 @@ class E2TemperatureGauge extends StatelessWidget {
               ),
               angle: startAngle + stepSweepAngle * step,
               width: 2,
-              color: AppColors.white2,
+              color: AppColors.white7,
             ),
           // Limits
           GaugeBoxFeature(
@@ -76,7 +76,7 @@ class E2TemperatureGauge extends StatelessWidget {
             ),
             angle: startAngle - stepSweepAngle,
             width: 4,
-            color: AppColors.red3,
+            color: AppColors.red8,
           ),
           GaugeBoxFeature(
             position: GaugeFeatureSectorPosition(
@@ -85,7 +85,7 @@ class E2TemperatureGauge extends StatelessWidget {
             ),
             angle: endAngle + stepSweepAngle,
             width: 4,
-            color: AppColors.white2,
+            color: AppColors.white7,
           ),
           // Icon
           GaugeCustomFeature(

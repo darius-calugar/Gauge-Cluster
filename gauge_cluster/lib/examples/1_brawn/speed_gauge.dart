@@ -53,7 +53,7 @@ class BrawnSpeedGauge extends StatelessWidget {
             startAngle: slice.startAngle,
             sweepAngle: slice.sweepAngle,
           ),
-          fill: GaugePartSolidFill(color: AppColors.white2),
+          fill: GaugePartSolidFill(color: AppColors.white7),
         ),
         for (var step = 0; step < outerSteps; step++)
           if (step % 10 == 0) ...[
@@ -66,7 +66,7 @@ class BrawnSpeedGauge extends StatelessWidget {
                 angle: slice.startAngle + outerStepAngleSweep * step,
               ),
               fill: GaugePartLinearGradientFill(
-                colors: [AppColors.white1, AppColors.white2],
+                colors: [AppColors.white1, AppColors.white7],
               ),
             ),
             // Step labels
@@ -120,7 +120,7 @@ class BrawnSpeedGauge extends StatelessWidget {
             style: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w400,
-              color: AppColors.white2,
+              color: AppColors.white7,
               fontStyle: FontStyle.italic,
             ),
           ),
@@ -135,7 +135,7 @@ class BrawnSpeedGauge extends StatelessWidget {
                 width: 2,
                 angle: slice.startAngle + innerStepAngleSweep * step,
               ),
-              fill: GaugePartSolidFill(color: AppColors.white2),
+              fill: GaugePartSolidFill(color: AppColors.white7),
             ),
             // Step labels
             GaugePart(
@@ -149,7 +149,7 @@ class BrawnSpeedGauge extends StatelessWidget {
                 style: TextStyle(
                   fontWeight: FontWeight.w400,
                   fontSize: 14,
-                  color: AppColors.white2,
+                  color: AppColors.white7,
                 ),
               ),
             ),
@@ -162,7 +162,7 @@ class BrawnSpeedGauge extends StatelessWidget {
                 width: 1,
                 angle: slice.startAngle + innerStepAngleSweep * step,
               ),
-              fill: GaugePartSolidFill(color: AppColors.white2),
+              fill: GaugePartSolidFill(color: AppColors.white7),
             ),
 
         // Mileage

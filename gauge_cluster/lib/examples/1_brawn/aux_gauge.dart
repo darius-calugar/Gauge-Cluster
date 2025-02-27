@@ -72,7 +72,7 @@ class BrawnAuxGauge extends StatelessWidget {
             sweepAngle: 8.deg,
           ),
           fill: GaugePartSolidFill(
-            color: isLowDanger ? AppColors.red3 : AppColors.white1,
+            color: isLowDanger ? AppColors.red8 : AppColors.white1,
           ),
         ),
         GaugePart(
@@ -83,7 +83,7 @@ class BrawnAuxGauge extends StatelessWidget {
             sweepAngle: 8.deg,
           ),
           fill: GaugePartSolidFill(
-            color: isHighDanger ? AppColors.red3 : AppColors.white1,
+            color: isHighDanger ? AppColors.red8 : AppColors.white1,
           ),
         ),
 
