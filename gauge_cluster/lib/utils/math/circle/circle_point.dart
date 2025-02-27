@@ -19,6 +19,8 @@ class CirclePoint extends Equatable {
     : radius = offset.distance,
       angle = Angle.fromRad(offset.direction).abs;
 
+  static const center = CirclePoint(radius: 0, angle: Angle.zero);
+
   final double radius;
   final Angle angle;
 

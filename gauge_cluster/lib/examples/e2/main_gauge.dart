@@ -85,7 +85,10 @@ class E2MainGauge extends StatelessWidget {
             ),
           ),
           GaugeSliceFeature(
-            position: GaugeFeatureSectorPosition(outerInset: 80, thickness: 40),
+            position: GaugeFeatureSectorPosition(
+              outerInset: 110,
+              thickness: 10,
+            ),
             startAngle: redlineStartAngle - stepSweepAngle,
             sweepAngle: stepSweepAngle,
             gradient: RadialGradient(

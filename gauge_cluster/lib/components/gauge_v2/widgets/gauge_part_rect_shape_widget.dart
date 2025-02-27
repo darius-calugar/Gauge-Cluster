@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:gauge_cluster/components/gauge_v2/models/gauge_part.dart';
 import 'package:gauge_cluster/components/gauge_v2/models/gauge_part_fill.dart';
 import 'package:gauge_cluster/components/gauge_v2/models/gauge_part_shape.dart';
+import 'package:gauge_cluster/components/gauge_v2/models/gauge_shadow.dart';
 import 'package:gauge_cluster/utils/math/circle/circle.dart';
 import 'package:gauge_cluster/utils/math/circle/circle_line.dart';
 import 'package:gauge_cluster/utils/math/circle/circle_rect.dart';
@@ -39,8 +40,14 @@ class GaugePartRectShapeWidget extends StatelessWidget {
           child: Stack(
             children: [
               Positioned(
-                left: circle.radius + rect.center.offset.dx,
-                top: circle.radius + rect.center.offset.dy,
+                left:
+                    circle.radius +
+                    part.centerOffset.offset.dx +
+                    rect.center.offset.dx,
+                top:
+                    circle.radius +
+                    part.centerOffset.offset.dy +
+                    rect.center.offset.dy,
                 child: SizedOverflowBox(
                   size: Size.zero,
                   child: Transform.rotate(
@@ -69,7 +76,8 @@ class _RectClipper extends CustomClipper<Path> {
 
   @override
   Path getClip(Size size) {
-    final circleCenterOffset = Offset(circle.radius, circle.radius);
+    final circleCenterOffset =
+        Offset(circle.radius, circle.radius) + part.centerOffset.offset;
 
     return Path()..addPolygon([
       circleCenterOffset + rect.innerStart.offset,
@@ -102,11 +110,14 @@ class _RectPainter extends CustomPainter {
     final path = clipper.getClip(size);
     final canvasRect = Offset.zero & Size.square(circle.diameter);
 
-    final shadowPaint = switch (part.shadow) {
-      null => null,
-      Shadow shadow => shadow.toPaint(),
-    };
+    // Shadows
+    for (final shadow in part.shadows ?? <GaugeShadow>[]) {
+      final shadowPath = path.shift(shadow.offset);
+      final shadowPaint = shadow.toPaint();
+      canvas.drawPath(shadowPath, shadowPaint);
+    }
 
+    // Fill
     final fillPaint = switch (part.fill) {
       null => null,
       GaugePartSolidFill fill => Paint()..color = fill.color,
@@ -127,8 +138,6 @@ class _RectPainter extends CustomPainter {
               .getGradient(circle, rect.ring)
               .createShader(canvasRect),
     };
-
-    if (shadowPaint != null) canvas.drawPath(path, shadowPaint);
     if (fillPaint != null) canvas.drawPath(path, fillPaint);
   }
 

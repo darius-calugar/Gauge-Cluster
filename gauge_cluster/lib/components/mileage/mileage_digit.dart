@@ -22,7 +22,7 @@ class MileageDigit extends StatelessWidget {
             AppColors.black4,
           ],
         ),
-        boxShadow: [BoxShadow(color: AppColors.black2, blurRadius: 4)],
+        boxShadow: [BoxShadow(color: AppColors.black2, blurRadius: 2)],
       ),
       child: Text(
         '$digit',

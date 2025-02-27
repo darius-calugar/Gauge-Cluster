@@ -19,11 +19,11 @@ class GaugePartPointShapeWidget extends StatelessWidget {
     final point = shape.getPoint(circle);
 
     assert(part.fill == null, 'Point parts do not support fills.');
-    assert(part.shadow == null, 'Point parts do not support shadows.');
+    assert(part.shadows == null, 'Point parts do not support shadows.');
 
     return Positioned(
-      left: circle.radius + point.offset.dx,
-      top: circle.radius + point.offset.dy,
+      left: circle.radius + part.centerOffset.offset.dx + point.offset.dx,
+      top: circle.radius + part.centerOffset.offset.dy + point.offset.dy,
       child: SizedOverflowBox(
         size: Size.zero,
         child: Transform.rotate(

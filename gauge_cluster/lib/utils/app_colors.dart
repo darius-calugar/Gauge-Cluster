@@ -21,7 +21,6 @@ abstract final class AppColors {
   static final white8 = HSLColor.fromAHSL(1, 0, 0, .650).toColor();
   static final white9 = HSLColor.fromAHSL(1, 0, 0, .600).toColor();
 
-
   static final red1 = HSLColor.fromAHSL(1, 0, .8, .9).toColor();
   static final red2 = HSLColor.fromAHSL(1, 0, .8, .8).toColor();
   static final red3 = HSLColor.fromAHSL(1, 0, .8, .7).toColor();
@@ -101,4 +100,8 @@ abstract final class AppColors {
   static final pink7 = HSLColor.fromAHSL(1, 300, .8, .3).toColor();
   static final pink8 = HSLColor.fromAHSL(1, 300, .8, .2).toColor();
   static final pink9 = HSLColor.fromAHSL(1, 300, .8, .1).toColor();
+}
+
+extension AppColorUtils on Color {
+  Color get transparent => withAlpha(0);
 }
