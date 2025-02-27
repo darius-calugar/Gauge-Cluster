@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gauge_cluster/components/svg_icon/svg_icon.dart';
+import 'package:gauge_cluster/examples/1_brawn/parts/pin_part.dart';
 import 'package:gauge_cluster/utils/app_colors.dart';
 import 'package:gauge_cluster/components/gauge_v2/gauge.dart';
 import 'package:gauge_cluster/utils/assets.dart';
@@ -117,25 +118,8 @@ class BrawnAuxGauge extends StatelessWidget {
           child: SvgIcon(icon, color: AppColors.white1, size: 24),
         ),
 
-        // Knob base
-        GaugePart(
-          shape: GaugePartSectorShape(outerRadius: 14),
-          fill: GaugePartSolidFill(color: AppColors.black2),
-        ),
         // Pin
-        GaugePart(
-          shape: GaugePartRectShape.inset(
-            width: 3,
-            outerInset: 5,
-            angle: fullSlice.atRatio(ratio),
-          ),
-          fill: GaugePartSolidFill(color: AppColors.red1),
-        ),
-        // Knob
-        GaugePart(
-          shape: GaugePartSectorShape(outerRadius: 10),
-          fill: GaugePartSolidFill(color: AppColors.black3),
-        ),
+        PinPart(outerInset: 5, knobRadius: 10, angle: fullSlice.atRatio(ratio)),
       ],
     );
   }

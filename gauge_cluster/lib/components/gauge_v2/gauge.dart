@@ -15,17 +15,25 @@ class Gauge extends StatelessWidget {
   const Gauge({super.key, required this.circle, required this.parts});
 
   final Circle circle;
-  final List<GaugePart> parts;
+  final List<BaseGaugePart> parts;
 
   @override
   Widget build(BuildContext context) {
+    final flatParts = [
+      for (final part in parts)
+        ...switch (part) {
+          GaugePart() => [part],
+          CompositeGaugePart() => part.parts,
+        },
+    ];
+
     return Center(
       child: SizedBox.square(
         dimension: circle.diameter,
         child: Stack(
           alignment: Alignment.center,
           children: [
-            for (final part in parts)
+            for (final part in flatParts)
               switch (part.shape) {
                 GaugePartPointShape() => GaugePartPointShapeWidget(
                   circle: circle,

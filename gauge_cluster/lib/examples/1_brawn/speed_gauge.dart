@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gauge_cluster/blocs/car/car_cubit.dart';
 import 'package:gauge_cluster/components/gauge_v2/gauge.dart';
 import 'package:gauge_cluster/components/mileage/mileage.dart';
+import 'package:gauge_cluster/examples/1_brawn/parts/pin_part.dart';
 import 'package:gauge_cluster/utils/app_colors.dart';
 import 'package:gauge_cluster/utils/math/circle/circle.dart';
 import 'package:gauge_cluster/utils/math/circle/circle_slice.dart';
@@ -170,24 +171,11 @@ class BrawnSpeedGauge extends StatelessWidget {
           child: Mileage(distance: carState.mileage, digitCount: 6),
         ),
 
-        // Knob base
-        GaugePart(
-          shape: GaugePartSectorShape(outerRadius: 20),
-          fill: GaugePartSolidFill(color: AppColors.black2),
-        ),
         // Pin
-        GaugePart(
-          shape: GaugePartRectShape.inset(
-            width: 3,
-            outerInset: 40,
-            angle: slice.atRatio(carState.speedRatio),
-          ),
-          fill: GaugePartSolidFill(color: AppColors.red1),
-        ),
-        // Knob
-        GaugePart(
-          shape: GaugePartSectorShape(outerRadius: 16),
-          fill: GaugePartSolidFill(color: AppColors.black3),
+        PinPart(
+          outerInset: 40,
+          knobRadius: 16,
+          angle: slice.atRatio(carState.speedRatio),
         ),
       ],
     );
