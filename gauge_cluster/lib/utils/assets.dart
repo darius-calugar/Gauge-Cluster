@@ -1,3 +1,7 @@
+import 'dart:ui' as ui;
+
+import 'package:flutter/services.dart';
+
 extension type const SvgIconData(String path) {}
 
 abstract final class SvgIcons {
@@ -11,4 +15,17 @@ abstract final class SvgIcons {
   static const temperature = SvgIconData('assets/svgs/icons/temperature.svg');
   static const transmission = SvgIconData('assets/svgs/icons/transmission.svg');
   static const wrench = SvgIconData('assets/svgs/icons/wrench.svg');
+}
+
+abstract final class Textures {
+  static Future<void> load() async {
+    final buffer = await rootBundle.loadBuffer(
+      'assets/textures/bump/plastic_1.png',
+    );
+    final codec = await ui.instantiateImageCodecFromBuffer(buffer);
+    final frame = await codec.getNextFrame();
+    bumpPlastic1 = frame.image;
+  }
+
+  static late final ui.Image bumpPlastic1;
 }

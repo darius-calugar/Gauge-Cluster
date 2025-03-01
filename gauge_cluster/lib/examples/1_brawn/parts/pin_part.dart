@@ -50,10 +50,6 @@ class PinPart extends CompositeGaugePart {
              ],
            ),
            GaugePart(
-             shape: GaugeSectorShape(outerRadius: knobRadius, thickness: 1),
-             fill: GaugeSolidFill(color: AppColors.black4),
-           ),
-           GaugePart(
              shape: GaugeSectorShape(outerRadius: knobRadius),
              fill: GaugeLinearGradientFill(
                line: CircleLine(
@@ -64,6 +60,19 @@ class PinPart extends CompositeGaugePart {
                  end: CirclePoint(radius: knobRadius, angle: Angle.topRight),
                ),
                colors: [AppColors.black4.transparent, AppColors.black4],
+             ),
+           ),
+           GaugePart(
+             shape: GaugeSectorShape(outerRadius: knobRadius, thickness: 1),
+             fill: GaugeLinearGradientFill(
+               line: CircleLine(
+                 start: CirclePoint(
+                   radius: knobRadius,
+                   angle: Angle.bottomLeft,
+                 ),
+                 end: CirclePoint(radius: knobRadius, angle: Angle.topRight),
+               ),
+               colors: [AppColors.black9.transparent, AppColors.black9],
              ),
            ),
          ],

@@ -4,6 +4,7 @@ import 'package:gauge_cluster/components/gauge_v2/models/gauge_part.dart';
 import 'package:gauge_cluster/components/gauge_v2/models/gauge_fill.dart';
 import 'package:gauge_cluster/components/gauge_v2/models/gauge_shape.dart';
 import 'package:gauge_cluster/components/gauge_v2/models/gauge_shadow.dart';
+import 'package:gauge_cluster/utils/assets.dart';
 import 'package:gauge_cluster/utils/math/circle/circle.dart';
 import 'package:gauge_cluster/utils/math/circle/circle_line.dart';
 import 'package:gauge_cluster/utils/math/circle/circle_rect.dart';
@@ -139,6 +140,20 @@ class _RectPainter extends CustomPainter {
               .createShader(canvasRect),
     };
     if (fillPaint != null) canvas.drawPath(path, fillPaint);
+
+    // Texture
+    final texture = Textures.bumpPlastic1;
+    canvas.clipPath(path);
+    paintImage(
+      canvas: canvas,
+      rect: path.getBounds(),
+      image: texture,
+      blendMode: BlendMode.overlay,
+      filterQuality: FilterQuality.high,
+      repeat: ImageRepeat.repeat,
+      scale: 3,
+      fit: BoxFit.none,
+    );
   }
 
   @override

@@ -24,8 +24,11 @@ dev_dependencies:
 
 flutter:
   assets:
+    - assets/fonts/
     - assets/svgs/
     - assets/svgs/icons/
+    - assets/textures/
+    - assets/textures/bump/
   fonts:
     - family: Tomorrow
       fonts:

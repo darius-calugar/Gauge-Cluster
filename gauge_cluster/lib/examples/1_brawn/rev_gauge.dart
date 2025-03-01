@@ -32,6 +32,14 @@ class BrawnRevGauge extends StatelessWidget {
     return Gauge(
       circle: circle,
       parts: [
+        // Background
+        GaugePart(
+          shape: GaugeSectorShape(),
+          fill: GaugeSweepGradientFill(
+            colors: [AppColors.black3, AppColors.black3],
+          ),
+        ),
+
         // RPM legend
         GaugePart(
           shape: GaugePointShape.inset(outerInset: 100, angle: Angle.top),

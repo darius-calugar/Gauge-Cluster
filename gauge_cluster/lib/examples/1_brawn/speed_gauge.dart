@@ -29,6 +29,14 @@ class BrawnSpeedGauge extends StatelessWidget {
     return Gauge(
       circle: circle,
       parts: [
+        // Background
+        GaugePart(
+          shape: GaugeSectorShape(),
+          fill: GaugeSweepGradientFill(
+            colors: [AppColors.black3, AppColors.black3],
+          ),
+        ),
+
         // KMH
         GaugePart(
           shape: GaugePointShape.inset(

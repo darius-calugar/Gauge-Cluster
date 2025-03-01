@@ -19,12 +19,13 @@ class BrawnGaugeCluster extends StatelessWidget {
       width: 1000,
       height: 500,
       child: PhysicalShape(
+        clipBehavior: Clip.antiAlias,
         clipper: _BackgroundClipper(),
         color: AppColors.black3,
         child: Stack(
           children: [
-            Positioned.fill(left: null, child: BrawnSpeedGauge()),
             Positioned.fill(right: null, child: BrawnRevGauge()),
+            Positioned.fill(left: null, child: BrawnSpeedGauge()),
             Positioned(
               bottom: 0,
               left: 160,
