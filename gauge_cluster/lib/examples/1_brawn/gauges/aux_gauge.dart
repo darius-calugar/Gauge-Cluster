@@ -47,7 +47,7 @@ class BrawnAuxGauge extends StatelessWidget {
             startAngle: slice.startAngle,
             sweepAngle: slice.sweepAngle,
           ),
-          fill: GaugeSolidFill(color: AppColors.white1),
+          fill: GaugeSolidFill(color: AppColors.white.$1),
         ),
 
         for (var step = 0; step < 5; step++) ...[
@@ -59,7 +59,7 @@ class BrawnAuxGauge extends StatelessWidget {
               width: 2,
               angle: 160.deg + 30.deg * step.toDouble(),
             ),
-            fill: GaugeSolidFill(color: AppColors.white1),
+            fill: GaugeSolidFill(color: AppColors.white.$1),
           ),
         ],
 
@@ -72,7 +72,7 @@ class BrawnAuxGauge extends StatelessWidget {
             sweepAngle: 8.deg,
           ),
           fill: GaugeSolidFill(
-            color: isLowDanger ? AppColors.red8 : AppColors.white1,
+            color: isLowDanger ? AppColors.darkRed.$6 : AppColors.white.$1,
           ),
         ),
         GaugePart(
@@ -83,7 +83,7 @@ class BrawnAuxGauge extends StatelessWidget {
             sweepAngle: 8.deg,
           ),
           fill: GaugeSolidFill(
-            color: isHighDanger ? AppColors.red8 : AppColors.white1,
+            color: isHighDanger ? AppColors.darkRed.$6 : AppColors.white.$1,
           ),
         ),
 
@@ -112,7 +112,7 @@ class BrawnAuxGauge extends StatelessWidget {
         // Icon
         GaugePart(
           shape: GaugePointShape.inset(innerInset: 40, angle: slice.midAngle),
-          child: SvgIcon(icon, color: AppColors.white1, size: 24),
+          child: SvgIcon(icon, color: AppColors.white.$1, size: 24),
         ),
 
         // Pin

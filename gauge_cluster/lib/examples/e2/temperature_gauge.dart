@@ -26,9 +26,9 @@ class E2TemperatureGauge extends StatelessWidget {
     final stepSweepAngle = sweepAngle / stepCount;
 
     final primaryColor =
-        carState.temperatureSignal ? AppColors.red5 : AppColors.white1;
+        carState.temperatureSignal ? AppColors.red : AppColors.white.$1;
     final secondaryColor =
-        carState.temperatureSignal ? AppColors.red7 : AppColors.white7;
+        carState.temperatureSignal ? AppColors.darkRed.$4 : AppColors.white.$7;
 
     return SizedBox.square(
       dimension: radius * 2,
@@ -42,7 +42,7 @@ class E2TemperatureGauge extends StatelessWidget {
             ),
             startAngle: startAngle,
             sweepAngle: sweepAngle,
-            color: AppColors.black3,
+            color: AppColors.black.$3,
           ),
           GaugeSliceFeature(
             position: GaugeFeatureSectorPosition(
@@ -66,7 +66,7 @@ class E2TemperatureGauge extends StatelessWidget {
               ),
               angle: startAngle + stepSweepAngle * step,
               width: 2,
-              color: AppColors.white7,
+              color: AppColors.white.$7,
             ),
           // Limits
           GaugeBoxFeature(
@@ -76,7 +76,7 @@ class E2TemperatureGauge extends StatelessWidget {
             ),
             angle: startAngle - stepSweepAngle,
             width: 4,
-            color: AppColors.red8,
+            color: AppColors.darkRed.$6,
           ),
           GaugeBoxFeature(
             position: GaugeFeatureSectorPosition(
@@ -85,7 +85,7 @@ class E2TemperatureGauge extends StatelessWidget {
             ),
             angle: endAngle + stepSweepAngle,
             width: 4,
-            color: AppColors.white7,
+            color: AppColors.white.$7,
           ),
           // Icon
           GaugeCustomFeature(
@@ -95,7 +95,7 @@ class E2TemperatureGauge extends StatelessWidget {
             builder:
                 (context) => SvgIcon(
                   SvgIcons.temperature,
-                  color: AppColors.white1,
+                  color: AppColors.white.$1,
                   size: 30,
                 ),
           ),

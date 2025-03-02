@@ -39,7 +39,7 @@ class BrawnRevGauge extends StatelessWidget {
             'RPM x 1000',
             style: TextStyle(
               fontSize: 12,
-              color: AppColors.white9,
+              color: AppColors.white.$9,
               fontWeight: FontWeight.w400,
               fontStyle: FontStyle.italic,
             ),
@@ -54,7 +54,7 @@ class BrawnRevGauge extends StatelessWidget {
             startAngle: slice.startAngle,
             endAngle: redlineSlice.startAngle - stepAngleSweep / 2,
           ),
-          fill: GaugeSolidFill(color: AppColors.white7),
+          fill: GaugeSolidFill(color: AppColors.white.$7),
         ),
         GaugePart(
           shape: GaugeSectorShape.inset(
@@ -63,7 +63,7 @@ class BrawnRevGauge extends StatelessWidget {
             startAngle: redlineSlice.startAngle,
             endAngle: redlineSlice.endAngle,
           ),
-          fill: GaugeSolidFill(color: AppColors.red7),
+          fill: GaugeSolidFill(color: AppColors.darkRed.$4),
         ),
 
         for (var step = 0; step < steps; step++)
@@ -79,9 +79,9 @@ class BrawnRevGauge extends StatelessWidget {
               fill:
                   step < redlineStepSnapped
                       ? GaugeLinearGradientFill(
-                        colors: [AppColors.white1, AppColors.white7],
+                        colors: [AppColors.white.$1, AppColors.white.$7],
                       )
-                      : GaugeSolidFill(color: AppColors.red7),
+                      : GaugeSolidFill(color: AppColors.darkRed.$4),
             ),
             // Step labels
             GaugePart(
@@ -104,7 +104,7 @@ class BrawnRevGauge extends StatelessWidget {
                 width: 1,
                 angle: slice.startAngle + stepAngleSweep * step,
               ),
-              fill: GaugeSolidFill(color: AppColors.white1),
+              fill: GaugeSolidFill(color: AppColors.white.$1),
             )
           else
             // Redline Quarter-steps
@@ -115,7 +115,7 @@ class BrawnRevGauge extends StatelessWidget {
                 width: 2,
                 angle: slice.startAngle + stepAngleSweep * step,
               ),
-              fill: GaugeSolidFill(color: AppColors.red7),
+              fill: GaugeSolidFill(color: AppColors.darkRed.$4),
             ),
 
         // Gears
@@ -133,7 +133,7 @@ class BrawnRevGauge extends StatelessWidget {
               },
               style: TextStyle(
                 color:
-                    gear == carState.gear ? AppColors.red5 : AppColors.black4,
+                    gear == carState.gear ? AppColors.red : AppColors.black.$4,
                 fontWeight: FontWeight.w600,
               ),
             ),

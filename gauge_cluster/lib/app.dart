@@ -19,7 +19,7 @@ class App extends StatelessWidget {
       child: MaterialApp(
         theme: ThemeData.from(
           colorScheme: ColorScheme.fromSeed(
-            seedColor: AppColors.white1,
+            seedColor: AppColors.white.$1,
             dynamicSchemeVariant: DynamicSchemeVariant.content,
             brightness: Brightness.dark,
           ),

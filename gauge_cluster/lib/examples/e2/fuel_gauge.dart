@@ -26,9 +26,9 @@ class E2FuelGauge extends StatelessWidget {
     final stepSweepAngle = sweepAngle / stepCount;
 
     final primaryColor =
-        carState.fuelSignal ? AppColors.red5 : AppColors.white1;
+        carState.fuelSignal ? AppColors.red : AppColors.white.$1;
     final secondaryColor =
-        carState.fuelSignal ? AppColors.red7 : AppColors.white7;
+        carState.fuelSignal ? AppColors.darkRed.$4 : AppColors.white.$7;
 
     return SizedBox.square(
       dimension: radius * 2,
@@ -42,7 +42,7 @@ class E2FuelGauge extends StatelessWidget {
             ),
             startAngle: startAngle,
             sweepAngle: sweepAngle,
-            color: AppColors.black3,
+            color: AppColors.black.$3,
           ),
           GaugeSliceFeature(
             position: GaugeFeatureSectorPosition(
@@ -66,7 +66,7 @@ class E2FuelGauge extends StatelessWidget {
               ),
               angle: startAngle + stepSweepAngle * step,
               width: 2,
-              color: AppColors.white7,
+              color: AppColors.white.$7,
             ),
           // Limits
           GaugeBoxFeature(
@@ -76,7 +76,7 @@ class E2FuelGauge extends StatelessWidget {
             ),
             angle: startAngle - stepSweepAngle,
             width: 4,
-            color: AppColors.red8,
+            color: AppColors.darkRed.$6,
           ),
           GaugeBoxFeature(
             position: GaugeFeatureSectorPosition(
@@ -85,7 +85,7 @@ class E2FuelGauge extends StatelessWidget {
             ),
             angle: endAngle + stepSweepAngle,
             width: 4,
-            color: AppColors.white7,
+            color: AppColors.white.$7,
           ),
           // Icon
           GaugeCustomFeature(
@@ -94,7 +94,7 @@ class E2FuelGauge extends StatelessWidget {
             keepRotation: true,
             builder:
                 (context) =>
-                    SvgIcon(SvgIcons.fuel, color: AppColors.white1, size: 30),
+                    SvgIcon(SvgIcons.fuel, color: AppColors.white.$1, size: 30),
           ),
         ],
       ),

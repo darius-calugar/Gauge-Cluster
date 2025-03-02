@@ -40,12 +40,12 @@ class SportGearBar extends StatelessWidget {
                                 ? TextStyle(
                                   fontSize: 40,
                                   fontWeight: FontWeight.w600,
-                                  color: AppColors.white1,
+                                  color: AppColors.white.$1,
                                 )
                                 : TextStyle(
                                   fontSize: 24,
                                   fontWeight: FontWeight.w400,
-                                  color: AppColors.white9,
+                                  color: AppColors.white.$9,
                                 ),
                         child:
                             gear >= carState.minGears &&

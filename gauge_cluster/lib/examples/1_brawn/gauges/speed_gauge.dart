@@ -40,7 +40,7 @@ class BrawnSpeedGauge extends StatelessWidget {
             style: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w600,
-              color: AppColors.white1,
+              color: AppColors.white.$1,
               fontStyle: FontStyle.italic,
             ),
           ),
@@ -53,7 +53,7 @@ class BrawnSpeedGauge extends StatelessWidget {
             startAngle: slice.startAngle,
             sweepAngle: slice.sweepAngle,
           ),
-          fill: GaugeSolidFill(color: AppColors.white7),
+          fill: GaugeSolidFill(color: AppColors.white.$7),
         ),
         for (var step = 0; step < outerSteps; step++)
           if (step % 10 == 0) ...[
@@ -66,7 +66,7 @@ class BrawnSpeedGauge extends StatelessWidget {
                 angle: slice.startAngle + outerStepAngleSweep * step,
               ),
               fill: GaugeLinearGradientFill(
-                colors: [AppColors.white1, AppColors.white7],
+                colors: [AppColors.white.$1, AppColors.white.$7],
               ),
             ),
             // Step labels
@@ -81,7 +81,7 @@ class BrawnSpeedGauge extends StatelessWidget {
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 18,
-                  color: AppColors.white1,
+                  color: AppColors.white.$1,
                 ),
               ),
             ),
@@ -94,7 +94,7 @@ class BrawnSpeedGauge extends StatelessWidget {
                 width: 2,
                 angle: slice.startAngle + outerStepAngleSweep * step,
               ),
-              fill: GaugeSolidFill(color: AppColors.white1),
+              fill: GaugeSolidFill(color: AppColors.white.$1),
             )
           else
             // Quarter-steps
@@ -105,7 +105,7 @@ class BrawnSpeedGauge extends StatelessWidget {
                 width: 1,
                 angle: slice.startAngle + outerStepAngleSweep * step,
               ),
-              fill: GaugeSolidFill(color: AppColors.white1),
+              fill: GaugeSolidFill(color: AppColors.white.$1),
             ),
 
         // MPH
@@ -120,7 +120,7 @@ class BrawnSpeedGauge extends StatelessWidget {
             style: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w400,
-              color: AppColors.white7,
+              color: AppColors.white.$7,
               fontStyle: FontStyle.italic,
             ),
           ),
@@ -135,7 +135,7 @@ class BrawnSpeedGauge extends StatelessWidget {
                 width: 2,
                 angle: slice.startAngle + innerStepAngleSweep * step,
               ),
-              fill: GaugeSolidFill(color: AppColors.white7),
+              fill: GaugeSolidFill(color: AppColors.white.$7),
             ),
             // Step labels
             GaugePart(
@@ -149,7 +149,7 @@ class BrawnSpeedGauge extends StatelessWidget {
                 style: TextStyle(
                   fontWeight: FontWeight.w400,
                   fontSize: 14,
-                  color: AppColors.white7,
+                  color: AppColors.white.$7,
                 ),
               ),
             ),
@@ -162,7 +162,7 @@ class BrawnSpeedGauge extends StatelessWidget {
                 width: 1,
                 angle: slice.startAngle + innerStepAngleSweep * step,
               ),
-              fill: GaugeSolidFill(color: AppColors.white7),
+              fill: GaugeSolidFill(color: AppColors.white.$7),
             ),
 
         // Mileage

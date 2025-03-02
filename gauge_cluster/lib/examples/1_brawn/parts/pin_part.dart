@@ -23,27 +23,27 @@ class PinPart extends CompositeGaugePart {
                angle: angle,
              ),
              fill: GaugeLinearGradientFill(
-               colors: [AppColors.red7, AppColors.red5],
+               colors: [AppColors.darkRed.$4, AppColors.red],
              ),
              shadows: [
                GaugeShadow(
-                 color: AppColors.black1,
+                 color: AppColors.black.$1,
                  blurRadius: 4,
                  offset: CirclePoint(radius: 6, angle: 120.deg),
                ),
-               GaugeShadow(color: AppColors.red7, blurRadius: 4),
+               GaugeShadow(color: AppColors.darkRed.$4, blurRadius: 4),
              ],
            ),
            // Knob
            GaugePart(
              shape: GaugeSectorShape(outerRadius: knobRadius),
              fill: GaugeRadialGradientFill(
-               colors: [AppColors.black4, AppColors.black3],
+               colors: [AppColors.black.$4, AppColors.black.$3],
                stops: [0.3, 1],
              ),
              shadows: [
                GaugeShadow(
-                 color: AppColors.black1,
+                 color: AppColors.black.$1,
                  blurRadius: 8,
                  offset: CirclePoint(radius: 4, angle: 120.deg),
                ),
@@ -51,7 +51,7 @@ class PinPart extends CompositeGaugePart {
            ),
            GaugePart(
              shape: GaugeSectorShape(outerRadius: knobRadius, thickness: 1),
-             fill: GaugeSolidFill(color: AppColors.black4),
+             fill: GaugeSolidFill(color: AppColors.black.$4),
            ),
            GaugePart(
              shape: GaugeSectorShape(outerRadius: knobRadius),
@@ -63,7 +63,7 @@ class PinPart extends CompositeGaugePart {
                  ),
                  end: CirclePoint(radius: knobRadius, angle: Angle.topRight),
                ),
-               colors: [AppColors.black4.transparent, AppColors.black4],
+               colors: [AppColors.black.$4.transparent, AppColors.black.$4],
              ),
            ),
          ],

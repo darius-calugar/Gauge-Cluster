@@ -20,7 +20,7 @@ class BrawnGaugeCluster extends StatelessWidget {
       height: 500,
       child: PhysicalShape(
         clipper: _BackgroundClipper(),
-        color: AppColors.black3,
+        color: AppColors.black.$3,
         child: Stack(
           children: [
             Positioned.fill(left: null, child: BrawnSpeedGauge()),
@@ -56,8 +56,8 @@ class BrawnGaugeCluster extends StatelessWidget {
                   SvgIcons.doors,
                   color:
                       carState.doorSignal
-                          ? AppColors.orange5
-                          : AppColors.black4,
+                          ? AppColors.orange
+                          : AppColors.black.$4,
                 ),
               ),
             ),
@@ -70,8 +70,8 @@ class BrawnGaugeCluster extends StatelessWidget {
                   SvgIcons.battery,
                   color:
                       carState.batterySignal
-                          ? AppColors.orange5
-                          : AppColors.black4,
+                          ? AppColors.orange
+                          : AppColors.black.$4,
                 ),
               ),
             ),
@@ -84,8 +84,8 @@ class BrawnGaugeCluster extends StatelessWidget {
                   SvgIcons.left,
                   color:
                       carState.leftTurnSignal
-                          ? AppColors.green5
-                          : AppColors.black4,
+                          ? AppColors.green
+                          : AppColors.black.$4,
                 ),
               ),
             ),
@@ -97,7 +97,7 @@ class BrawnGaugeCluster extends StatelessWidget {
                 child: SvgIcon(
                   SvgIcons.brakes,
                   color:
-                      carState.brakesSignal ? AppColors.red5 : AppColors.black4,
+                      carState.brakesSignal ? AppColors.red : AppColors.black.$4,
                 ),
               ),
             ),
@@ -110,8 +110,8 @@ class BrawnGaugeCluster extends StatelessWidget {
                   SvgIcons.right,
                   color:
                       carState.rightTurnSignal
-                          ? AppColors.green5
-                          : AppColors.black4,
+                          ? AppColors.green
+                          : AppColors.black.$4,
                 ),
               ),
             ),
@@ -123,7 +123,7 @@ class BrawnGaugeCluster extends StatelessWidget {
                 child: SvgIcon(
                   SvgIcons.fuel,
                   color:
-                      carState.fuelSignal ? AppColors.red5 : AppColors.black4,
+                      carState.fuelSignal ? AppColors.red : AppColors.black.$4,
                 ),
               ),
             ),
@@ -136,8 +136,8 @@ class BrawnGaugeCluster extends StatelessWidget {
                   SvgIcons.temperature,
                   color:
                       carState.temperatureSignal
-                          ? AppColors.red5
-                          : AppColors.black4,
+                          ? AppColors.red
+                          : AppColors.black.$4,
                 ),
               ),
             ),
@@ -150,8 +150,8 @@ class BrawnGaugeCluster extends StatelessWidget {
                   SvgIcons.transmission,
                   color:
                       carState.transmissionSignal
-                          ? AppColors.red5
-                          : AppColors.black4,
+                          ? AppColors.red
+                          : AppColors.black.$4,
                 ),
               ),
             ),
@@ -164,8 +164,8 @@ class BrawnGaugeCluster extends StatelessWidget {
                   SvgIcons.wrench,
                   color:
                       carState.serviceSignal
-                          ? AppColors.red5
-                          : AppColors.black4,
+                          ? AppColors.red
+                          : AppColors.black.$4,
                 ),
               ),
             ),
@@ -178,8 +178,8 @@ class BrawnGaugeCluster extends StatelessWidget {
                   SvgIcons.engine,
                   color:
                       carState.engineSignal
-                          ? AppColors.orange5
-                          : AppColors.black4,
+                          ? AppColors.orange
+                          : AppColors.black.$4,
                 ),
               ),
             ),

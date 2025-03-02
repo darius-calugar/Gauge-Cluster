@@ -42,22 +42,22 @@ class SportMainGauge extends StatelessWidget {
 
     final primaryColor =
         carState.revs < carState.redline - 250.rpm
-            ? AppColors.blue5
+            ? AppColors.blue
             : carState.revs < carState.redline
-            ? AppColors.green5
-            : AppColors.red5;
+            ? AppColors.green
+            : AppColors.red;
     final secondaryColor =
         carState.revs < carState.redline - 250.rpm
-            ? AppColors.blue8
+            ? AppColors.darkBlue.$6
             : carState.revs < carState.redline
-            ? AppColors.green8
-            : AppColors.red7;
+            ? AppColors.darkGreen.$6
+            : AppColors.darkRed.$4;
     final tertiaryColor =
         carState.revs < carState.redline - 250.rpm
-            ? AppColors.blue9
+            ? AppColors.darkBlue.$9
             : carState.revs < carState.redline
-            ? AppColors.green9
-            : AppColors.red9;
+            ? AppColors.darkGreen.$9
+            : AppColors.darkRed.$9;
 
     return Gauge(
       circle: circle,
@@ -66,20 +66,20 @@ class SportMainGauge extends StatelessWidget {
         GaugePart(
           shape: GaugeSectorShape(outerRadius: 200),
           fill: GaugeRadialGradientFill(
-            colors: [AppColors.black4, AppColors.black2],
+            colors: [AppColors.black.$4, AppColors.black.$2],
             stops: [0.8, 1.0],
           ),
         ),
         GaugePart(
           shape: GaugeSectorShape(innerRadius: 200, outerRadius: 280),
           fill: GaugeRadialGradientFill(
-            colors: [AppColors.black4, AppColors.black3],
+            colors: [AppColors.black.$4, AppColors.black.$3],
           ),
         ),
         GaugePart(
           shape: GaugeSectorShape(innerRadius: 280, thickness: 40),
           fill: GaugeRadialGradientFill(
-            colors: [AppColors.black5, AppColors.black4],
+            colors: [AppColors.black.$5, AppColors.black.$4],
           ),
         ),
 
@@ -88,22 +88,22 @@ class SportMainGauge extends StatelessWidget {
           shape: GaugeSectorShape(
             innerRadius: 280,
             thickness: 40,
-            startAngle: redlineSlice.startAngle,
-            endAngle: redlineSlice.endAngle,
+            startAngle: redlineSlice.startAngle - stepSweepAngle,
+            endAngle: redlineSlice.startAngle,
           ),
           fill: GaugeRadialGradientFill(
-            colors: [AppColors.red8, AppColors.red9],
+            colors: [AppColors.darkGreen.$8, AppColors.darkGreen.$9],
           ),
         ),
         GaugePart(
           shape: GaugeSectorShape(
             innerRadius: 280,
             thickness: 40,
-            startAngle: redlineSlice.startAngle - stepSweepAngle,
-            endAngle: redlineSlice.startAngle,
+            startAngle: redlineSlice.startAngle,
+            endAngle: redlineSlice.endAngle,
           ),
           fill: GaugeRadialGradientFill(
-            colors: [AppColors.green8, AppColors.green9],
+            colors: [AppColors.darkRed.$7, AppColors.darkRed.$9],
           ),
         ),
         GaugePart(
@@ -121,15 +121,15 @@ class SportMainGauge extends StatelessWidget {
         // Outlines
         GaugePart(
           shape: GaugeSectorShape(innerRadius: 320, thickness: 4),
-          fill: GaugeSolidFill(color: AppColors.white9),
+          fill: GaugeSolidFill(color: AppColors.white.$9),
         ),
         GaugePart(
           shape: GaugeSectorShape(innerRadius: 280 - 2, thickness: 2),
-          fill: GaugeSolidFill(color: AppColors.white9),
+          fill: GaugeSolidFill(color: AppColors.white.$9),
         ),
         GaugePart(
           shape: GaugeSectorShape(innerRadius: 200, thickness: 2),
-          fill: GaugeSolidFill(color: AppColors.black6),
+          fill: GaugeSolidFill(color: AppColors.black.$6),
         ),
 
         // Overlay
@@ -137,7 +137,7 @@ class SportMainGauge extends StatelessWidget {
           shape: GaugeSectorShape(),
           fill: GaugeLinearGradientFill(
             line: CircleLine(start: circle.bottom, end: circle.top),
-            colors: [AppColors.black3, AppColors.black3.withAlpha(0x00)],
+            colors: [AppColors.black.$3, AppColors.black.$3.withAlpha(0x00)],
             stops: [0.25, .8],
           ),
         ),
@@ -152,7 +152,7 @@ class SportMainGauge extends StatelessWidget {
                 width: 4,
                 angle: slice.atRatio(step / stepCount),
               ),
-              fill: GaugeSolidFill(color: AppColors.white1),
+              fill: GaugeSolidFill(color: AppColors.white.$1),
             ),
             GaugePart(
               shape: GaugePointShape(
@@ -178,8 +178,8 @@ class SportMainGauge extends StatelessWidget {
                     carState.revs >= (carState.maxRevs / stepCount) * step
                         ? primaryColor
                         : step < redlineStep
-                        ? AppColors.white9
-                        : AppColors.red7,
+                        ? AppColors.white.$9
+                        : AppColors.darkRed.$4,
               ),
             ),
 

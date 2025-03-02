@@ -16,13 +16,13 @@ class MileageDigit extends StatelessWidget {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            AppColors.black4,
-            AppColors.black6,
-            AppColors.black6,
-            AppColors.black4,
+            AppColors.black.$4,
+            AppColors.black.$6,
+            AppColors.black.$6,
+            AppColors.black.$4,
           ],
         ),
-        boxShadow: [BoxShadow(color: AppColors.black2, blurRadius: 2)],
+        boxShadow: [BoxShadow(color: AppColors.black.$2, blurRadius: 2)],
       ),
       child: Text(
         '$digit',

@@ -13,7 +13,7 @@ class E2GaugeCluster extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: AppColors.black3,
+          color: AppColors.black.$3,
         ),
         child: Stack(
           alignment: Alignment.center,

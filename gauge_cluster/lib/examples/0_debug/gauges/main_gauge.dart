@@ -47,13 +47,13 @@ class DebugMainGauge extends StatelessWidget {
           GaugePart(
             shape: GaugePointShape(radius: 60, angle: 30.deg + 60.deg * u),
             isRotated: true,
-            child: SvgIcon(SvgIcons.battery, color: AppColors.white1),
+            child: SvgIcon(SvgIcons.battery, color: AppColors.white.$1),
           ),
         ],
         GaugePart(
           shape: GaugePointShape(radius: 140, angle: 90.deg),
           isRotated: false,
-          child: SvgIcon(SvgIcons.battery, color: AppColors.white1),
+          child: SvgIcon(SvgIcons.battery, color: AppColors.white.$1),
         ),
         // Sectors
         GaugePart(
@@ -64,10 +64,10 @@ class DebugMainGauge extends StatelessWidget {
             sweepAngle: 60.deg,
           ),
           fill: GaugeSweepGradientFill(
-            colors: [AppColors.white1, AppColors.black1],
+            colors: [AppColors.white.$1, AppColors.black.$1],
           ),
           isRotated: true,
-          child: SvgIcon(SvgIcons.battery, color: AppColors.black1),
+          child: SvgIcon(SvgIcons.battery, color: AppColors.black.$1),
         ),
         GaugePart(
           shape: GaugeSectorShape.inset(
@@ -77,10 +77,10 @@ class DebugMainGauge extends StatelessWidget {
             sweepAngle: 60.deg,
           ),
           fill: GaugeLinearGradientFill(
-            colors: [AppColors.white1, AppColors.black1],
+            colors: [AppColors.white.$1, AppColors.black.$1],
           ),
           isRotated: true,
-          child: SvgIcon(SvgIcons.battery, color: AppColors.black1),
+          child: SvgIcon(SvgIcons.battery, color: AppColors.black.$1),
         ),
         GaugePart(
           shape: GaugeSectorShape.inset(
@@ -90,10 +90,10 @@ class DebugMainGauge extends StatelessWidget {
             sweepAngle: 60.deg,
           ),
           fill: GaugeRadialGradientFill(
-            colors: [AppColors.white1, AppColors.black1],
+            colors: [AppColors.white.$1, AppColors.black.$1],
           ),
           isRotated: true,
-          child: SvgIcon(SvgIcons.battery, color: AppColors.black1),
+          child: SvgIcon(SvgIcons.battery, color: AppColors.black.$1),
         ),
         // Rects
         GaugePart(
@@ -104,10 +104,10 @@ class DebugMainGauge extends StatelessWidget {
             outerInset: 40,
           ),
           fill: GaugeSweepGradientFill(
-            colors: [AppColors.white1, AppColors.black1],
+            colors: [AppColors.white.$1, AppColors.black.$1],
           ),
           isRotated: true,
-          child: SvgIcon(SvgIcons.battery, color: AppColors.black1),
+          child: SvgIcon(SvgIcons.battery, color: AppColors.black.$1),
         ),
         GaugePart(
           shape: GaugeRectShape.inset(
@@ -117,10 +117,10 @@ class DebugMainGauge extends StatelessWidget {
             outerInset: 40,
           ),
           fill: GaugeLinearGradientFill(
-            colors: [AppColors.white1, AppColors.black1],
+            colors: [AppColors.white.$1, AppColors.black.$1],
           ),
           isRotated: true,
-          child: SvgIcon(SvgIcons.battery, color: AppColors.black1),
+          child: SvgIcon(SvgIcons.battery, color: AppColors.black.$1),
         ),
         GaugePart(
           shape: GaugeRectShape.inset(
@@ -130,10 +130,10 @@ class DebugMainGauge extends StatelessWidget {
             outerInset: 40,
           ),
           fill: GaugeRadialGradientFill(
-            colors: [AppColors.white1, AppColors.black1],
+            colors: [AppColors.white.$1, AppColors.black.$1],
           ),
           isRotated: true,
-          child: SvgIcon(SvgIcons.battery, color: AppColors.black1),
+          child: SvgIcon(SvgIcons.battery, color: AppColors.black.$1),
         ),
       ],
     );
