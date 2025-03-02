@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gauge_cluster/examples/1_brawn/aux_gauge.dart';
-import 'package:gauge_cluster/examples/1_brawn/rev_gauge.dart';
-import 'package:gauge_cluster/examples/1_brawn/speed_gauge.dart';
+import 'package:gauge_cluster/examples/1_brawn/gauges/aux_gauge.dart';
+import 'package:gauge_cluster/examples/1_brawn/gauges/rev_gauge.dart';
+import 'package:gauge_cluster/examples/1_brawn/gauges/speed_gauge.dart';
 import 'package:gauge_cluster/utils/app_colors.dart';
 import 'package:gauge_cluster/blocs/car/car_cubit.dart';
 import 'package:gauge_cluster/components/svg_icon/svg_icon.dart';
