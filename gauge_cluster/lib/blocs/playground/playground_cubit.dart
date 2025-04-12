@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 part 'playground_state.dart';
 
 class PlaygroundCubit extends Cubit<PlaygroundState> {
-  PlaygroundCubit({required this.exampleCount})
-    : super(PlaygroundState(example: 1, areControlsExpanded: false));
+  PlaygroundCubit({required this.exampleCount, int example = 1})
+    : super(PlaygroundState(example: example, areControlsExpanded: false));
 
   final int exampleCount;
 

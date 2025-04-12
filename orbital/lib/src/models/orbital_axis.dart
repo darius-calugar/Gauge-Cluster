@@ -1,0 +1,1 @@
+enum OrbitalAxis { angular, radial }

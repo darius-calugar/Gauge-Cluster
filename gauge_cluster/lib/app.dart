@@ -14,7 +14,9 @@ class App extends StatelessWidget {
     return MultiProvider(
       providers: [
         BlocProvider(create: (_) => CarCubit()),
-        BlocProvider(create: (_) => PlaygroundCubit(exampleCount: 4)),
+        BlocProvider(
+          create: (_) => PlaygroundCubit(exampleCount: 5, example: 4),
+        ),
       ],
       child: MaterialApp(
         theme: ThemeData.from(
